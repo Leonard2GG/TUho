@@ -1,0 +1,114 @@
+{% extends "Base.html" %}
+{% load static %}
+
+    {% block css %}
+    <link rel="stylesheet" href=" {% static 'css/FormularioSelect.css' %}">
+    {% endblock %}
+
+    {% block content %}
+    <div class="container-form">
+      <div class="form">
+          <div class="contact-info">
+              <h3 class="title">Let's get in touch</h3>
+              <p class="text">
+                  Lorem ipsum, dolor sit amet consectetur adipisicing 
+                  elit. Optio obcaecati mollitia dicta animi 
+                  corporis distinctio autem eveniet iure magnam esse, 
+                  eius fugit quam tempora voluptates nemo laudantium sit? Cupiditate, vel?
+              </p>
+              <div class="info">
+                  <div class="information">
+                      <i class="bx bx-map-alt" class="icon"></i>
+                      <p>92 Cherry Drive Uniondale, NY 11553</p>
+                  </div>
+                  <div class="information">
+                      <i class="bx bx-envelope" class="icon"></i>
+                      <p>lorem@ipsum.com</p>
+                  </div>
+                  <div class="information">
+                      <i class="bx bx-phone" class="icon"></i>
+                      <p>123-456-789</p>
+                  </div>
+              </div>
+              <div class="social-media">
+                  <p>Conectate con nostros:</p>
+                  <div class="social-icons">
+                      <a href="#">
+                          <i class="bx bxl-facebook"></i>
+                      </a>
+                      <a href="#">
+                          <i class="bx bxl-instagram"></i>
+                      </a>
+                      <a href="#">
+                          <i class="bx bxl-twitter"></i>
+                      </a>
+                      <a href="#">
+                          <i class="bx bxl-linkedin"></i>
+                      </a>
+                  </div>
+              </div>
+          </div>
+          <div class="contact-form">
+              <span class="circle one"></span>
+              <span class="circle two"></span>
+              <form action="forms.html">
+                  <h3 class="title">Contactanos</h3>
+                  <div class="input-container">
+                      <input type="text" name="name" class="input">
+                      <label for="">Nombre</label>
+                      <span>Nombre</span>
+                  </div>
+                  <div class="input-container">
+                    <input type="text" name="name" class="input">
+                    <label for="">Apellidos</label>
+                    <span>Apellidos</span>
+                </div>
+                  <div class="input-container">
+                    <input type="text" name="Direction" class="input">
+                    <label for="">Dirrección</label>
+                    <span>Dirrección</span>
+                </div>
+                  <div class="input-container select-municipio">
+                      <input type="hidden" name="municipio">
+                      <div class="input selector">    
+                      </div>
+                      <label for="">Municipio</label>
+                      <span>Municipio</span>
+                  </div>
+                  <div class="select-options">
+                      <div aria-valuetext="A" class="element">Antilla</div>
+                      <div aria-valuetext="B" class="element">Banes</div>
+                      <div aria-valuetext="Ba" class="element">Báguano</div>
+                      <div aria-valuetext="C" class="element">Cacocum</div>
+                      <div aria-valuetext="CG" class="element">Calixto García</div>
+                      <div aria-valuetext="Cu" class="element">Cueto</div>
+                      <div aria-valuetext="FP" class="element">Frank País</div>
+                      <div aria-valuetext="G" class="element">Gibara</div>
+                      <div aria-valuetext="Hlg" class="element">Holguín</div>
+                      <div aria-valuetext="M" class="element">Mayarí</div>
+                      <div aria-valuetext="Mo" class="element">Moa</div>
+                      <div aria-valuetext="RF" class="element">Rafael Freyre</div>
+                      <div aria-valuetext="ST" class="element">Sagua de Tánamo</div>
+                      <div aria-valuetext="UN" class="element">Urbano Noris</div>
+                  </div>
+                  <div class="input-container">
+                    <input type="text" name="Direction" class="input">
+                    <label for="">Asunto</label>
+                    <span>Asunto</span>
+                </div>
+                  <div class="input-container textarea">
+                      <textarea name="message" class="input"></textarea>
+                      <label for="">Mensaje</label>
+                      <span>Mensaje</span>
+                  </div>
+                  <input type="submit" value="Enviar" class="btn1">
+              </form>
+          </div>
+      </div>
+  </div>
+{% endblock %}
+
+    {% block js %}
+    <script src="{% static 'js/FormularioSelect.js' %}"></script>
+    {% endblock %}
+

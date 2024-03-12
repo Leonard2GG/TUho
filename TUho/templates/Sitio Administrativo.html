@@ -1,0 +1,207 @@
+{% extends "Base Admin.html" %}
+{% load static %}
+
+    {% block css %}
+    <link rel="stylesheet" href=" {% static 'css/Sitio Administrativo.css' %}">
+    <link rel="stylesheet" href=" {% static 'libs/Datatable/CSS/dataTables.bootstrap5.css' %}">
+    <link rel="stylesheet" href=" {% static 'libs/Datatable/CSS/buttons.bootstrap5.css' %}">
+    <link rel="stylesheet" href=" {% static 'libs/Datatable/CSS/responsive.bootstrap5.css' %}">
+    <link rel="stylesheet" href=" {% static 'css/datatable.css' %}">
+    <link rel="stylesheet" href=" {% static 'libs/Chart/css/chart.css' %}">
+    {% endblock %}
+    
+
+    {% block content %}
+    <div class="main">
+      <main class="content-inside px-3 py-2">
+          <div class="container-fluid">
+                  <div class="container-fluid">
+                    <!-- Small boxes (Stat box) -->
+                    <div class="row">
+                      <div class="col-lg-3 col-6">
+                        <!-- small box -->
+                        <div class="small-box bg-box-one">
+                          <div class="inner">
+                            <h3>150</h3>
+            
+                            <p>New Orders</p>
+                          </div>
+                          <div class="icon">
+                            <i class=" bx bx-file"></i>
+                          </div>
+                          <a href="#tablaTramites" class="small-box-footer">More info <i class="bi bi-arrow-right-circle"></i></a>
+                        </div>
+                      </div>
+                      <!-- ./col -->
+                      <div class="col-lg-3 col-6">
+                        <!-- small box -->
+                        <div class="small-box bg-box-one">
+                          <div class="inner">
+                            <h3>53<sup style="font-size: 20px">%</sup></h3>
+            
+                            <p>Bounce Rate</p>
+                          </div>
+                          <div class="icon">
+                            <i class="bx bx-bar-chart"></i>
+                          </div>
+                          <a href="#graficaBarTrámites" class="small-box-footer">More info <i class="bi bi-arrow-right-circle"></i></a>
+                        </div>
+                      </div>
+                      <!-- ./col -->
+                      <div class="col-lg-3 col-6">
+                        <!-- small box -->
+                        <div class="small-box bg-box-one">
+                          <div class="inner">
+                            <h3>44</h3>
+            
+                            <p>Users Register</p>
+                          </div>
+                          <div class="icon">
+                            <i class="bx bx-user-plus"></i>
+                          </div>
+                          <a href="#tablaUsuarios" class="small-box-footer">More info <i class="bi bi-arrow-right-circle"></i></a>
+                        </div>
+                      </div>
+                      <!-- ./col -->
+                      <div class="col-lg-3 col-6">
+                        <!-- small box -->
+                        <div class="small-box bg-box-one">
+                          <div class="inner">
+                            <h3>65</h3>
+            
+                            <p>Unique Visitors</p>
+                          </div>
+                          <div class="icon">
+                            <i class="bx bxs-pie-chart-alt-2"></i>
+                          </div>
+                          <a href="#graficaPieTrámites" class="small-box-footer">More info <i class="bi bi-arrow-right-circle"></i></a>
+                        </div>
+                      </div>
+              <!--Table Element-->
+              <section  id="tablaTramites">
+                <div class="card border-0">
+                    <div class="card-header">
+                        <h5 class="card-title">
+                            <i class="bi bi-file-earmark-text-fill"></i>
+                            Trámites
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <table id="Tramites" class="display table table-striped table-hover table-primary" style="width:100%">
+                            <thead class="encabezado">
+                                <tr>
+                                  <th scope="col" style="color: white; text-align: start;">Nombre</th>
+                                  <th scope="col" style="color: white; text-align: start;">Apellidos</th>
+                                  <th scope="col" style="color: white; text-align: start;">Carnet ID</th>
+                                  <th scope="col" style="color: white; text-align: start;">Teléfono</th>
+                                  <th scope="col" style="color: white; text-align: start;">Tipo de Trámite</th>
+                                  <th scope="col" style="color: white; text-align: start;">Estado del Trámite</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                  <td style="text-align: start;">Tiger Nixon</td>
+                                  <td style="text-align: start;">System Architect</td>
+                                  <td style="text-align: start;">01060578004</td>
+                                  <td style="text-align: start;">55568719</td>
+                                  <td style="text-align: start;">Certificacion del titulo</td>
+                                  <td style="text-align: start;">Listo para entrega</td>
+                              </tr>
+                            </tbody>
+                        </table>
+                    </div>  
+                </div>
+              </section>
+              <section  id="tablaUsuarios">
+              <div class="card border-0">
+                  <div class="card-header">
+                      <h5 class="card-title">
+                          <i class="bi bi-people-fill"></i>
+                          Usuarios
+                      </h5>
+                  </div>
+                  
+                  <div class="card-body">
+                      <table id="Usuarios" class="display table table-striped table-hover table-primary" style="width:100%">
+                          <thead class="encabezado">
+                              <tr>
+                                  <th scope="col" style="color: white; text-align: start;">Usuario</th>
+                                  <th scope="col" style="color: white; text-align: start;">Teléfono</th>
+                                  <th scope="col" style="color: white; text-align: start;">Email</th>
+                                  <th scope="col" style="color: white; text-align: start;">Dirreccion</th>
+                                  <th scope="col" style="color: white; text-align: start;">Ultima Conexion</th>
+                                  <th scope="col" style="color: white; text-align: start;">Rol</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                  <td style="text-align: start;">Tiger Nixon</td>
+                                  <td style="text-align: start;">55568719</td>
+                                  <td style="text-align: start;">leonardo@gmail.com</td>
+                                  <td style="text-align: start;">Calle R % Calle w y Calle 34</td>
+                                  <td style="text-align: start;">24-2-24</td>
+                                  <td style="text-align: start;">Administrador</td>
+                              </tr>
+                            </tbody>
+                      </table>
+                  </div>  
+              </div>
+            </section>
+            <section id="graficaBarTrámites">
+              <div class="card border-0">
+                <div class="card-header">
+                  <h5 class="card-title">
+                    <i class="bi bi-bar-chart-fill"></i>
+                     Gráfico de Trámites
+                  </h5>
+                </div>
+                <div class="card-body" style="width: 100%; height: 60vh;" >
+                  <canvas id="myChartBar"></canvas>
+                </div>
+              </div> 
+            </section>
+            <section id="graficaPieTrámites">
+              <div class="card border-0">
+                <div class="card-header">
+                  <h5 class="card-title">
+                    <i class="bi bi-pie-chart-fill"></i>
+                    Estados de los Trámites
+                  </h5>
+                </div>
+                <div class="card-body" style="width: 100%; height: 60vh;" >
+                  <canvas id="myChartPie"></canvas>
+                </div>
+              </div> 
+            </section>
+          </div>
+      </main>
+    {% endblock %}
+
+    {% block js%}
+
+    <script src="{% static 'libs/Datatable/JS/jquery-3.7.1.js' %}"></script>
+    <script src="{% static 'libs/Datatable/JS/dataTables.js' %}"></script>  
+    <script src="{% static 'libs/Datatable/JS/dataTables.bootstrap5.js' %}"></script>
+    <!--Botones DataTables-->  
+    <script src="{% static 'libs/Datatable/JS/dataTables.buttons.js' %}"></script>  
+    <script src="{% static 'libs/Datatable/JS/buttons.bootstrap5.js' %}"></script>  
+    <script src="{% static 'libs/Datatable/JS/jszip.min.js' %}"></script>  
+    <script src="{% static 'libs/Datatable/JS/pdfmake.min.js' %}"></script>  
+    <script src="{% static 'libs/Datatable/JS/vfs_fonts.js' %}"></script>  
+    <script src="{% static 'libs/Datatable/JS/buttons.html5.min.js' %}"></script>  
+    <script src="{% static 'libs/Datatable/JS/buttons.print.min.js' %}"></script>  
+    <script src="{% static 'libs/Datatable/JS/bottons.colVis.min.js' %}"></script>  
+<!--DataTables responsivo-->
+    <script src="{% static 'libs/Datatable/JS/dataTables.responsive.js' %}"></script>  
+    <script src="{% static 'libs/Datatable/JS/responsive.bootstrap5.js' %}"></script>  
+<!--Inicializar DataTables-->
+    <script src="{% static 'libs/Datatable/JS/Administracion.js' %}"></script>
+<!--Inicializar Charts-->
+     <script src="{% static 'libs/Chart/js/Chart.min.js' %}"></script>
+     <script src="{% static 'libs/Chart/js/newChart.js' %}"></script>
+    {% endblock %}
+        
+            
+
+
+  

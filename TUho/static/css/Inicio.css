@@ -1,0 +1,24 @@
+.imagen{
+    border: solid .1rem white;
+    width: 4rem;
+    height: 4rem;
+    border-radius: .6rem;
+    overflow: hidden;
+}
+
+.imagen img {
+    width: 100%;
+    height: 100%;
+}
+.parrafo{
+    margin-left:1rem;
+}
+
+/*Accordion*/
+.accordion{ 
+    --bs-accordion-btn-focus-box-shadow:none;
+}
+.row-acordion{
+    box-shadow: 15px 15px 10px 3px rgba(0,0,0,0.2) !important;
+
+}
