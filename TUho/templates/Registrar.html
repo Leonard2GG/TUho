@@ -1,0 +1,58 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/Registrar.css' %}">
+    <link rel="stylesheet" href="{% static 'libs/boxicons-2.1.4/css/boxicons.min.css' %}">
+    <link rel="icon" type="image/png" sizes="50x50" href="{% static 'img/Id UHo-03-white.png' %}">
+    <title>Trámites Universidad de Holguín</title>
+    <title>Document</title>
+</head>
+<body>
+    <img class="wave" src="{% static 'img/wave-blue-turned.png' %}">
+    <div class="container-form">
+        <div class="login-container">
+            <form action="#">
+                <img class="logo" src="" alt="">
+                <h2>Registrarse</h2>
+                <div class="input-div one">
+                    <div class="i">
+                        <i class="bx bxs-user"></i>
+                    </div>
+                    <div>
+                        <h5>Usuario</h5>
+                        <input class="input" type="text" required>
+                    </div>
+                </div>
+                <div class="input-div two">
+                    <div class="i">
+                        <i class="bx bxs-envelope"></i>
+                    </div>
+                    <div>
+                        <h5>Email</h5>
+                        <input class="input" type="email" required>
+                    </div>
+                </div>
+                <div class="input-div three">
+                    <div class="i">
+                        <i class="bx bxs-lock-alt"></i>
+                    </div>
+                    <div>
+                        <h5>Contraseña</h5>
+                        <input class="input" type="password" required>
+                    </div>
+                </div>
+                <a href= "{% url 'Login' %}" >¿Ya tienes cuenta? Inicia sesión</a>
+                <input type="submit" class="btn" value="Crear cuenta">
+            </form>
+        </div>
+        <div class="img">
+            <img src="{% static 'img/undraw_sign_up_n6im.svg' %}" alt="">
+        </div>
+    </div>
+
+    <script src="{% static 'js/Registrar.js' %}"></script>
+</body>
+</html>

@@ -1,0 +1,97 @@
+{% extends "Base.html" %}
+{% load static %}
+
+    {% block css %}
+    <link rel="stylesheet" href=" {% static 'css/FormularioSelect.css' %}">
+    {% endblock %}
+
+    {% block content %}
+              <div class="container-form">
+                <div class="form">
+                    <div class="contact-info">
+                        <h3 class="title">Let's get in touch</h3>
+                        <p class="text">
+                            Lorem ipsum, dolor sit amet consectetur adipisicing 
+                            elit. Optio obcaecati mollitia dicta animi 
+                            corporis distinctio autem eveniet iure magnam esse, 
+                            eius fugit quam tempora voluptates nemo laudantium sit? Cupiditate, vel?
+                        </p>
+                        <div class="info">
+                            <div class="information">
+                                <i class="bx bx-map-alt" class="icon"></i>
+                                <p>92 Cherry Drive Uniondale, NY 11553</p>
+                            </div>
+                            <div class="information">
+                                <i class="bx bx-envelope" class="icon"></i>
+                                <p>lorem@ipsum.com</p>
+                            </div>
+                            <div class="information">
+                                <i class="bx bx-phone" class="icon"></i>
+                                <p>123-456-789</p>
+                            </div>
+                        </div>
+                        <div class="social-media">
+                            <p>Connect with us:</p>
+                            <div class="social-icons">
+                                <a href="#">
+                                    <i class="bx bxl-facebook"></i>
+                                </a>
+                                <a href="#">
+                                    <i class="bx bxl-instagram"></i>
+                                </a>
+                                <a href="#">
+                                    <i class="bx bxl-twitter"></i>
+                                </a>
+                                <a href="#">
+                                    <i class="bx bxl-linkedin"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="contact-form">
+                        <span class="circle one"></span>
+                        <span class="circle two"></span>
+                        <form action="forms.html">
+                            <h3 class="title">Información Personal</h3>
+                            <div class="input-container">
+                                <input type="text" name="name" class="input" id="inputName" >
+                                <label for="">Nombre</label>
+                                <span>Nombre</span>
+                            </div>
+                            <div class="input-container">
+                              <input type="text" name="name" class="input" id="inputLastName">
+                              <label for="">Apellidos</label>
+                              <span>Apellidos</span>
+                          </div>
+                          <div class="input-container">
+                            <input type="text" name="name" class="input" id="inputCi">
+                            <label for="">Carnet ID</label>
+                            <span>Carnet ID</span>
+                          </div>
+                            <div class="input-container">
+                                <input type="email" name="email" class="input" id="inputEmail">
+                                <label for="">Email</label>
+                                <span>Email</span>
+                            </div>
+                            <div class="input-container">
+                                <input type="tel" name="phone" class="input"  id="inputNt">
+                                <label for="">Teléfono</label>
+                                <span>Teléfono</span>
+                            </div>
+                            <div class="input-container textarea">
+                                <textarea name="message" class="input" id="inputText" ></textarea>
+                                <label for="">Dirrección</label>
+                                <span>Dirrección</span>
+                            </div>
+                            <input type="submit" value="Enviar" class="btn1" id="boton">
+                        </form>
+                    </div>
+                </div>
+            </div>
+    {% endblock %}
+
+    {% block js %}
+    <script src="{% static 'js/FormularioSelect.js' %}"></script>
+    {% endblock %}
+        
+            

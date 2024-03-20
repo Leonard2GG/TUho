@@ -1,0 +1,121 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+ 
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'libs/Bootstrap/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/Base.css' %}">
+    <link rel="stylesheet" href="{% static 'libs/boxicons-2.1.4/css/boxicons.css' %}">
+    <link rel="stylesheet" href="{% static 'libs/Bootstrap/icon/bootstrap-icons.min.css' %}">
+    <link rel="icon" type="image/png" sizes="50x50" href="{% static 'img/Id UHo-03-white.png' %}">
+    {% block css %}
+    {% endblock %}
+
+    <title>Trámites Universidad de Holguín</title>
+    
+
+</head>
+<body>
+    <div class="container-fluid p-0 d-flex h-100">
+      <div id="bdSidebar" class="d-flex flex-column flex-shrink-0 p-3  pt-0 pb-0 text-white offcanvas-md offcanvas-start responsivo" style="width: 250px">
+        <a href="#" class="navbar-brand">
+          <img src="{% static 'img/Id UHo-03-white.png' %}" width="200" height="80px" alt="">
+        </a>
+        <hr>
+        <ul class="mynav nav nav-pills flex-column mb-auto">
+            <li class="nav-item mb-1">
+              <a href="{% url "Inicio" %}" class="active">
+                <i class="bx bxs-widget"></i>
+                Inicio
+              </a>
+            </li>
+            <li class="nav-item mb-1">
+              <a href="#" class="">
+                <i class="bx bx-bell"></i>
+                Notificaciones
+                <span class="notification-badge">5</span>
+              </a>
+            </li>
+            <li class="nav-item mb-1">
+              <a href="#" class="sidebar-link collapsed" data-bs-target="#pages" data-bs-toggle="collapse" aria-expanded="false">
+                <i class="bx bx-folder-open"></i>
+                  Trámites
+              </a>
+              <ul id="pages" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+                  <li class="nav-item mb-1">
+                      <a href="#" class="sidebar-link">Secretaría Docente</a>
+                  </li>
+              </ul>
+          </li>
+            <li class="nav-item mb-1">
+              <a href="{% url 'MisTramites' %}" class="">
+                <i class="bx bx-file"></i>
+                Mis trámites
+              </a>
+            </li>
+            <li class="nav-item mb-1">
+              <a href="{% url "InfoPersonal" %}" class="">
+                <i class="bx bx-user" ></i>
+                Información Personal
+              </a>
+            </li>
+            <li class="nav-item mb-1">
+              <a href="{% url "AtencionPoblacion" %}" class="">
+                <i class="bx bx-help-circle" ></i>
+                Atención a la población
+              </a>
+            </li>
+        </ul>
+        <hr class="mb-0">
+        <div>
+          <ul class="mynav nav nav-pills flex-column mb-auto ">
+            <li class="nav-item mb-1 ">
+              <a href="{% url 'Login' %}" class="">
+                <i class="bx bx-log-out"></i>
+                Cerrar Sesion
+              </a>
+            </li>
+          </ul>
+          
+        </div>
+      </div>
+
+      <div class="bg-light contenedor">
+        <div class="p-2 d-md-none d-flex text-white responsivo">
+          <a href="#" class="text-white" data-bs-toggle="offcanvas" data-bs-target="#bdSidebar">
+            <i class="bx bx-menu"></i>
+          </a>
+          <span class="ms-3">Trámites Universidad de Holguín</span>
+        </div>
+        
+          <div class="main-container">
+            <div>
+      
+          <div class="row content">
+            <div class="col">
+              {% block content %}
+
+              {% endblock %}
+            </div>
+          </div>
+        </div>
+          <div class="text-center pt-2 footer">
+            <p>Copyright &copy; 2024 Trámites Universidad de Holguín. All rights reserved.</p>
+        </div>
+        </div>
+      </div>
+
+      
+    </div>
+
+    
+    {% block js %}
+    {% endblock %}
+<script src=" {% static 'libs/Bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+
+
+</body>
+</html>
