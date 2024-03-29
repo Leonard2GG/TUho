@@ -1,16 +1,11 @@
-const sidebar = document.querySelector(".sidebar");
-const toggleBtn = document.querySelector(".toggle-btn");
-
-toggleBtn.addEventListener("click", () =>{
-    sidebar.classList.toggle("active");
-})
-
-const menuItemList = document.querySelectorAll('.list-item')
+const menuItemList = document.querySelectorAll('.nav-item')
+const path = window.location.pathname.split("/")[2]
 
 menuItemList.forEach(e => {
-    e.addEventListener('click', () => {
-        let currentlyActive = document.querySelector(".list-item.active")
+    console.log(e.ariaLabel === path);
+    if(e.ariaLabel === path){
+        let currentlyActive = document.querySelector(".nav-item .active")
         currentlyActive.classList.toggle("active")
-        e.classList.toggle("active")
-    })
+        e.children[0].classList.toggle("active")
+    }
 })

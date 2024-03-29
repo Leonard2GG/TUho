@@ -39,13 +39,13 @@
               <span class="notification-badge">5</span>
             </a>
           </li>
-          <li class="nav-item mb-1">
+          <li class="nav-item mb-1" aria-label="RolTramite">
             <a href="{% url "RolTramite" %}" class="">
               <i class="bx bx-file"></i>
               Trámites
             </a>
           </li>
-          <li class="nav-item mb-1">
+          <li class="nav-item mb-1" aria-label="RolUsuario">
             <a href="{% url 'RolUsuario' %}" class="">
               <i class="bx bx-user" ></i>
               Usuarios
@@ -56,8 +56,8 @@
       <hr class="mb-0">
       <div>
         <ul class="mynav nav nav-pills flex-column mb-auto ">
-          <li class="nav-item mb-1 ">
-            <a href="{% url 'Login' %}" class="">
+          <li class="nav-item mb-1 " aria-label="CerrarSesion">
+            <a href="{% url 'CerrarSesion' %}" class="">
               <i class="bx bx-log-out"></i>
               Cerrar Sesion
             </a>
@@ -100,5 +100,6 @@
     {% block js %}
     {% endblock %}
 <script src=" {% static 'libs/Bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+<script src=" {% static 'js/script.js' %}"></script>
 
 
