@@ -79,14 +79,12 @@
                       </div>
               <!--Table Element-->
               <section  id="tablaTramites">
-                <div class="card border-0">
-                    <div class="card-header">
-                        <h5 class="card-title">
-                            <i class="bi bi-file-earmark-text-fill"></i>
+                <div class="card p-2">
+                    <div class="card-header ">
+                        <h5 class="card-title ">
                             Trámites
                         </h5>
                     </div>
-                    <div class="card-body">
                         <table id="Tramites" class="display table table-striped table-hover table-primary" style="width:100%">
                             <thead class="encabezado">
                                 <tr>
@@ -108,67 +106,75 @@
                                   <td style="text-align: start;">Listo para entrega</td>
                               </tr>
                             </tbody>
-                        </table>
-                    </div>  
+                        </table> 
                 </div>
               </section>
+
               <section  id="tablaUsuarios">
-              <div class="card border-0">
+              <div class="card p-2">
                   <div class="card-header">
                       <h5 class="card-title">
-                          <i class="bi bi-people-fill"></i>
                           Usuarios
                       </h5>
                   </div>
                   
-                  <div class="card-body">
                       <table id="Usuarios" class="display table table-striped table-hover table-primary" style="width:100%">
                           <thead class="encabezado">
                               <tr>
                                   <th scope="col" style="color: white; text-align: start;">Usuario</th>
                                   <th scope="col" style="color: white; text-align: start;">Teléfono</th>
                                   <th scope="col" style="color: white; text-align: start;">Email</th>
-                                  <th scope="col" style="color: white; text-align: start;">Dirreccion</th>
                                   <th scope="col" style="color: white; text-align: start;">Ultima Conexion</th>
                                   <th scope="col" style="color: white; text-align: start;">Rol</th>
                                 </tr>
                             </thead>
                             <tbody>
-                              <tr>
-                                  <td style="text-align: start;">Tiger Nixon</td>
-                                  <td style="text-align: start;">55568719</td>
-                                  <td style="text-align: start;">leonardo@gmail.com</td>
-                                  <td style="text-align: start;">Calle R % Calle w y Calle 34</td>
-                                  <td style="text-align: start;">24-2-24</td>
-                                  <td style="text-align: start;">Administrador</td>
-                              </tr>
+                              {% for usuario in usuarios %}
+                            <tr>
+                                <td style="text-align: start;">{{ usuario.username }}</td>
+                                <td style="text-align: start;">
+                                {% if usuario.telefono %}
+                                    {{ usuario.telefono }}
+                                {% else %}
+                                    N/A
+                                {% endif %}
+                                </td>
+                                <td style="text-align: start;">{{ usuario.email }}</td>
+                                <td style="text-align: start;">
+                                    {% if usuario.last_login %}
+                                    {{ usuario.last_login }}
+                                {% else %}
+                                    N/A
+                                {% endif %}
+                                </td>
+                                <td style="text-align: start;">{{ usuario.groups.all.0 }}</td>
+                            </tr>
+                        {% endfor %}
                             </tbody>
                       </table>
                   </div>  
               </div>
             </section>
             <section id="graficaBarTrámites">
-              <div class="card border-0">
+              <div class="card p-2">
                 <div class="card-header">
                   <h5 class="card-title">
-                    <i class="bi bi-bar-chart-fill"></i>
                      Gráfico de Trámites
                   </h5>
                 </div>
-                <div class="card-body" style="width: 100%; height: 60vh;" >
+                <div style="width: 100%; height: 60vh;" >
                   <canvas id="myChartBar"></canvas>
                 </div>
               </div> 
             </section>
             <section id="graficaPieTrámites">
-              <div class="card border-0">
+              <div class="card p-2">
                 <div class="card-header">
                   <h5 class="card-title">
-                    <i class="bi bi-pie-chart-fill"></i>
                     Estados de los Trámites
                   </h5>
                 </div>
-                <div class="card-body" style="width: 100%; height: 60vh;" >
+                <div style="width: 100%; height: 60vh;" >
                   <canvas id="myChartPie"></canvas>
                 </div>
               </div> 

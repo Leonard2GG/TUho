@@ -39,16 +39,22 @@
               <span class="notification-badge">5</span>
             </a>
           </li>
-          <li class="nav-item mb-1" aria-label="RolTramite">
-            <a href="{% url "RolTramite" %}" class="">
+          <li class="nav-item mb-1" aria-label="Tramites">
+            <a href="{% url "Tramites" %}" class="">
               <i class="bx bx-file"></i>
               Trámites
             </a>
           </li>
-          <li class="nav-item mb-1" aria-label="RolUsuario">
-            <a href="{% url 'RolUsuario' %}" class="">
+          <li class="nav-item mb-1" aria-label="Usuarios">
+            <a href="{% url 'Usuarios' %}" class="">
               <i class="bx bx-user" ></i>
               Usuarios
+            </a>
+          </li>
+          <li class="nav-item mb-1" aria-label="Noticias">
+            <a href="{% url 'Noticias' %}" class="">
+              <i class="bx bx-news" ></i>
+              Noticias
             </a>
           </li>
 
@@ -59,7 +65,7 @@
           <li class="nav-item mb-1 " aria-label="CerrarSesion">
             <a href="{% url 'CerrarSesion' %}" class="">
               <i class="bx bx-log-out"></i>
-              Cerrar Sesion
+              Cerrar Sesión
             </a>
           </li>
         </ul>
@@ -75,27 +81,19 @@
         <span class="ms-3">Trámites Universidad de Holguín</span>
       </div>
       
-        <div class="main-container">
-          <div>
-    
+      <div class="main-container">
         <div class="row content">
           <div class="col">
-
             {% block content %}
             {% endblock %}
-            
-          </div>
+            </div>
+          <p class="text-center pb-2 footer">Copyright &copy; 2024 Trámites Universidad de Holguín. All rights reserved.</p>
         </div>
       </div>
-        <div class="text-center pt-2 footer">
-          <p>Copyright &copy; 2024 Trámites Universidad de Holguín. All rights reserved.</p>
-      </div>
+
       </div>
     </div>
-
-    
   </div>
-
     
     {% block js %}
     {% endblock %}

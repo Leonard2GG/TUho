@@ -1,0 +1,66 @@
+{% extends "Base Admin.html" %}
+{% load static %}
+
+    {% block css %}
+    <link rel="stylesheet" href=" {% static 'css/Crear Noticia.css' %}">
+    {% endblock %}
+
+    {% block content %}
+    <div class="container-form">
+        <div class="form">
+            <div class="contact-info">
+                <h3 class="title">Noticia </h3>
+                <p class="text">
+                    En nuestro centro de atención a la población, nos esforzamos por brindar un servicio de calidad y cercanía a todos los ususarios.
+                    Nos comprometemos a escuchar sus necesidades, preocupaciones y para poder ofrecerles la mejor atención posible. 
+                </p>
+                <div class="info">
+                    <div class="information">
+                        <i class="bx bx-map-alt" class="icon"></i>
+                        <p>Avenida XX Aniversario</p>
+                    </div>
+                    <div class="information">
+                        <i class="bx bx-envelope" class="icon"></i>
+                        <p>tramitesuho@gmail.com</p>
+                    </div>
+                    <div class="information">
+                        <i class="bx bx-phone" class="icon"></i>
+                        <p>+53 55568719</p>
+                    </div>
+                </div>
+                <p class="text">
+                  Nuestro objetivo es contribuir al bienestar y la mejora de la calidad de vida de toda la comunidad, brindando una 
+                  atención integral y de calidad a cada persona que lo necesite.</br> 
+                  ¡Estamos aquí para ayudarte! 
+              </p>
+            </div>
+            <div class="contact-form">
+                <span class="circle one"></span>
+                <span class="circle two"></span>
+                <form action="." method="POST" >
+                  {% csrf_token %}
+                    <h3 class="title">Editar Noticia</h3>
+                    <div class="input-container focus">
+                        <input type="text" name="titulo" class="input"  value="{{noticias.titulo}}">
+                        <label for="">Título</label>
+                        <span>Título</span>
+                    </div>
+                    <div class="input-container textarea focus">
+                        <textarea name="cuerpo" class="input" value="{{noticias.cuerpo}}"></textarea>
+                        <label for="">Contenido</label>
+                        <span>Contenido</span>
+                    </div>
+                    <input type="submit" value="Aceptar" class="btn1">
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+    {% block js %}
+    <script src="{% static 'js/FormularioSelect.js' %}"></script>
+    <script>
+        const textarea = document.querySelector("textarea").value = "{{ noticias.cuerpo }}"
+    </script>
+    {% endblock %}
+

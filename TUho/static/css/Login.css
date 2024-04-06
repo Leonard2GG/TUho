@@ -187,6 +187,7 @@ form h2{
 
 .text{
     text-align: justify;
+    font-family: sans-serif;
 }
 
 @media screen and (max-width:1050px){

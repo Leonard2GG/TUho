@@ -25,11 +25,18 @@
           <img src="{% static 'img/Id UHo-03-white.png' %}" width="200" height="80px" alt="">
         </a>
         <hr>
+        {% if request.user.is_authenticated %}
         <ul class="mynav nav nav-pills flex-column mb-auto">
-            <li class="nav-item mb-1">
+            <li class="nav-item mb-1" aria-label="">
               <a href="{% url "Inicio" %}" class="active">
                 <i class="bx bxs-widget"></i>
                 Inicio
+              </a>
+            </li>
+            <li class="nav-item mb-1" aria-label="NoticiasUsuario">
+              <a href="{% url "NoticiasUsuario" %}" class="">
+                <i class="bx bx-news"></i>
+                Noticias
               </a>
             </li>
             <li class="nav-item mb-1">
@@ -39,13 +46,13 @@
                 <span class="notification-badge">5</span>
               </a>
             </li>
-            <li class="nav-item mb-1" aria-label="">
+            <li class="nav-item mb-1" aria-label="Tramite">
               <a href="#" class="sidebar-link collapsed" data-bs-target="#pages" data-bs-toggle="collapse" aria-expanded="false">
                 <i class="bx bx-folder-open"></i>
                   Trámites
               </a>
               <ul id="pages" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
-                  <li class="nav-item mb-1">
+                  <li class="nav-item mb-1 " aria-label="SecretariaDocente">
                       <a href="#" class="sidebar-link">Secretaría Docente</a>
                   </li>
               </ul>
@@ -75,12 +82,47 @@
             <li class="nav-item mb-1 " aria-label="CerrarSesion">
               <a href="{% url 'CerrarSesion' %}" class="">
                 <i class="bx bx-log-out"></i>
-                Cerrar Sesion
+                Cerrar Sesión
               </a>
             </li>
           </ul>
-          
         </div>
+
+          {% else %}
+          
+          <ul class="mynav nav nav-pills flex-column mb-auto">
+            <li class="nav-item mb-1">
+              <a href="{% url "Inicio" %}" class="active" aria-label="">
+                <i class="bx bxs-widget"></i>
+                Inicio
+              </a>
+            </li>
+            <li class="nav-item mb-1" aria-label="NoticiasUsuario">
+              <a href="{% url "NoticiasUsuario" %}" class="">
+                <i class="bx bx-news"></i>
+                Noticias
+              </a>
+            </li>
+            <li class="nav-item mb-1" aria-label="Tramite">
+              <a href="#" class="sidebar-link collapsed" data-bs-target="#pages" data-bs-toggle="collapse" aria-expanded="false">
+                <i class="bx bx-folder-open"></i>
+                  Trámites
+              </a>
+              <ul id="pages" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+                  <li class="nav-item mb-1" aria-label="SecretariaDocente">
+                      <a href="#" class="sidebar-link">Secretaría Docente</a>
+                  </li>
+              </ul>
+          </li>
+          <li class="nav-item mb-1 " aria-label="CerrarSesion">
+            <a href="{% url 'Login' %}" class="">
+              <i class="bx bx-log-in"></i>
+              Iniciar Sesión
+            </a>
+          </li>
+        </ul>
+        
+        {% endif %}
       </div>
 
       <div class="bg-light contenedor">
@@ -92,18 +134,16 @@
         </div>
         
           <div class="main-container">
-            <div>
       
           <div class="row content">
             <div class="col">
               {% block content %}
 
               {% endblock %}
-            </div>
+              
+            </div>  
+            <p class="text-center pb-2 footer">Copyright &copy; 2024 Trámites Universidad de Holguín. All rights reserved.</p>
           </div>
-        </div>
-          <div class="text-center pt-2 footer">
-            <p>Copyright &copy; 2024 Trámites Universidad de Holguín. All rights reserved.</p>
         </div>
         </div>
       </div>

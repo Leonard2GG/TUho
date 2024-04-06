@@ -29,7 +29,7 @@
             <form action="" method="POST">
                 {% csrf_token %}
                 <img class="logo" src="" alt="">
-                <h2>Bienvenido</h2>
+                <h2 style="color:#005296;">Bienvenido</h2>
                 <div class="input-div one">
                     <div class="i">
                         <i class="bx bxs-user"></i>
@@ -50,7 +50,7 @@
                 </div>
                 <a class="a" href="{% url 'password_reset' %}" class="link">¿Has olvidado la contraseña?</a>
                 <a class="a" href="{% url 'Registrar' %}" class="link">¿No tienes cuenta todavía? Registrate </a>
-                <input type="submit" class="btn1" value="Iniciar Sesion">
+                <input type="submit" class="btn1" value="Iniciar Sesión">
             </form>
         </div>
     </div>

@@ -1,5 +1,5 @@
 .encabezado{
-    background: #4481eb;
+    background: #0d6efd;
 }
 
 .form-select{
@@ -7,5 +7,9 @@
 }
 
 .card-title{
-    color: #222e58;
+    color: #005296;
+}
+
+.card-header{
+    background: #fff !important;
 }

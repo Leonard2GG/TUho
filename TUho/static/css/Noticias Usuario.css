@@ -229,8 +229,28 @@ textarea.input{
 
 .text{
     color:#333;
-    margin: 1.5rem 0 2rem 0;
+    margin: 0.5rem 0 0.5rem 0;
     text-align: justify;
+    padding-left: 1rem;
+    word-wrap: break-word;
+}
+
+span{
+    padding-right: 1rem;
+}
+
+
+.card-title{
+    color: #005296;
+    padding-left: 0.9rem;
+}
+
+.card-header{
+    background: #fff !important;
+}
+
+.card-footer{
+    background: #fff !important;
 }
 
 .information{
@@ -329,7 +349,11 @@ textarea.input{
         padding: 1.7rem 1.6rem;
     }
 
-    .text, .information, .social-media p{
+    .text, .information, .social-media p {
+        font-size: 0.9rem;
+    }
+
+    span{
         font-size: 0.9rem;
     }
 

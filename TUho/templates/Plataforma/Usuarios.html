@@ -12,51 +12,58 @@
     
 
     {% block content %}
-    <main class="content-inside px-3 py-2" >
+    <main class="content-inside px-3 py-2 mx-2" >
       <section  id="tablaUsuarios">
-        <div class="card border-0">
+        <div class="card p-2">
             <div class="card-header">
                 <h5 class="card-title">
-                    <i class="bi bi-people-fill"></i>
                     Usuarios
                 </h5>
             </div>
             
-            <div class="card-body">
                 <table id="Usuarios" class="display table table-striped table-hover table-primary" style="width:100%">
                     <thead class="encabezado">
                         <tr>
                             <th scope="col" style="color: white; text-align: start;">Usuario</th>
                             <th scope="col" style="color: white; text-align: start;">Teléfono</th>
                             <th scope="col" style="color: white; text-align: start;">Email</th>
-                            <th scope="col" style="color: white; text-align: start;">Dirreccion</th>
                             <th scope="col" style="color: white; text-align: start;">Ultima Conexion</th>
                             <th scope="col" style="color: white; text-align: start;">Rol</th>
                           </tr>
                       </thead>
                       <tbody>
-                        <tr>
-                            <td style="text-align: start;">Tiger Nixon</td>
-                            <td style="text-align: start;">55568719</td>
-                            <td style="text-align: start;">leonardo@gmail.com</td>
-                            <td style="text-align: start;">Calle R % Calle w y Calle 34</td>
-                            <td style="text-align: start;">24-2-24</td>
-                            <td style="text-align: start;"><select class="form-select">
-                              <option value="">Usuario</option>
-                              <option value="">Supervisor</option>
-                              <option value="">Administrador</option>
-                            </select></td>
-                        </tr>
+                        {% for usuario in usuarios %}
+                            <tr>
+                                <td style="text-align: start;">{{ usuario.username }}</td>
+                                <td style="text-align: start;">
+                                {% if usuario.telefono %}
+                                    {{ usuario.telefono }}
+                                {% else %}
+                                    N/A
+                                {% endif %}
+                                </td>
+                                <td style="text-align: start;">{{ usuario.email }}</td>
+                                <td style="text-align: start;">
+                                    {% if usuario.last_login %}
+                                    {{ usuario.last_login }}
+                                {% else %}
+                                    N/A
+                                {% endif %}
+                                </td>
+                                <td style="text-align: start;">
+                                    <select class="form-select role-selection">
+                                    <option value="Usuario">Usuario</option>
+                                    <option value="Administración">Administrador</option>
+                                
+                                </select></td>
+                            </tr>
+                        {% endfor %}
                       </tbody>
                 </table>
-            </div> 
-            <div class="card-footer d-flex justify-content-end">
-              <button class="btn btn-primary " > Añadir Usuario</button>
-            </div> 
+            </div>  
         </div>
       </section>
       </main>
-    
     {% endblock %}
 
     {% block js%}
@@ -77,6 +84,15 @@
     <script src="{% static 'libs/Datatable/JS/responsive.bootstrap5.js' %}"></script>  
 <!--Inicializar DataTables-->
     <script src="{% static 'libs/Datatable/JS/Usuarios.js' %}"></script>
+    <script>
+        
+        $( document ).ready( () => {
+        let options = document.querySelectorAll(".role-selection")
+        {% for usuario in usuarios %}
+            options[{{ forloop.counter0 }}].value = "{{ usuario.groups.all.0 }}"
+        {% endfor %}
+        })
+    </script>
     {% endblock %}
         
             

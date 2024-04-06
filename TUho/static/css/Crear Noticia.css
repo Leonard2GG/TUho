@@ -109,12 +109,12 @@ form{
 }
 
 textarea{
-    height: 125px;
+    height: 180px;
 }
 
 textarea.input{
     padding: 0.8rem 1.2rem;
-    min-height: 125px;
+    min-height: 180px;
     border-radius: 22px;
     resize:none;
     overflow-y: auto;

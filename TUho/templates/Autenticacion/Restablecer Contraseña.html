@@ -29,7 +29,7 @@
             <form action="" method="POST">
                 {% csrf_token %}
                 <img class="logo" src="" alt="">
-                <h2>Restablecer Contraseña</h2>
+                <h2 style="color:#005296;">Restablecer Contraseña</h2>
                 <div class="text">
                     <p>¿Olvidaste tu contraseña? </br> 
                     Ingrese su dirección de correo electrónico y le enviaremos las instrucciones para configurar una nueva.</p>
@@ -45,6 +45,7 @@
                         {% endfor %}
                     </div>
                 </div>
+                <a class="a" href= "{% url 'Login' %}" >¿Recordaste la contraseña?</a>
                 <input type="submit" class="btn1" value="Restablecer Contraseña">
             </form>
             

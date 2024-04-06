@@ -1,0 +1,43 @@
+{% extends "Base.html" %}
+{% load static %}
+
+    {% block css %}
+    <link rel="stylesheet" href=" {% static 'css/Sitio Administrativo.css' %}">
+    <link rel="stylesheet" href=" {% static 'css/Noticias Usuario.css' %}">
+    {% endblock %}
+    
+
+    {% block content %}
+    <main class="content-inside px-3 py-2 mx-2" >
+        {% if noticias %}
+            {% for noticia in noticias %}
+                  <div class="noticia">
+                    <div >
+                      <h4 class="card-title" style="color: #005296;">{{ noticia.titulo }}</h4> 
+                    </div>
+                    <div>
+                      <p class="text">{{ noticia.cuerpo }}</p>
+                      <span class="d-flex justify-content-end mb-2 ">{{ noticia.on_create }}</span>
+                    </div>
+                  </div>
+            {% endfor %}
+            {% else %}
+            <section class="d-flex flex-column justify-content-center align-content-center">
+                <p class="text text-center">
+                No hay noticias nuevas hechas recientemente
+                </p>
+            </section>
+        {% endif %}     
+      </main>
+    {% endblock %}
+
+    {% block js%}
+    {% endblock %}
+        
+            
+
+
+  
+
+              
+           

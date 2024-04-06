@@ -19,11 +19,12 @@ from apps.Plataforma import views
 from django.contrib.auth.decorators import login_required
 
 urlpatterns = [
-    path('Inicio/',login_required (views.Inicio), name="Inicio"),
+    path('',(views.Inicio), name="Inicio"),
     path('MisTramites/',login_required (views.MisTramites), name="MisTramites"),
     path('InfoPersonal/',login_required (views.InformacionPersonal), name="InfoPersonal"),
     path('AtencionPoblacion/',login_required (views.AtencionPoblacion), name="AtencionPoblacion"),
     path('Administracion/',login_required (views.Administracion), name="Administracion"),
-    path('RolTramite/',login_required (views.RolTramite), name="RolTramite"),
-    path('RolUsuario/',login_required (views.RolUsuario), name="RolUsuario"),
+    path('Tramites/',login_required (views.Tramites), name="Tramites"),
+    path('Usuarios/',login_required (views.Usuarios), name="Usuarios"),
+    path('NoticiasUsuario/', views.NoticiasUsuario, name="NoticiasUsuario"),
 ]

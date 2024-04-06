@@ -9,44 +9,30 @@
     <div class="container-form">
       <div class="form">
           <div class="contact-info">
-              <h3 class="title">Let's get in touch</h3>
+              <h3 class="title">Atención a la población </h3>
               <p class="text">
-                  Lorem ipsum, dolor sit amet consectetur adipisicing 
-                  elit. Optio obcaecati mollitia dicta animi 
-                  corporis distinctio autem eveniet iure magnam esse, 
-                  eius fugit quam tempora voluptates nemo laudantium sit? Cupiditate, vel?
+                  En nuestro centro de atención a la población, nos esforzamos por brindar un servicio de calidad y cercanía a todos los ususarios.
+                  Nos comprometemos a escuchar sus necesidades, preocupaciones y para poder ofrecerles la mejor atención posible. 
               </p>
               <div class="info">
                   <div class="information">
                       <i class="bx bx-map-alt" class="icon"></i>
-                      <p>92 Cherry Drive Uniondale, NY 11553</p>
+                      <p>Avenida XX Aniversario</p>
                   </div>
                   <div class="information">
                       <i class="bx bx-envelope" class="icon"></i>
-                      <p>lorem@ipsum.com</p>
+                      <p>tramitesuho@gmail.com</p>
                   </div>
                   <div class="information">
                       <i class="bx bx-phone" class="icon"></i>
-                      <p>123-456-789</p>
+                      <p>+53 55568719</p>
                   </div>
               </div>
-              <div class="social-media">
-                  <p>Conectate con nostros:</p>
-                  <div class="social-icons">
-                      <a href="#">
-                          <i class="bx bxl-facebook"></i>
-                      </a>
-                      <a href="#">
-                          <i class="bx bxl-instagram"></i>
-                      </a>
-                      <a href="#">
-                          <i class="bx bxl-twitter"></i>
-                      </a>
-                      <a href="#">
-                          <i class="bx bxl-linkedin"></i>
-                      </a>
-                  </div>
-              </div>
+              <p class="text">
+                Nuestro objetivo es contribuir al bienestar y la mejora de la calidad de vida de toda la comunidad, brindando una 
+                atención integral y de calidad a cada persona que lo necesite.</br> 
+                ¡Estamos aquí para ayudarte! 
+            </p>
           </div>
           <div class="contact-form">
               <span class="circle one"></span>
@@ -54,6 +40,15 @@
               <form action="." method="POST" >
                 {% csrf_token %}
                   <h3 class="title">Contactanos</h3>
+        {% if response %}
+                {% if response == 'correcto' %}
+                  <div class="alert alert-success alert-dismissible fade show" role="alert" style="height:40px; position: fixed; right: 20px; top: 50px; display: flex; align-items: center; padding-right: 0rem;">
+                    {{ message }}
+                    <button style="font-size: 10px; border-bottom: none; position: relative; box-shadow: none;" type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </button>
+                  </div>
+                {% endif %}
+          {% endif %}
                   <div class="input-container focus">
                       <input type="text" name="first_name" class="input"  value="{{ request.user.first_name }}" disabled>
                       <label for="">Nombre</label>
