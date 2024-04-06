@@ -51,48 +51,49 @@
           <div class="contact-form">
               <span class="circle one"></span>
               <span class="circle two"></span>
-              <form action="forms.html">
+              <form action="." method="POST" >
+                {% csrf_token %}
                   <h3 class="title">Contactanos</h3>
-                  <div class="input-container">
-                      <input type="text" name="name" class="input">
+                  <div class="input-container focus">
+                      <input type="text" name="first_name" class="input"  value="{{ request.user.first_name }}" disabled>
                       <label for="">Nombre</label>
                       <span>Nombre</span>
                   </div>
-                  <div class="input-container">
-                    <input type="text" name="name" class="input">
+                  <div class="input-container focus">
+                    <input type="text" name="last_name" class="input"  value="{{ request.user.last_name }}" disabled>
                     <label for="">Apellidos</label>
                     <span>Apellidos</span>
                 </div>
-                  <div class="input-container">
-                    <input type="text" name="Direction" class="input">
-                    <label for="">Dirrección</label>
-                    <span>Dirrección</span>
+                  <div class="input-container focus">
+                    <input type="text" name="address" class="input"  value="{{ request.user.direccion }}" disabled>
+                    <label for="">Dirección</label>
+                    <span>Dirección</span>
                 </div>
                   <div class="input-container select-municipio">
-                      <input type="hidden" name="municipio">
+                      <input type="hidden" name="municipality">
                       <div class="input selector">    
                       </div>
                       <label for="">Municipio</label>
                       <span>Municipio</span>
                   </div>
                   <div class="select-options">
-                      <div aria-valuetext="A" class="element">Antilla</div>
-                      <div aria-valuetext="B" class="element">Banes</div>
-                      <div aria-valuetext="Ba" class="element">Báguano</div>
-                      <div aria-valuetext="C" class="element">Cacocum</div>
-                      <div aria-valuetext="CG" class="element">Calixto García</div>
-                      <div aria-valuetext="Cu" class="element">Cueto</div>
-                      <div aria-valuetext="FP" class="element">Frank País</div>
-                      <div aria-valuetext="G" class="element">Gibara</div>
-                      <div aria-valuetext="Hlg" class="element">Holguín</div>
-                      <div aria-valuetext="M" class="element">Mayarí</div>
-                      <div aria-valuetext="Mo" class="element">Moa</div>
-                      <div aria-valuetext="RF" class="element">Rafael Freyre</div>
-                      <div aria-valuetext="ST" class="element">Sagua de Tánamo</div>
-                      <div aria-valuetext="UN" class="element">Urbano Noris</div>
+                      <div aria-valuetext="Antilla" class="element">Antilla</div>
+                      <div aria-valuetext="Banes" class="element">Banes</div>
+                      <div aria-valuetext="Báguano" class="element">Báguano</div>
+                      <div aria-valuetext="Cacocum" class="element">Cacocum</div>
+                      <div aria-valuetext="Calixto García" class="element">Calixto García</div>
+                      <div aria-valuetext="Cueto" class="element">Cueto</div>
+                      <div aria-valuetext="Frank País" class="element">Frank País</div>
+                      <div aria-valuetext="Gibara" class="element">Gibara</div>
+                      <div aria-valuetext="Holguín" class="element">Holguín</div>
+                      <div aria-valuetext="Mayarí" class="element">Mayarí</div>
+                      <div aria-valuetext="Moa" class="element">Moa</div>
+                      <div aria-valuetext="Rafael Freyre" class="element">Rafael Freyre</div>
+                      <div aria-valuetext="Sagua de Tánamo" class="element">Sagua de Tánamo</div>
+                      <div aria-valuetext="Urbano Noris" class="element">Urbano Noris</div>
                   </div>
                   <div class="input-container">
-                    <input type="text" name="Direction" class="input">
+                    <input type="text" name="subject" class="input">
                     <label for="">Asunto</label>
                     <span>Asunto</span>
                 </div>

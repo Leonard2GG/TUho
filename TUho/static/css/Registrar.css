@@ -23,7 +23,7 @@
 }
 
 .img img{
-    width: 500px;
+    width: 400px;
 }
 
 .img{
@@ -48,10 +48,11 @@ form{
 }
 
 form h2{
-    font-size: 2.0rem;
+    font-size: 1.75rem;
     text-transform: uppercase;
     margin: 15px 0;
     color: #333;
+    margin-bottom: 20px;
 }
 
 .input-div{
@@ -144,7 +145,7 @@ form h2{
     color:#555;
 }
 
-a{
+.a{
     display: block;
     text-align: right;
     text-decoration: none;
@@ -154,11 +155,11 @@ a{
     font-weight: bold;
 }
 
-a:hover{
+.a:hover{
     color:  #4481eb;
 }
 
-.btn{
+.btn1{
     display: block;
     width: 100%;
     height: 50px;
@@ -176,8 +177,12 @@ a:hover{
     transition: .5s;
 }
 
-.btn:hover{
+.btn1:hover{
     background-position: right;
+}
+
+.text{
+    text-align: justify;
 }
 
 
@@ -195,10 +200,7 @@ a:hover{
     form h2{
         font-size: 2.4rem;
         margin: 8px 0;
-    }
-
-    .img img{
-        width: 400px;
+        margin-bottom: 20px;
     }
 }
 

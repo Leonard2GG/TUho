@@ -39,7 +39,7 @@
                 <span class="notification-badge">5</span>
               </a>
             </li>
-            <li class="nav-item mb-1">
+            <li class="nav-item mb-1" aria-label="">
               <a href="#" class="sidebar-link collapsed" data-bs-target="#pages" data-bs-toggle="collapse" aria-expanded="false">
                 <i class="bx bx-folder-open"></i>
                   Trámites
@@ -50,19 +50,19 @@
                   </li>
               </ul>
           </li>
-            <li class="nav-item mb-1">
+            <li class="nav-item mb-1" aria-label="MisTramites">
               <a href="{% url 'MisTramites' %}" class="">
                 <i class="bx bx-file"></i>
                 Mis trámites
               </a>
             </li>
-            <li class="nav-item mb-1">
+            <li class="nav-item mb-1" aria-label="InfoPersonal">
               <a href="{% url "InfoPersonal" %}" class="">
                 <i class="bx bx-user" ></i>
                 Información Personal
               </a>
             </li>
-            <li class="nav-item mb-1">
+            <li class="nav-item mb-1" aria-label="AtencionPoblacion">
               <a href="{% url "AtencionPoblacion" %}" class="">
                 <i class="bx bx-help-circle" ></i>
                 Atención a la población
@@ -72,8 +72,8 @@
         <hr class="mb-0">
         <div>
           <ul class="mynav nav nav-pills flex-column mb-auto ">
-            <li class="nav-item mb-1 ">
-              <a href="{% url 'Login' %}" class="">
+            <li class="nav-item mb-1 " aria-label="CerrarSesion">
+              <a href="{% url 'CerrarSesion' %}" class="">
                 <i class="bx bx-log-out"></i>
                 Cerrar Sesion
               </a>
@@ -115,6 +115,8 @@
     {% block js %}
     {% endblock %}
 <script src=" {% static 'libs/Bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+<script src=" {% static 'js/script.js' %}"></script>
+
 
 
 </body>

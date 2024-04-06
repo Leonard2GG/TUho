@@ -16,15 +16,14 @@ Including another URLconf
 """
 from django.urls import path
 from apps.Plataforma import views
+from django.contrib.auth.decorators import login_required
 
 urlpatterns = [
-    path('', views.Inicio, name="Inicio"),
-    path('MisTramites/', views.MisTramites, name="MisTramites"),
-    path('InfoPersonal/', views.InformacionPersonal, name="InfoPersonal"),
-    path('AtencionPoblacion/', views.AtencionPoblacion, name="AtencionPoblacion"),
-    path('Login/', views.Login, name="Login"),
-    path('Registrar/', views.Registrar, name="Registrar"),
-    path('Administracion/', views.Administracion, name="Administracion"),
-    path('RolTramite/', views.RolTramite, name="RolTramite"),
-    path('RolUsuario/', views.RolUsuario, name="RolUsuario"),
+    path('Inicio/',login_required (views.Inicio), name="Inicio"),
+    path('MisTramites/',login_required (views.MisTramites), name="MisTramites"),
+    path('InfoPersonal/',login_required (views.InformacionPersonal), name="InfoPersonal"),
+    path('AtencionPoblacion/',login_required (views.AtencionPoblacion), name="AtencionPoblacion"),
+    path('Administracion/',login_required (views.Administracion), name="Administracion"),
+    path('RolTramite/',login_required (views.RolTramite), name="RolTramite"),
+    path('RolUsuario/',login_required (views.RolUsuario), name="RolUsuario"),
 ]
