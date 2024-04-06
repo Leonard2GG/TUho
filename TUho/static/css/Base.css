@@ -3,6 +3,10 @@ html,body{
     font-family: sans-serif;
 }
 
+.row.content {
+    margin-right: 0;
+}
+
 .navbar-brand{
     pointer-events: none;
     height: 60px;

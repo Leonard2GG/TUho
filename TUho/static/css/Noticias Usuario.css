@@ -229,7 +229,7 @@ textarea.input{
 
 .text{
     color:#333;
-    margin: 0.5rem 0 0.5rem 0;
+    margin: 0.5rem 0.6rem 0.5rem 0;
     text-align: justify;
     padding-left: 1rem;
     word-wrap: break-word;
@@ -242,7 +242,7 @@ span{
 
 .card-title{
     color: #005296;
-    padding-left: 0.9rem;
+    padding: 1rem 0 0 0.9rem;
 }
 
 .card-header{
