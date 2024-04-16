@@ -13,3 +13,7 @@
 .card-header{
     background: #fff !important;
 }
+
+input{
+    box-shadow: none !important;
+}

@@ -10,30 +10,29 @@
     {% block content %}
     <main class="content-inside px-3 py-2 mx-2" >
       <div>
-        <h3 class="card-title text-center">Noticias</h3>
+        <h3 class="card-title text-center" style="color: #005296;">Noticias</h3>
       </div>
-      <hr>
-      
+      <hr class="noticias">
         {% if noticias %}
-            {% for noticia in noticias %}
-                  <div class="noticia">
-                    <div >
-                      <h5 class="card-title" style="color: #005296;">{{ noticia.titulo }}</h5> 
-                    </div>
+        {% for noticia in noticias %}
+                  <div class="card">
+                    <span class="fecha">{{ noticia.on_create }}</span>
+                    <hr>
                     <div>
-                      <p class="text">{{ noticia.cuerpo }}</p>
-                      <span class="d-flex justify-content-end mb-2 ">{{ noticia.on_create }}</span>
+                      <h5 class="title" >{{ noticia.titulo }}</h5>
+                      <p class="text">{{ noticia.cuerpo }}</p> 
                     </div>
-                  </div>
-                  <hr>
-            {% endfor %}
-            {% else %}
-            <section class="d-flex flex-column justify-content-center align-content-center">
-                <p class="text text-center">
-                No hay noticias nuevas hechas recientemente
-                </p>
-            </section>
-        {% endif %}     
+                </div>
+                {% endfor %}
+                  {% else %}
+                <section class="d-flex flex-column justify-content-center align-content-center">
+                  <p class="text text-center">
+                  No hay noticias 
+                  </p>
+                </section>
+        {% endif %}   
+        
+              
       </main>
     {% endblock %}
 

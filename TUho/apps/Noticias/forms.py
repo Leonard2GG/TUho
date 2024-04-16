@@ -11,5 +11,5 @@ class CrearNoticiasForm(ModelForm):
         fields = '__all__'
         widgets = {
             'titulo' : forms.TextInput(attrs={'type':"text",'name':"titulo", 'class':"input", 'required':'true'}),
-            'cuerpo' : forms.Textarea(attrs={'name':"message", 'class':"input", 'required':'true', 'id': 'inputText'}),
+            'cuerpo' : forms.Textarea(attrs={'name':"cuerpo", 'class':"input", 'required':'true', 'id': 'inputText'}),
         }

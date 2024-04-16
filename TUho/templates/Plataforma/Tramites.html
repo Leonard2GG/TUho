@@ -14,13 +14,12 @@
     {% block content %}
     <main class="content-inside px-3 py-2" >
         <section  id="tablaTramites">
-            <div class="card border-0">
+            <div class="card p-2">
                 <div class="card-header">
                     <h5 class="card-title">
                         Trámites
                     </h5>
                 </div>
-                <div class="card-body ">
                     <table id="Tramites" class="display table table-striped table-hover table-primary" style="width:100%; height: 100%;">
                         <thead class="encabezado">
                             <tr>
@@ -47,20 +46,16 @@
                           </tr>
                         </tbody>
                     </table>
-                </div>
-                <div class="card-footer d-flex justify-content-end">
-                    <button class="btn btn-primary">Añadir trámite</button>
-                </div>  
             </div>
           </section>
         <section id="graficaPieTrámites">
-          <div class="card border-0">
+          <div class="card p-2">
             <div class="card-header">
               <h5 class="card-title">
                 Estados de los Trámites
               </h5>
             </div>
-            <div class="card-body" style="width: 100%; height: 60vh;" >
+            <div style="width: 100%; height: 60vh;" >
               <canvas id="myChartPie"></canvas>
             </div>
           </div> 

@@ -16,22 +16,18 @@
             </div>
         </section >
             {% for noticia in noticias %}
-            <section  id="tablaUsuarios">
-                <div class="card p-2">
-                    <div class="card-header">
-                        <h5 class="card-title">
-                            {{ noticia.titulo }}
-                        </h5>
-                    </div>
+            <section>
+                <div class="card">
+                    <span class="fecha">{{ noticia.on_create }}</span>
+                    <hr>
                     <div>
-                        <p class="text">
-                            {{ noticia.cuerpo }}
-                        </p>
-                        <span class="d-flex justify-content-end mb-2 ">{{ noticia.on_create }}</span>
+                      <h5 class="title" >{{ noticia.titulo }}</h5>
+                      <p class="text">{{ noticia.cuerpo }}</p> 
                     </div>
-                    <div class=" card-footer d-flex justify-content-end">
-                        <a href="{% url 'EditarNoticia' noticia.id %}" class="btn btn-primary m-1">Editar</a>
-                        <a href="{% url 'EliminarNoticia' noticia.id %}" class="btn btn-primary m-1  ">Eliminar</a>
+                    <hr>
+                    <div class=" d-flex justify-content-end mx-2 mb-1 gap-1 pb-1">
+                        <a href="{% url 'EditarNoticia' noticia.id %}" class="btn btn-primary">Editar</a>
+                        <a href="{% url 'EliminarNoticia' noticia.id %}" class="btn btn-primary">Eliminar</a>
                     </div> 
                 </div>
               </section>

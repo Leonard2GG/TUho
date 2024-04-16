@@ -35,6 +35,8 @@ def Login(request:HttpRequest):
                 return redirect("Administracion")
             elif verify_group(usuario, "Usuario"):
                 return redirect("Inicio")
+            elif verify_group(usuario, "Supervisor"):
+                return redirect("Administracion")
             return redirect("Inicio")
 
         else:

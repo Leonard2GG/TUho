@@ -1,4 +1,4 @@
-from django.shortcuts import render, HttpResponse
+from django.shortcuts import redirect, render, HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.core.mail import send_mail
 from apps.Usuarios.models import Usuario
@@ -55,6 +55,12 @@ def Usuarios(request):
         'usuarios': Usuario.objects.all()
     }
     return render (request,"Plataforma/Usuarios.html", context)
+
+@login_required
+def EliminarUsuario(request,id):
+    usuario = Usuario.objects.get(id=id)
+    usuario.delete()
+    return redirect("Usuarios")
 
 
 def NoticiasUsuario(request):

@@ -11,23 +11,9 @@
             <div class="contact-info">
                 <h3 class="title">Noticia </h3>
                 <p class="text">
-                    En nuestro centro de atención a la población, nos esforzamos por brindar un servicio de calidad y cercanía a todos los ususarios.
-                    Nos comprometemos a escuchar sus necesidades, preocupaciones y para poder ofrecerles la mejor atención posible. 
+                    Si tienes información relevante, interesante o impactante que qieras compartir con el mundo ¡Esta es tu oportunidad! Envianos tus noticias y ayuda
+                    a mantener nuestra sociedad informada y actualizada. 
                 </p>
-                <div class="info">
-                    <div class="information">
-                        <i class="bx bx-map-alt" class="icon"></i>
-                        <p>Avenida XX Aniversario</p>
-                    </div>
-                    <div class="information">
-                        <i class="bx bx-envelope" class="icon"></i>
-                        <p>tramitesuho@gmail.com</p>
-                    </div>
-                    <div class="information">
-                        <i class="bx bx-phone" class="icon"></i>
-                        <p>+53 55568719</p>
-                    </div>
-                </div>
             </div>
             <div class="contact-form">
                 <span class="circle one"></span>
@@ -36,12 +22,12 @@
                   {% csrf_token %}
                     <h3 class="title">Editar Noticia</h3>
                     <div class="input-container focus">
-                        <input type="text" name="titulo" class="input"  value="{{noticias.titulo}}">
+                        <input type="text" name="titulo" class="input"  value="{{ noticias.titulo }}">
                         <label for="">Título</label>
                         <span>Título</span>
                     </div>
                     <div class="input-container textarea focus">
-                        <textarea name="cuerpo" class="input" value="{{noticias.cuerpo}}"></textarea>
+                        <textarea name="cuerpo" class="input" value="{{ noticias.cuerpo }}" id="inputText" ></textarea>
                         <label for="">Contenido</label>
                         <span>Contenido</span>
                     </div>
@@ -53,7 +39,6 @@
 {% endblock %}
 
     {% block js %}
-    <script src="{% static 'js/FormularioSelect.js' %}"></script>
     <script>
         const textarea = document.querySelector("textarea").value = "{{ noticias.cuerpo }}"
     </script>
