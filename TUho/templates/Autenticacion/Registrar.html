@@ -16,6 +16,7 @@
                 {% if response == 'incorrecto' %}
                     
                         <div style=" position: absolute; right: 20px; top:10px; display: flex; align-items: center; padding-right: 0rem;margin-left:20px" class="alert alert-warning alert-dismissible fade show" role="alert">
+                            <i class="bi bi-exclamation-triangle"></i>
                             {% for message in messages %}
                                 {{ message }} <br/>
                             {% endfor %}
