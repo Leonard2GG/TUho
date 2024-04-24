@@ -86,7 +86,7 @@ a.sidebar-link {
     height: 100vh;
     flex-direction: column;
     justify-content: space-between;
-    background: white;
+    
 }
 
 .content {
@@ -96,7 +96,7 @@ a.sidebar-link {
 
 
 .contenedor {
-    width: calc( 100% - 270px );
+    width: calc( 100% - 250px );
 }
 
 .responsivo{
@@ -110,8 +110,10 @@ a.sidebar-link {
         width: 100%;
     }
 
+    p{
+        font-size: 0.9rem;
+    }
     .footer{
-
         font-size: 0.9rem;
     }
 }

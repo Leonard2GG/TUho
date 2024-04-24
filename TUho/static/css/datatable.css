@@ -17,3 +17,17 @@
 input{
     box-shadow: none !important;
 }
+
+.iconos{
+    color:black;
+}
+
+.iconos:hover{
+    font-size: 1.3rem;
+    color: #0d6efd;
+}
+
+a{
+    text-decoration: none;
+    color: black;
+}

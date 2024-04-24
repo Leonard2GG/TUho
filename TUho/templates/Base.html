@@ -52,7 +52,7 @@
                   Trámites
               </a>
               <ul id="pages" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
-                  <li class="nav-item mb-1 " aria-label="SecretariaDocente">
+                  <li class="nav-item mb-1 " aria-label="InicioSD">
                       <a href="#" class="sidebar-link">Secretaría Docente</a>
                   </li>
               </ul>
@@ -79,15 +79,35 @@
         <hr class="mb-0">
         <div>
           <ul class="mynav nav nav-pills flex-column mb-auto ">
-            <li class="nav-item mb-1 " aria-label="CerrarSesion">
-              <a href="{% url 'CerrarSesion' %}" class="">
+            <li class="nav-item mb-1 " aria-label="CerrarSesion" >
+              <a class="" data-bs-toggle="modal" data-bs-target="#exampleModal">
                 <i class="bx bx-log-out"></i>
                 Cerrar Sesión
               </a>
             </li>
           </ul>
         </div>
-
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel" style="color:black"><i class="bxi bi-exclamation-triangle" style="color:black"></i> Advertencia</h5>
+                    <button type="button" class="btn-close cerrar" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+                </div>
+                <div class="modal-body" style="color:black">
+                    ¿Desea cerrar esta sesión?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary"
+                        data-bs-dismiss="modal">Cancelar</button>
+                    <a href="{% url 'CerrarSesion' %}"  class="btn btn-primary">Aceptar</a>
+                </div>
+            </div>
+        </div>
+    </div>
           {% else %}
           
           <ul class="mynav nav nav-pills flex-column mb-auto">
@@ -114,7 +134,7 @@
                   </li>
               </ul>
           </li>
-          <li class="nav-item mb-1 " aria-label="CerrarSesion">
+          <li class="nav-item mb-1 " aria-label="Login" >
             <a href="{% url 'Login' %}" class="">
               <i class="bx bx-log-in"></i>
               Iniciar Sesión
@@ -156,6 +176,8 @@
     {% endblock %}
 <script src=" {% static 'libs/Bootstrap/js/bootstrap.bundle.min.js' %}"></script>
 <script src=" {% static 'js/script.js' %}"></script>
+<!-- Modal -->
+<script src="{% static 'js/Modals.js' %}"></script>
 
 
 

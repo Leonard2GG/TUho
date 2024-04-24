@@ -1,107 +1,134 @@
 {% extends "Base Admin.html" %}
 {% load static %}
 
-    {% block css %}
-    <link rel="stylesheet" href=" {% static 'css/Sitio Administrativo.css' %}">
-    <link rel="stylesheet" href=" {% static 'libs/Datatable/CSS/dataTables.bootstrap5.css' %}">
-    <link rel="stylesheet" href=" {% static 'libs/Datatable/CSS/buttons.bootstrap5.css' %}">
-    <link rel="stylesheet" href=" {% static 'libs/Datatable/CSS/responsive.bootstrap5.css' %}">
-    <link rel="stylesheet" href=" {% static 'css/datatable.css' %}">
-    <link rel="stylesheet" href=" {% static 'libs/Chart/css/chart.css' %}">
-    {% endblock %}
-    
+{% block css %}
+<link rel="stylesheet" href=" {% static 'css/Sitio Administrativo.css' %}">
+<link rel="stylesheet" href=" {% static 'libs/Datatable/CSS/dataTables.bootstrap5.css' %}">
+<link rel="stylesheet" href=" {% static 'libs/Datatable/CSS/buttons.bootstrap5.css' %}">
+<link rel="stylesheet" href=" {% static 'libs/Datatable/CSS/responsive.bootstrap5.css' %}">
+<link rel="stylesheet" href=" {% static 'css/datatable.css' %}">
+<link rel="stylesheet" href=" {% static 'libs/Chart/css/chart.css' %}">
+{% endblock %}
 
-    {% block content %}
-    <main class="content-inside px-3 py-2 mx-2" >
-      <section  id="tablaUsuarios">
+
+{% block content %}
+<main class="content-inside px-3 py-2 mx-2">
+    <section id="tablaUsuarios">
         <div class="card p-2">
             <div class="card-header">
                 <h5 class="card-title">
                     Usuarios
                 </h5>
             </div>
-            
-                <table id="Usuarios" class="display table table-striped table-hover table-primary" style="width:100%">
-                    <thead class="encabezado">
-                        <tr>
-                            <th scope="col" style="color: white; text-align: start;">Usuario</th>
-                            <th scope="col" style="color: white; text-align: start;">Teléfono</th>
-                            <th scope="col" style="color: white; text-align: start;">Email</th>
-                            <th scope="col" style="color: white; text-align: start;">Ultima Conexion</th>
-                            <th scope="col" style="color: white; text-align: start;">Rol</th>
-                            <th scope="col" style="color: white; text-align: start;">Eliminar</th>
-                            
-                          </tr>
-                      </thead>
-                      <tbody>
-                        {% for usuario in usuarios %}
-                            <tr>
-                                <td style="text-align: start;">{{ usuario.username }}</td>
-                                <td style="text-align: start;">
-                                {% if usuario.telefono %}
-                                    {{ usuario.telefono }}
-                                {% else %}
-                                    N/A
-                                {% endif %}
-                                </td>
-                                <td style="text-align: start;">{{ usuario.email }}</td>
-                                <td style="text-align: start;">
-                                    {% if usuario.last_login %}
-                                    {{ usuario.last_login }}
-                                {% else %}
-                                    N/A
-                                {% endif %}
-                                </td>
-                                <td style="text-align: start;">
-                                    <select class="form-select role-selection">
-                                    <option value="Usuario">Usuario</option>
-                                    <option value="Administración">Administrador</option>
-                                    <option value="Supervisor">Supervisor</option>
-                                </select></td>
-                                <td style="text-align: center; font-size: 1.1rem;"><a href="{% url 'EliminarUsuario' usuario.id %}"><i class="bx bx-trash"></i></a></td>
-                            </tr>
-                        {% endfor %}
-                      </tbody>
-                </table>
-            </div>  
+
+            <table id="Usuarios" class="display table table-striped table-hover table-primary" style="width:100%">
+                <thead class="encabezado">
+                    <tr>
+                        <th scope="col" style="color: white; text-align: start;">Usuario</th>
+                        <th scope="col" style="color: white; text-align: start;">Teléfono</th>
+                        <th scope="col" style="color: white; text-align: start;">Email</th>
+                        <th scope="col" style="color: white; text-align: start;">Ultima Conexion</th>
+                        <th scope="col" style="color: white; text-align: start;">Rol</th>
+                        <th scope="col" style="color: white; text-align: start;">Eliminar</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for usuario in usuarios %}
+                    <tr>
+                        <td style="text-align: start;">{{ usuario.username }}</td>
+                        <td style="text-align: start;">
+                            {% if usuario.telefono %}
+                            {{ usuario.telefono }}
+                            {% else %}
+                            N/A
+                            {% endif %}
+                        </td>
+                        <td style="text-align: start;">
+                            {% if usuario.email %}
+                            <a href="mailto:{{ usuario.email }}">{{ usuario.email }}</a>
+                            {% else %}
+                            N/A
+                            {% endif %}
+                        </td>
+                        <td style="text-align: start;">
+                            {% if usuario.last_login %}
+                            {{ usuario.last_login }}
+                            {% else %}
+                            N/A
+                            {% endif %}
+                        </td>
+                        <td style="text-align: start;">
+                            <select class="form-select role-selection">
+                                <option value="Usuario">Usuario</option>
+                                <option value="Administración">Administrador</option>
+                                <option value="Supervisor">Supervisor</option>
+                            </select>
+                        </td>
+                        <td style="text-align: center; font-size: 1.2rem;"><a class="iconos" data-bs-toggle="modal"
+                                data-bs-target="#eliminateUserModal"><i class="bx bx-trash"></i></a></td>
+                    </tr>
+                    <!-- Modal -->
+                    <div class="modal fade" id="eliminateUserModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                        aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel"><i class="bi bi-exclamation-triangle"></i> Advertencia</h5>
+                                    <button type="button" class="btn-close cerrar" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    ¿Desea eliminar este usuario?
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary"
+                                        data-bs-dismiss="modal">Cancelar</button>
+                                    <a href="{% url 'EliminarUsuario' usuario.id %}" class="btn btn-primary">Aceptar</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </tbody>
+            </table>
         </div>
-      </section>
-      </main>
-    {% endblock %}
+        </div>
+    </section>
 
-    {% block js%}
-    <script src="{% static 'libs/Datatable/JS/jquery-3.7.1.js' %}"></script>
-    <script src="{% static 'libs/Datatable/JS/dataTables.js' %}"></script>  
-    <script src="{% static 'libs/Datatable/JS/dataTables.bootstrap5.js' %}"></script>
-    <!--Botones DataTables-->  
-    <script src="{% static 'libs/Datatable/JS/dataTables.buttons.js' %}"></script>  
-    <script src="{% static 'libs/Datatable/JS/buttons.bootstrap5.js' %}"></script>  
-    <script src="{% static 'libs/Datatable/JS/jszip.min.js' %}"></script>  
-    <script src="{% static 'libs/Datatable/JS/pdfmake.min.js' %}"></script>  
-    <script src="{% static 'libs/Datatable/JS/vfs_fonts.js' %}"></script>  
-    <script src="{% static 'libs/Datatable/JS/buttons.html5.min.js' %}"></script>  
-    <script src="{% static 'libs/Datatable/JS/buttons.print.min.js' %}"></script>  
-    <script src="{% static 'libs/Datatable/JS/bottons.colVis.min.js' %}"></script>  
+
+
+</main>
+{% endblock %}
+
+{% block js%}
+<script src="{% static 'libs/Datatable/JS/jquery-3.7.1.js' %}"></script>
+<script src="{% static 'libs/Datatable/JS/dataTables.js' %}"></script>
+<script src="{% static 'libs/Datatable/JS/dataTables.bootstrap5.js' %}"></script>
+<!--Botones DataTables-->
+<script src="{% static 'libs/Datatable/JS/dataTables.buttons.js' %}"></script>
+<script src="{% static 'libs/Datatable/JS/buttons.bootstrap5.js' %}"></script>
+<script src="{% static 'libs/Datatable/JS/jszip.min.js' %}"></script>
+<script src="{% static 'libs/Datatable/JS/pdfmake.min.js' %}"></script>
+<script src="{% static 'libs/Datatable/JS/vfs_fonts.js' %}"></script>
+<script src="{% static 'libs/Datatable/JS/buttons.html5.min.js' %}"></script>
+<script src="{% static 'libs/Datatable/JS/buttons.print.min.js' %}"></script>
+<script src="{% static 'libs/Datatable/JS/bottons.colVis.min.js' %}"></script>
 <!--DataTables responsivo-->
-    <script src="{% static 'libs/Datatable/JS/dataTables.responsive.js' %}"></script>  
-    <script src="{% static 'libs/Datatable/JS/responsive.bootstrap5.js' %}"></script>  
+<script src="{% static 'libs/Datatable/JS/dataTables.responsive.js' %}"></script>
+<script src="{% static 'libs/Datatable/JS/responsive.bootstrap5.js' %}"></script>
 <!--Inicializar DataTables-->
-    <script src="{% static 'libs/Datatable/JS/Usuarios.js' %}"></script>
-    <script>
-        
-        $( document ).ready( () => {
-        let options = document.querySelectorAll(".role-selection")
-        {% for usuario in usuarios %}
-            options[{{ forloop.counter0 }}].value = "{{ usuario.groups.all.0 }}"
-        {% endfor %}
-        })
-    </script>
-    {% endblock %}
-        
-            
+<script src="{% static 'libs/Datatable/JS/Usuarios.js' %}"></script>
+<!-- Modal -->
+<script src="{% static 'js/Modals.js' %}"></script>
 
+<script>    
+    $( document ).ready( () => {
+    let options = document.querySelectorAll(".role-selection")
+    {% for usuario in usuarios %}
+        options[{{ forloop.counter0 }}].value = "{{ usuario.groups.all.0 }}"
+    {% endfor %}
+    })
+</script>
 
-  
-
-              
-           
+{% endblock %}

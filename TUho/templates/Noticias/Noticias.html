@@ -25,9 +25,9 @@
                       <p class="text">{{ noticia.cuerpo }}</p> 
                     </div>
                     <hr>
-                    <div class=" d-flex justify-content-end mx-2 mb-1 gap-1 pb-1">
-                        <a href="{% url 'EditarNoticia' noticia.id %}" class="btn btn-primary">Editar</a>
-                        <a href="{% url 'EliminarNoticia' noticia.id %}" class="btn btn-primary">Eliminar</a>
+                    <div class=" d-flex justify-content-end mx-2 gap-1 pb-1">
+                        <a href="{% url 'EditarNoticia' noticia.id %}" class="btn btn-primary"><i class="bx bx-edit"></i></a>
+                        <a href="{% url 'EliminarNoticia' noticia.id %}" class="btn btn-primary"><i class="bx bx-trash"></i></a>
                     </div> 
                 </div>
               </section>

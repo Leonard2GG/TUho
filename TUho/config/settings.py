@@ -139,3 +139,5 @@ EMAIL_HOST_PASSWORD = "pall eymt bkqv wkvs"
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_USE_SSL = False
+
+ALLOWED_REDIRECT_URLS = ['mailto://']

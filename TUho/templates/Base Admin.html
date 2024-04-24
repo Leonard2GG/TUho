@@ -63,15 +63,35 @@
       <div>
         <ul class="mynav nav nav-pills flex-column mb-auto ">
           <li class="nav-item mb-1 " aria-label="CerrarSesion">
-            <a href="{% url 'CerrarSesion' %}" class="">
+            <a class="" data-bs-toggle="modal" data-bs-target="#exampleModal">
               <i class="bx bx-log-out"></i>
               Cerrar Sesión
             </a>
           </li>
         </ul>
-        
       </div>
     </div>
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel"><i class="bi bi-exclamation-triangle"></i> Advertencia</h5>
+              <button type="button" class="btn-close cerrar" data-bs-dismiss="modal"
+                  aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+              ¿Desea cerrar esta sesión?
+          </div>
+          <div class="modal-footer">
+              <button type="button" class="btn btn-primary"
+                  data-bs-dismiss="modal">Cancelar</button>
+              <a href="{% url 'CerrarSesion' %}"  class="btn btn-primary">Aceptar</a>
+          </div>
+      </div>
+  </div>
+</div>
 
     <div class="bg-light contenedor">
       <div class="p-2 d-md-none d-flex text-white responsivo">
@@ -99,5 +119,7 @@
     {% endblock %}
 <script src=" {% static 'libs/Bootstrap/js/bootstrap.bundle.min.js' %}"></script>
 <script src=" {% static 'js/script.js' %}"></script>
+<!-- Modal -->
+<script src="{% static 'js/Modals.js' %}"></script>
 
 
