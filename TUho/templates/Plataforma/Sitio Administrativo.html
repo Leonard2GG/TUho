@@ -52,8 +52,11 @@
                         <!-- small box -->
                         <div class="small-box bg-box-one">
                           <div class="inner">
-                            <h3>44</h3>
-            
+                            {% for usuario in usuarios %}
+                                {% if forloop.last %}
+                                   <h3>{{ forloop.counter }}</h3>
+                                {% endif %}
+                            {% endfor %}            
                             <p>Usuarios</p>
                           </div>
                           <div class="icon">
