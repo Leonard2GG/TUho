@@ -26,7 +26,10 @@ def Login(request:HttpRequest):
     if request.POST:
         username = request.POST['username']
         password = request.POST['password']
-        user_to_auth = Usuario.objects.get(username=username)
+        try:
+            user_to_auth = Usuario.objects.get(username=username)
+        except Usuario.DoesNotExist:
+            return render(request, "Autenticacion/Login.html", {'response': 'incorrecto', 'message': 'Fallo en la autentificación'})
         user = authenticate(request, username=user_to_auth.username, password=password)
         if user is not None:
             login(request, user)
@@ -38,10 +41,9 @@ def Login(request:HttpRequest):
             elif verify_group(usuario, "Supervisor"):
                 return redirect("Administracion")
             return redirect("Inicio")
-
         else:
-            return render(request,"Autenticacion/Login.html",{'response':'incorrecto', 'message':'Fallo en la autentificación'})
-    return render (request,"Autenticacion/Login.html")
+            return render(request, "Autenticacion/Login.html", {'response': 'incorrecto', 'message': 'Fallo en la autentificación'})
+    return render(request, "Autenticacion/Login.html")
 
 def Registrar(request:HttpRequest):
     if request.POST:
