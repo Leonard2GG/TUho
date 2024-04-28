@@ -12,8 +12,11 @@
   <link rel="stylesheet" href="{% static 'libs/boxicons-2.1.4/css/boxicons.css' %}">
   <link rel="stylesheet" href="{% static 'libs/Bootstrap/icon/bootstrap-icons.min.css' %}">
   <link rel="icon" type="image/png" sizes="50x50" href="{% static 'img/Id UHo-03-white.png' %}">
+
+  <!-- Container CSS -->
   {% block css %}
   {% endblock %}
+  <!-- End Container JS -->
 
   <title>Trámites Universidad de Holguín</title>
 
@@ -21,6 +24,8 @@
 </head>
 
 <body>
+
+  <!-- Sidebar -->
   <div class="container-fluid p-0 d-flex h-100">
     <div id="bdSidebar"
       class="d-flex flex-column flex-shrink-0 p-3  pt-0 pb-0 text-white offcanvas-md offcanvas-start responsivo"
@@ -137,7 +142,7 @@
           <div class="modal-header">
             <h5 class="modal-title" id="exampleModalLabel" style="color:black"><i class="bxi bi-exclamation-triangle"
                 style="color:black"></i> Advertencia</h5>
-            <button type="button" class="btn-close cerrar" data-bs-dismiss="modal" aria-label="Close"></button>
+            <button type="button" class="btn-close cerrar" data-bs-dismiss="modal" aria-label="Close" style="box-shadow: none"></button>
           </div>
           <div class="modal-body" style="color:black">
             ¿Desea cerrar esta sesión?
@@ -156,29 +161,32 @@
         </a>
         <span class="ms-3">Trámites Universidad de Holguín</span>
       </div>
+      <!-- End Sidebar -->
 
       <div class="main-container">
-
         <div class="row content">
           <div class="col">
+            <!-- Container -->
             {% block content %}
-
             {% endblock %}
-
+            <!-- End Container -->
           </div>
+
+          <!-- Footer -->
           <p class="text-center pb-2 footer">Copyright &copy; 2024 Trámites Universidad de Holguín. All rights reserved.
           </p>
+          <!-- End Footer-->
         </div>
       </div>
     </div>
 
-
-  {% block js %}
-  {% endblock %}
-  <script src=" {% static 'libs/Bootstrap/js/bootstrap.bundle.min.js' %}"></script>
-  <script src=" {% static 'js/script.js' %}"></script>
-  <!-- Modal -->
-  <script src="{% static 'js/Modals.js' %}"></script>
+    <!-- Container JS -->
+    {% block js %}
+    {% endblock %}
+    <script src=" {% static 'libs/Bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+    <script src=" {% static 'js/script.js' %}"></script>
+    <script src="{% static 'js/Modals.js' %}"></script>
+    <!-- End Container Js -->
 
 
 

@@ -1,75 +1,78 @@
 {% extends "Base.html" %}
 {% load static %}
 
-    {% block css %}
-    <link rel="stylesheet" href=" {% static 'css/FormularioSelect.css' %}">
-    {% endblock %}
+<!-- Conatiner CSS -->
+{% block css %}
+<link rel="stylesheet" href=" {% static 'css/FormularioSelect.css' %}">
+{% endblock %}
+<!-- End Conatiner JS -->
 
-    {% block content %}
-              <div class="container-form">
-                <div class="form">
-                    <div class="contact-info">
-                        <h3 class="title">Información Personal</h3>
-                        <p class="text">
-                            Nos comprometemos a proteger tu información personal y a garantizar tu privacidad en todo momento.
-                            Valoramos la confianza que depositas en nostros al compartir tus datos, por lo que nos comprometemos 
-                            a utilizarlos de manera segura y responsable. 
-                        </p>
-                        <p class="text">
-                            Por favor es necesario que introdusca su información personal antes de realizar un trámite o servicio de nustra plataforma, así nos ayuda tanto usted
-                            a nostros como nosotros a usted. Muchas gracias.  
-                        </p>
-                        <p class="text">
-                            Si tienes alguna pregunta o inquietud sobre el tratamiento de tus datos personales, no dudes en ponerte 
-                            en contacto con nosotros. Estamos aquí para brindarte toda la información que necesites y garantizar que 
-                            tu privacidad sea respetada en todo momento.
-                        </p>
-                    </div>
-                    <div class="contact-form">
-                        <span class="circle one"></span>
-                        <span class="circle two"></span>
-                        <form action="." method="POST">
-                            {% csrf_token %} 
-                            <h3 class="title">Actualice su información</h3>
-                            <div class="input-container">
-                                {{form.first_name}}
-                                <label for="">Nombre</label>
-                                <span>Nombre</span>
-                            </div>
-                            <div class="input-container">
-                                {{form.last_name}}
-                              <label for="">Apellidos</label>
-                              <span>Apellidos</span>
-                          </div>
-                          <div class="input-container">
-                            {{form.carnet}}
-                            <label for="">Carnet ID</label>
-                            <span>Carnet ID</span>
-                          </div>
-                            <div class="input-container">
-                                {{form.email}}
-                                <label for="">Email</label>
-                                <span>Email</span>
-                            </div>
-                            <div class="input-container">
-                                {{form.telefono}}
-                                <label for="">Teléfono</label>
-                                <span>Teléfono</span>
-                            </div>
-                            <div class="input-container textarea">
-                                {{form.direccion}}
-                                <label for="">Dirrección</label>
-                                <span>Dirrección</span>
-                            </div>
-                            <input type="submit" value="Aceptar" class="btn1" id="boton">
-                        </form>
-                    </div>
+{% block content %}
+<div class="container-form">
+    <div class="form">
+        <div class="contact-info">
+            <h3 class="title">Información Personal</h3>
+            <p class="text">
+                Nos comprometemos a proteger tu información personal y a garantizar tu privacidad en todo momento.
+                Valoramos la confianza que depositas en nostros al compartir tus datos, por lo que nos comprometemos
+                a utilizarlos de manera segura y responsable.
+            </p>
+            <p class="text">
+                Por favor es necesario que introdusca su información personal antes de realizar un trámite o servicio de
+                nustra plataforma, así nos ayuda tanto usted
+                a nostros como nosotros a usted. Muchas gracias.
+            </p>
+            <p class="text">
+                Si tienes alguna pregunta o inquietud sobre el tratamiento de tus datos personales, no dudes en ponerte
+                en contacto con nosotros. Estamos aquí para brindarte toda la información que necesites y garantizar que
+                tu privacidad sea respetada en todo momento.
+            </p>
+        </div>
+        <div class="contact-form">
+            <span class="circle one"></span>
+            <span class="circle two"></span>
+            <form action="." method="POST">
+                {% csrf_token %}
+                <h3 class="title">Actualice su información</h3>
+                <div class="input-container">
+                    {{form.first_name}}
+                    <label for="">Nombre</label>
+                    <span>Nombre</span>
                 </div>
-            </div>
-    {% endblock %}
+                <div class="input-container">
+                    {{form.last_name}}
+                    <label for="">Apellidos</label>
+                    <span>Apellidos</span>
+                </div>
+                <div class="input-container">
+                    {{form.carnet}}
+                    <label for="">Carnet ID</label>
+                    <span>Carnet ID</span>
+                </div>
+                <div class="input-container">
+                    {{form.email}}
+                    <label for="">Email</label>
+                    <span>Email</span>
+                </div>
+                <div class="input-container">
+                    {{form.telefono}}
+                    <label for="">Teléfono</label>
+                    <span>Teléfono</span>
+                </div>
+                <div class="input-container textarea">
+                    {{form.direccion}}
+                    <label for="">Dirrección</label>
+                    <span>Dirrección</span>
+                </div>
+                <input type="submit" value="Aceptar" class="btn1" id="boton">
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
 
-    {% block js %}
-    <script src="{% static 'js/FormularioSelect.js' %}"></script>
-    {% endblock %}
-        
-            
+<!-- Conatiner JS -->
+{% block js %}
+<script src="{% static 'js/FormularioSelect.js' %}"></script>
+{% endblock %}
+<!-- End Conatiner JS -->

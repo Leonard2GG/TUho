@@ -3,6 +3,7 @@ from django.forms import ModelForm
 from django.contrib.auth.forms import PasswordResetForm, SetPasswordForm
 
 
+# Formulario de Restablecer Contraseña
 class CustomPasswordResetForm(PasswordResetForm):
     email = forms.EmailField(
         label=("Email"),
@@ -10,6 +11,7 @@ class CustomPasswordResetForm(PasswordResetForm):
         widget=forms.EmailInput(attrs={'type':"text",'name':"email", 'class':"input", 'required':'true', 'id': 'inputEmail'}),
     )
 
+# Formulario de Cambiar Contraseña
 class ChangePasswordForm(SetPasswordForm):
     new_password1 = forms.CharField(
         label=("Contraseña"),

@@ -1,110 +1,117 @@
 {% extends "Base.html" %}
 {% load static %}
 
-    {% block css %}
-    <link rel="stylesheet" href=" {% static 'css/FormularioSelect.css' %}">
-    {% endblock %}
+<!-- Conatiner CSS -->
+{% block css %}
+<link rel="stylesheet" href=" {% static 'css/FormularioSelect.css' %}">
+{% endblock %}
+<!-- End Conatiner CSS -->
 
-    {% block content %}
-    <div class="container-form">
-      <div class="form">
-          <div class="contact-info">
-              <h3 class="title">Atención a la población </h3>
-              <p class="text">
-                  En nuestro centro de atención a la población, nos esforzamos por brindar un servicio de calidad y cercanía a todos los ususarios.
-                  Nos comprometemos a escuchar sus necesidades, preocupaciones y para poder ofrecerles la mejor atención posible. 
-              </p>
-              <div class="info">
-                  <div class="information">
-                      <i class="bx bx-map-alt" class="icon"></i>
-                      <p>Avenida XX Aniversario s/n Piedra Blanca, Holguín, Cuba</p>
-                  </div>
-                  <div class="information">
-                      <i class="bx bx-envelope" class="icon"></i>
-                      <p>tramitesuho@gmail.com</p>
-                  </div>
-                  <div class="information">
-                      <i class="bx bx-phone" class="icon"></i>
-                      <p>+53 55568719</p>
-                  </div>
-              </div>
-              <p class="text">
-                Nuestro objetivo es contribuir al bienestar y la mejora de la calidad de vida de toda la comunidad, brindando una 
-                atención integral y de calidad a cada persona que lo necesite.</br> 
-                ¡Estamos aquí para ayudarte! 
-            </p>
-          </div>
-          <div class="contact-form">
-              <span class="circle one"></span>
-              <span class="circle two"></span>
-              <form action="." method="POST" >
-                {% csrf_token %}
-                  <h3 class="title">Contactanos</h3>
-        {% if response %}
-                {% if response == 'correcto' %}
-                  <div class="alert alert-success alert-dismissible fade show" role="alert" style="height:40px; position: fixed; right: 20px; top: 50px; display: flex; align-items: center; padding-right: 0rem;">
-                    {{ message }}
-                    <button style="font-size: 10px; border-bottom: none; position: relative; box-shadow: none;" type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                    </button>
-                  </div>
-                {% endif %}
-          {% endif %}
-                  <div class="input-container focus">
-                      <input type="text" name="first_name" class="input"  value="{{ request.user.first_name }}" disabled>
-                      <label for="">Nombre</label>
-                      <span>Nombre</span>
-                  </div>
-                  <div class="input-container focus">
-                    <input type="text" name="last_name" class="input"  value="{{ request.user.last_name }}" disabled>
-                    <label for="">Apellidos</label>
-                    <span>Apellidos</span>
-                </div>
-                  <div class="input-container focus">
-                    <input type="text" name="address" class="input"  value="{{ request.user.direccion }}" disabled>
-                    <label for="">Dirección</label>
-                    <span>Dirección</span>
-                </div>
-                  <div class="input-container select-municipio">
-                      <input type="hidden" name="municipality">
-                      <div class="input selector">    
-                      </div>
-                      <label for="">Municipio</label>
-                      <span>Municipio</span>
-                  </div>
-                  <div class="select-options">
-                      <div aria-valuetext="Antilla" class="element">Antilla</div>
-                      <div aria-valuetext="Banes" class="element">Banes</div>
-                      <div aria-valuetext="Báguano" class="element">Báguano</div>
-                      <div aria-valuetext="Cacocum" class="element">Cacocum</div>
-                      <div aria-valuetext="Calixto García" class="element">Calixto García</div>
-                      <div aria-valuetext="Cueto" class="element">Cueto</div>
-                      <div aria-valuetext="Frank País" class="element">Frank País</div>
-                      <div aria-valuetext="Gibara" class="element">Gibara</div>
-                      <div aria-valuetext="Holguín" class="element">Holguín</div>
-                      <div aria-valuetext="Mayarí" class="element">Mayarí</div>
-                      <div aria-valuetext="Moa" class="element">Moa</div>
-                      <div aria-valuetext="Rafael Freyre" class="element">Rafael Freyre</div>
-                      <div aria-valuetext="Sagua de Tánamo" class="element">Sagua de Tánamo</div>
-                      <div aria-valuetext="Urbano Noris" class="element">Urbano Noris</div>
-                  </div>
-                  <div class="input-container">
-                    <input type="text" name="subject" class="input">
-                    <label for="">Asunto</label>
-                    <span>Asunto</span>
-                </div>
-                  <div class="input-container textarea">
-                      <textarea name="message" class="input"></textarea>
-                      <label for="">Mensaje</label>
-                      <span>Mensaje</span>
-                  </div>
-                  <input type="submit" value="Enviar" class="btn1">
-              </form>
-          </div>
+{% block content %}
+<div class="container-form">
+  <div class="form">
+    <div class="contact-info">
+      <h3 class="title">Atención a la población </h3>
+      <p class="text">
+        En nuestro centro de atención a la población, nos esforzamos por brindar un servicio de calidad y cercanía a
+        todos los ususarios.
+        Nos comprometemos a escuchar sus necesidades, preocupaciones y para poder ofrecerles la mejor atención posible.
+      </p>
+      <div class="info">
+        <div class="information">
+          <i class="bx bx-map-alt" class="icon"></i>
+          <p>Avenida XX Aniversario s/n Piedra Blanca, Holguín, Cuba</p>
+        </div>
+        <div class="information">
+          <i class="bx bx-envelope" class="icon"></i>
+          <p>tramitesuho@gmail.com</p>
+        </div>
+        <div class="information">
+          <i class="bx bx-phone" class="icon"></i>
+          <p>+53 55568719</p>
+        </div>
       </div>
+      <p class="text">
+        Nuestro objetivo es contribuir al bienestar y la mejora de la calidad de vida de toda la comunidad, brindando
+        una
+        atención integral y de calidad a cada persona que lo necesite.</br>
+        ¡Estamos aquí para ayudarte!
+      </p>
+    </div>
+    <div class="contact-form">
+      <span class="circle one"></span>
+      <span class="circle two"></span>
+      <form action="." method="POST">
+        {% csrf_token %}
+        <h3 class="title">Contactanos</h3>
+        {% if response %}
+        {% if response == 'correcto' %}
+        <div class="alert alert-success alert-dismissible fade show" role="alert"
+          style="height:40px; position: fixed; right: 20px; top: 50px; display: flex; align-items: center; padding-right: 0rem;">
+          {{ message }}
+          <button style="font-size: 10px; border-bottom: none; position: relative; box-shadow: none;" type="button"
+            class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </button>
+        </div>
+        {% endif %}
+        {% endif %}
+        <div class="input-container focus">
+          <input type="text" name="first_name" class="input" value="{{ request.user.first_name }}" disabled>
+          <label for="">Nombre</label>
+          <span>Nombre</span>
+        </div>
+        <div class="input-container focus">
+          <input type="text" name="last_name" class="input" value="{{ request.user.last_name }}" disabled>
+          <label for="">Apellidos</label>
+          <span>Apellidos</span>
+        </div>
+        <div class="input-container focus">
+          <input type="text" name="address" class="input" value="{{ request.user.direccion }}" disabled>
+          <label for="">Dirección</label>
+          <span>Dirección</span>
+        </div>
+        <div class="input-container select-municipio">
+          <input type="hidden" name="municipality">
+          <div class="input selector">
+          </div>
+          <label for="">Municipio</label>
+          <span>Municipio</span>
+        </div>
+        <div class="select-options">
+          <div aria-valuetext="Antilla" class="element">Antilla</div>
+          <div aria-valuetext="Banes" class="element">Banes</div>
+          <div aria-valuetext="Báguano" class="element">Báguano</div>
+          <div aria-valuetext="Cacocum" class="element">Cacocum</div>
+          <div aria-valuetext="Calixto García" class="element">Calixto García</div>
+          <div aria-valuetext="Cueto" class="element">Cueto</div>
+          <div aria-valuetext="Frank País" class="element">Frank País</div>
+          <div aria-valuetext="Gibara" class="element">Gibara</div>
+          <div aria-valuetext="Holguín" class="element">Holguín</div>
+          <div aria-valuetext="Mayarí" class="element">Mayarí</div>
+          <div aria-valuetext="Moa" class="element">Moa</div>
+          <div aria-valuetext="Rafael Freyre" class="element">Rafael Freyre</div>
+          <div aria-valuetext="Sagua de Tánamo" class="element">Sagua de Tánamo</div>
+          <div aria-valuetext="Urbano Noris" class="element">Urbano Noris</div>
+        </div>
+        <div class="input-container">
+          <input type="text" name="subject" class="input">
+          <label for="">Asunto</label>
+          <span>Asunto</span>
+        </div>
+        <div class="input-container textarea">
+          <textarea name="message" class="input"></textarea>
+          <label for="">Mensaje</label>
+          <span>Mensaje</span>
+        </div>
+        <input type="submit" value="Enviar" class="btn1">
+      </form>
+    </div>
   </div>
+</div>
 {% endblock %}
 
-    {% block js %}
-    <script src="{% static 'js/FormularioSelect.js' %}"></script>
-    {% endblock %}
-
+<!-- Conatiner JS -->
+{% block js %}
+<script src="{% static 'js/FormularioSelect.js' %}"></script>
+{% endblock %}
+<!-- End Conatiner JS -->

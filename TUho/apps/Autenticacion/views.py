@@ -11,15 +11,18 @@ from .forms import CustomPasswordResetForm, ChangePasswordForm
 
 # Create your views here.
 
+# Nombre de los Grupos
 def group_names(group:Group):
     return group.name
 
+# Verificar si ese usuario pertenece a ese grupo
 def verify_group(usuario, group_name):
     if group_name in map(  group_names , list(usuario.groups.all())):
         return True
     else:
         return False
 
+# Login
 def Login(request:HttpRequest):
     if request.user.is_authenticated:
         return redirect("Inicio")
@@ -45,6 +48,7 @@ def Login(request:HttpRequest):
             return render(request, "Autenticacion/Login.html", {'response': 'incorrecto', 'message': 'Fallo en la autentificación'})
     return render(request, "Autenticacion/Login.html")
 
+# Register
 def Registrar(request:HttpRequest):
     if request.POST:
         usuario = Usuario()
@@ -54,11 +58,9 @@ def Registrar(request:HttpRequest):
         password2 = request.POST['password2']
         if password and password2 and password != password2:
             return render(request,"Autenticacion/Registrar.html",{'response':'incorrecto', 'messages':['Las contraseñas deben coincidir']})
-
         usuario.username = username
         usuario.email = email
         usuario.set_password(password)
-        
         try:
             validation = password_validation.validate_password(password, usuario)
             usuario.save()
@@ -69,24 +71,28 @@ def Registrar(request:HttpRequest):
             mensajes = []
             for err in e:
                 mensajes.append(f"{err}")
-            return render(request,"Autenticacion/Registrar.html",{'response':'incorrecto', 'messages':mensajes})
-           
+            return render(request,"Autenticacion/Registrar.html",{'response':'incorrecto', 'messages':mensajes}) 
     return render (request,"Autenticacion/Registrar.html")
 
+# Restablecer Contraseña
 class RestablecerContraseña(auth_views.PasswordResetView):
     template_name = "Autenticacion/Restablecer Contraseña.html"
     form_class = CustomPasswordResetForm
 
+# Cambiar Contraseña
 class CambiarContraseña(auth_views.PasswordResetConfirmView):
     form_class = ChangePasswordForm
     template_name = "Autenticacion/Cambiar Contraseña.html"
-   
+
+# Confirmacion del Restablecer Contraseña  
 def RestablecerContraseñaConfirmado(request):
     return render(request,"Autenticacion/Restablecer Contraseña Confirmado.html")
 
+# Confirmación del Cambiar Contraseña
 def CambiarContraseñaConfirmado(request):
     return render(request,"Autenticacion/Cambiar Contraseña Confirmado.html")
 
+# Cerrar Sesión
 @login_required
 def CerrarSesion(request:HttpRequest):
     logout(request)

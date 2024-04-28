@@ -1,6 +1,7 @@
 {% extends "Base Admin.html" %}
 {% load static %}
 
+<!-- Conatiner CSS -->
 {% block css %}
 <link rel="stylesheet" href=" {% static 'css/Sitio Administrativo.css' %}">
 <link rel="stylesheet" href=" {% static 'libs/Datatable/CSS/dataTables.bootstrap5.css' %}">
@@ -9,6 +10,7 @@
 <link rel="stylesheet" href=" {% static 'css/datatable.css' %}">
 <link rel="stylesheet" href=" {% static 'libs/Chart/css/chart.css' %}">
 {% endblock %}
+<!-- End Conatiner CSS -->
 
 
 {% block content %}
@@ -65,7 +67,8 @@
                                 <option value="Supervisor">Supervisor</option>
                             </select>
                         </td>
-                        <td style="text-align: center; font-size: 1.2rem;"><a class="iconos" href="{% url 'EliminarUsuario' usuario.id %}"><i class="bx bx-trash"></i></a></td>
+                        <td style="text-align: center; font-size: 1.2rem;"><a class="iconos"
+                                href="{% url 'EliminarUsuario' usuario.id %}"><i class="bx bx-trash"></i></a></td>
                     </tr>
                     {% endfor %}
                 </tbody>
@@ -73,12 +76,10 @@
         </div>
         </div>
     </section>
-
-
-
 </main>
 {% endblock %}
 
+<!-- Conatiner JS -->
 {% block js%}
 <script src="{% static 'libs/Datatable/JS/jquery-3.7.1.js' %}"></script>
 <script src="{% static 'libs/Datatable/JS/dataTables.js' %}"></script>
@@ -110,3 +111,4 @@
 </script>
 
 {% endblock %}
+<!-- End Conatiner JS -->

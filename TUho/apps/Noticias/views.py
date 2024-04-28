@@ -5,11 +5,14 @@ from .models import Noticias
 
 
 # Create your views here.
+
+# Visualizar Noticias
 @login_required
 def NoticiasView(request):
     noticias = Noticias.objects.all()
     return render(request,"Noticias/Noticias.html", {'noticias':noticias})
 
+# Crear Noticias
 @login_required
 def CrearNoticia(request):
     noticia = Noticias()
@@ -21,6 +24,7 @@ def CrearNoticia(request):
         return redirect('Noticias')
     return render(request,"Noticias/Crear Noticia.html",{"noticias":form})
 
+# Editar Noticias
 @login_required
 def EditarNoticia(request,id):
     noticia = Noticias.objects.get(id=id)
@@ -28,10 +32,10 @@ def EditarNoticia(request,id):
         noticia.titulo = request.POST["titulo"]
         noticia.cuerpo = request.POST["cuerpo"]
         noticia.save()
-        return redirect('Noticias')
-        
+        return redirect('Noticias')    
     return render(request,"Noticias/Editar Noticia.html",{"noticias":noticia})
 
+# Eliminar Noticias
 @login_required
 def EliminarNoticia(request,id):
     noticia = Noticias.objects.get(id=id)

@@ -2,7 +2,7 @@ from django import forms
 from django.forms import ModelForm
 from .models import Usuario
 
-
+# Formulario de Usuario
 class InformacionPersonal(ModelForm):
     def __init__(self,*args,**kwargs):
         super().__init__(*args,**kwargs)

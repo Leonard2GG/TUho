@@ -7,7 +7,7 @@ from django.shortcuts import redirect, render
 
 # Create your views here.
 
-
+# Actualizar Información
 @login_required
 def ActualizarInf(request:HttpRequest):
     if request.POST:
@@ -20,7 +20,6 @@ def ActualizarInf(request:HttpRequest):
         usuario.direccion = request.POST['direccion']
         usuario.save()
         return redirect("InfoPersonal")
-    
     form = InformacionPersonal()
     return render(request,"Usuario/Actualizar Informacion Personal.html",{"form":form})
     

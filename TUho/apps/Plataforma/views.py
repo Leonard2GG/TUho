@@ -6,18 +6,21 @@ from apps.Noticias.models import Noticias
 
 # Create your views here.
 
-
+# Inicio
 def Inicio(request):
     return render(request,"Plataforma/Inicio.html")
 
+# Mis Tramites
 @login_required
 def MisTramites(request):
     return render(request,"Plataforma/Mis Trámites.html")
 
+# Información Personal
 @login_required
 def InformacionPersonal(request):
     return render (request,"Plataforma/Informacion Personal.html")
 
+# Atencion a la Población
 @login_required
 def AtencionPoblacion(request):
     if request.POST:
@@ -38,6 +41,7 @@ def AtencionPoblacion(request):
         return render (request,"Plataforma/Atención a la Poblacion.html",{'response':'correcto', 'message':'Se ha enviado correctamente'})
     return render (request,"Plataforma/Atención a la Poblacion.html")
 
+# Administración
 @login_required
 def Administracion(request):
     context = {
@@ -45,10 +49,12 @@ def Administracion(request):
     }
     return render (request,"Plataforma/Sitio Administrativo.html", context)
 
+# Trámites
 @login_required
 def Tramites(request):
     return render (request,"Plataforma/Tramites.html")
 
+# Usuarios
 @login_required
 def Usuarios(request):
     context = {
@@ -56,13 +62,14 @@ def Usuarios(request):
     }
     return render (request,"Plataforma/Usuarios.html", context)
 
+# Eliminar Usuarios
 @login_required
 def EliminarUsuario(request,id):
     usuario = Usuario.objects.get(id=id)
     usuario.delete()
     return redirect("Usuarios")
 
-
+# Noticas del usuario
 def NoticiasUsuario(request):
     noticias = Noticias.objects.all()
     return render(request,"Plataforma/Noticias Usuario.html", {'noticias':noticias})
