@@ -27,6 +27,12 @@ urlpatterns = [
     path('Tramites/',login_required (views.Tramites), name="Tramites"),
     path('Usuarios/',login_required (views.Usuarios), name="Usuarios"),
     path('EliminarUsuario/<int:id>/',login_required (views.EliminarUsuario), name="EliminarUsuario"),
+    path('CambiarRol/<int:id>/',login_required (views.CambiarRol), name="CambiarRol"),
     path('NoticiasUsuario/', views.NoticiasUsuario, name="NoticiasUsuario"),
     
+    #Noticias
+    path('Noticias/',login_required (views.NoticiasView), name="Noticias"),
+    path('CrearNoticia/',login_required (views.CrearNoticia), name="CrearNoticia"),
+    path('EditarNoticia/<int:id>/',login_required (views.EditarNoticia), name="EditarNoticia"),
+    path('EliminarNoticia/<int:id>/',login_required (views.EliminarNoticia), name="EliminarNoticia"),
 ]

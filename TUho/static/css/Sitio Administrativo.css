@@ -21,6 +21,26 @@
     width: 100%;
 }
 
+.pdf{
+    display: flex;
+    gap: 220px;
+}
+
+.boton-pdf{
+    border: 0;
+    background-color: transparent;
+}
+
+.boton-pdf i{
+    font-size: 22px;
+    color: #dc3545!important;
+    cursor: pointer;
+}
+
+.boton-pdf i:hover{
+    font-size: 23px;
+    
+}
 
 @media(min-width:768px){
     .content{

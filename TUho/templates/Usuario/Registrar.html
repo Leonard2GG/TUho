@@ -30,6 +30,12 @@
     
     {% endif %}
     {% endif %}
+
+    <div id="error-container">
+
+    </div>
+
+
     <img class="wave" src="{% static 'img/wave-blue-turned.png' %}">
     <div class="container-form">
         <div class="login-container">
@@ -74,7 +80,7 @@
                     </div>
                 </div>
                 <a class="a" href="{% url 'Login' %}">¿Ya tienes cuenta? Inicia sesión</a>
-                <input type="submit" class="btn1" value="Crear cuenta">
+                <input type="submit" class="btn1" id="boton" value="Crear cuenta">
             </form>
         </div>
         <div class="img">
@@ -87,6 +93,7 @@
     <script src="{% static 'js/popper.min.js' %}"></script>
     <script src="{% static 'js/Trim registrar.js' %}"></script>
     <script src="{% static 'js/Registrar.js' %}"></script>
+    <script src="{% static 'js/InputR.js' %}"></script>
     <script src=" {% static 'libs/Bootstrap/js/bootstrap.bundle.min.js' %}"></script>
     <!-- End Conatiner JS -->
 

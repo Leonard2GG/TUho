@@ -21,6 +21,4 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('',include('apps.Plataforma.urls')),
     path('Usuarios/',include('apps.Usuarios.urls')),
-    path('Noticias/',include('apps.Noticias.urls')),
-    path('Autenticacion/',include('apps.Autenticacion.urls')),
 ]

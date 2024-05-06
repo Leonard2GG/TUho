@@ -25,12 +25,12 @@
                 {% csrf_token %}
                 <h3 class="title">Nueva Noticia</h3>
                 <div class="input-container">
-                    <input type="text" name="titulo" class="input" value="">
+                    <input type="text" name="titulo" class="input" value=""  required>
                     <label for="">Título</label>
                     <span>Título</span>
                 </div>
                 <div class="input-container textarea">
-                    <textarea name="cuerpo" class="input" value=""></textarea>
+                    <textarea name="cuerpo" class="input" value="" required></textarea>
                     <label for="">Contenido</label>
                     <span>Contenido</span>
                 </div>

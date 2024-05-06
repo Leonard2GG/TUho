@@ -33,6 +33,9 @@
             <span class="circle two"></span>
             <form action="." method="POST">
                 {% csrf_token %}
+                <div id="error-container">
+
+                </div>
                 <h3 class="title">Actualice su información</h3>
                 <div class="input-container">
                     {{form.first_name}}
@@ -46,8 +49,8 @@
                 </div>
                 <div class="input-container">
                     {{form.carnet}}
-                    <label for="">Carnet ID</label>
-                    <span>Carnet ID</span>
+                    <label for="">Carnet</label>
+                    <span>Carnet</span>
                 </div>
                 <div class="input-container">
                     {{form.email}}
@@ -73,6 +76,7 @@
 
 <!-- Conatiner JS -->
 {% block js %}
+<script src="{% static 'js/Trim InfoPersonal.js' %}"></script>
 <script src="{% static 'js/FormularioSelect.js' %}"></script>
 {% endblock %}
 <!-- End Conatiner JS -->

@@ -71,7 +71,7 @@
           <span>Dirección</span>
         </div>
         <div class="input-container select-municipio">
-          <input type="hidden" name="municipality">
+          <input type="hidden" name="municipality" required>
           <div class="input selector">
           </div>
           <label for="">Municipio</label>
@@ -94,12 +94,12 @@
           <div aria-valuetext="Urbano Noris" class="element">Urbano Noris</div>
         </div>
         <div class="input-container">
-          <input type="text" name="subject" class="input">
+          <input type="text" name="subject" class="input" required>
           <label for="">Asunto</label>
           <span>Asunto</span>
         </div>
         <div class="input-container textarea">
-          <textarea name="message" class="input"></textarea>
+          <textarea name="message" class="input" required></textarea>
           <label for="">Mensaje</label>
           <span>Mensaje</span>
         </div>
@@ -112,6 +112,40 @@
 
 <!-- Conatiner JS -->
 {% block js %}
+<script>
+ /*
+* Seccion de Select
+*/
+const selectInput = document.querySelector(".select-municipio")
+//const selectElements = document.querySelectorAll(".select-options .element")
+const selectElements = document.querySelector(".select-options")
+let selection = false
+
+selectInput.addEventListener("click", () => {
+    selectInput.classList.toggle("focused")
+    if (!selection){
+        selectInput.classList.toggle("focus")
+        if ( Array.from(selectInput.classList).indexOf("focus") != -1 ){
+            selectInput.children[1].innerText = "Selecciona un Municipio"
+        } else {
+            selectInput.children[1].innerText = ""
+        }
+    }
+})
+
+selectElements.addEventListener("click", (e) => {
+    if (e.target.className === "element"){
+        let trueField = selectInput.children[0]
+        let fakeField = selectInput.children[1]
+        trueField.value = e.target.ariaValueText
+        fakeField.innerText = e.target.innerText
+        selection = true
+        selectInput.classList.toggle("focused")
+    }
+})
+
+
+</script>
 <script src="{% static 'js/FormularioSelect.js' %}"></script>
 {% endblock %}
 <!-- End Conatiner JS -->

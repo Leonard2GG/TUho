@@ -1,8 +1,13 @@
-from django.shortcuts import redirect, render, HttpResponse
+from django.shortcuts import redirect, render, HttpResponse, get_list_or_404
 from django.contrib.auth.decorators import login_required
 from django.core.mail import send_mail
 from apps.Usuarios.models import Usuario
-from apps.Noticias.models import Noticias
+from .forms import CrearNoticiasForm
+from apps.Plataforma.models import Noticias
+from django.contrib.auth.models import Group
+from django.http import HttpResponseRedirect
+from django.urls import reverse
+
 
 # Create your views here.
 
@@ -69,10 +74,62 @@ def EliminarUsuario(request,id):
     usuario.delete()
     return redirect("Usuarios")
 
+# Cambiar Rol de Usuarios
+@login_required
+def CambiarRol(request, id):
+    if request.method == 'POST':  
+        usuario = Usuario.objects.get(id=id)
+        group_names =['Administración','Supervisor', 'Usuario']
+        selected_group = request.POST['role']
+        if selected_group in group_names:
+            group = Group.objects.get(name=selected_group)
+            usuario.groups.clear()
+            usuario.groups.add(group)
+            return redirect('Usuarios')
+    return render(request,"Plataforma/Cambiar Rol.html")
+        
 # Noticas del usuario
 def NoticiasUsuario(request):
     noticias = Noticias.objects.all()
     return render(request,"Plataforma/Noticias Usuario.html", {'noticias':noticias})
+
+# Visualizar Noticias
+@login_required
+def NoticiasView(request):
+    noticias = Noticias.objects.all()
+    return render(request,"Plataforma/Noticias.html", {'noticias':noticias})
+
+# Crear Noticias
+@login_required
+def CrearNoticia(request):
+    noticia = Noticias()
+    form = CrearNoticiasForm()
+    if request.POST:
+        noticia.titulo = request.POST["titulo"]
+        noticia.cuerpo = request.POST["cuerpo"]
+        noticia.save()
+        return redirect('Noticias')
+    return render(request,"Plataforma/Crear Noticia.html",{"noticias":form})
+
+# Editar Noticias
+@login_required
+def EditarNoticia(request,id):
+    noticia = Noticias.objects.get(id=id)
+    if request.POST:
+        noticia.titulo = request.POST["titulo"]
+        noticia.cuerpo = request.POST["cuerpo"]
+        noticia.save()
+        return redirect('Noticias')    
+    return render(request,"Plataforma/Editar Noticia.html",{"noticias":noticia})
+
+# Eliminar Noticias
+@login_required
+def EliminarNoticia(request,id):
+    noticia = Noticias.objects.get(id=id)
+    noticia.delete()
+    return redirect("Noticias")
+
+
 
 
 

@@ -8,7 +8,6 @@
 <link rel="stylesheet" href=" {% static 'libs/Datatable/CSS/buttons.bootstrap5.css' %}">
 <link rel="stylesheet" href=" {% static 'libs/Datatable/CSS/responsive.bootstrap5.css' %}">
 <link rel="stylesheet" href=" {% static 'css/datatable.css' %}">
-<link rel="stylesheet" href=" {% static 'libs/Chart/css/chart.css' %}">
 {% endblock %}
 <!-- End Conatiner CSS -->
 
@@ -18,7 +17,7 @@
     <div class="container-fluid">
       <div class="container-fluid">
         <!-- Small boxes (Stat box) -->
-        <div class="row">
+        <div class="row d-flex justify-content-center">
           <div class="col-lg-3 col-6">
             <!-- small box -->
             <div class="small-box bg-box-one">
@@ -88,13 +87,14 @@
 
           <!--Table Element-->
           <section id="tablaTramites">
-            <div class="card p-2">
+            <div class="card">
               <div class="card-header ">
                 <h5 class="card-title ">
                   Trámites
                 </h5>
               </div>
-              <table id="Tramites" class="display table table-striped table-hover table-primary" style="width:100%">
+              <div class="p-2">
+              <table id="Tramites" class="display table table-striped table-hover table-primary" style="width:100%;">
                 <thead class="encabezado">
                   <tr>
                     <th scope="col" style="color: white; text-align: start;">Nombre</th>
@@ -117,22 +117,24 @@
                 </tbody>
               </table>
             </div>
+          </div>
           </section>
 
           <section id="tablaUsuarios">
-            <div class="card p-2">
+            <div class="card">
               <div class="card-header">
                 <h5 class="card-title">
                   Usuarios
                 </h5>
               </div>
+              <div class="p-2">
               <table id="Usuarios" class="display table table-striped table-hover table-primary" style="width:100%">
                 <thead class="encabezado">
                   <tr>
                     <th scope="col" style="color: white; text-align: start;">Usuario</th>
                     <th scope="col" style="color: white; text-align: start;">Teléfono</th>
                     <th scope="col" style="color: white; text-align: start;">Email</th>
-                    <th scope="col" style="color: white; text-align: start;">Ultima Conexion</th>
+                    <th scope="col" style="color: white; text-align: start;">Última Conexión</th>
                     <th scope="col" style="color: white; text-align: start;">Rol</th>
                   </tr>
                 </thead>
@@ -149,7 +151,7 @@
                     </td>
                     <td style="text-align: start;">
                       {% if usuario.email %}
-                      <a href="mailto:{{ usuario.email }}">{{ usuario.email }}</a>
+                      <a class="iconos" href="mailto:{{ usuario.email }}">{{ usuario.email }}</a>
                       {% else %}
                       N/A
                       {% endif %}
@@ -170,36 +172,40 @@
         </div>
         </section>
 
-        <section class="d-flex gap-3 mb-3">
-          <section id="graficaBarTrámites" style="width: 100%; height: 60vh;">
-            <div class="card p-2 h-100">
+        <section class="mb-3 row row-gap-3 ">
+          <section class="col-md-6 col-sm-12" id="graficaBarTrámites">
+            <div class="card">
               <div class="card-header">
-                <h5 class="card-title">
+                <h5 class="card-title ">
                   Gráfico de Trámites
                 </h5>
               </div>
-              <div style="width: 100%; height: 100%;">
-                <canvas id="myChartBar"></canvas>
+              <div class="p-2">
+              <div id="myChartBar">
               </div>
             </div>
+          </div>
           </section>
 
-          <section id="graficaPieTrámites" style="width: 100%; height: 60vh;">
-            <div class="card p-2 h-100">
+          <section class="col-md-6 col-sm-12" id="graficaPieTrámites">
+            <div class="card">
               <div class="card-header">
                 <h5 class="card-title">
                   Estados de los Trámites
                 </h5>
               </div>
-              <div style="width: 100%; height:100%;">
-                <canvas id="myChartPie"></canvas>
+              <div class="p-2">
+              <div id="myChartPie">
               </div>
             </div>
-          </section>
+          </div>
+         </section>
 
         </section>
       </div>
   </main>
+</div>
+ 
   {% endblock %}
 
   <!-- Conatiner JS -->
@@ -222,7 +228,14 @@
   <!--Inicializar DataTables-->
   <script src="{% static 'libs/Datatable/JS/Administracion.js' %}"></script>
   <!--Inicializar Charts-->
-  <script src="{% static 'libs/Chart/js/Chart.min.js' %}"></script>
-  <script src="{% static 'libs/Chart/js/newChart.js' %}"></script>
+  <script src="{% static 'libs/Highcharts/code/highcharts.js' %}"></script>
+  <script src="{% static 'libs/Highcharts/code/modules/accessibility.js' %}"></script>
+  <script src="{% static 'libs/Highcharts/code/modules/exporting.js' %}"></script>
+  <script src="{% static 'libs/Highcharts/code/modules/offline-exporting.js' %}"></script>
+  <script src="{% static 'libs/Highcharts/code/modules/export-data.js' %}"></script>
+  <script src="{% static 'libs/Highcharts/newChart.js' %}"></script>
+
+  
+  
   {% endblock %}
   <!-- End Conatiner JS -->

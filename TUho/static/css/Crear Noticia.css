@@ -32,6 +32,18 @@ body,input,textarea{
     grid-template-columns: repeat(1fr);
     
 }
+.form-rol{
+    width: 100%;
+    max-width: 600px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 8px 8px 20px 5px rgba(0,0,0,0.1);
+    z-index: 1000;
+    overflow: hidden;
+    display: grid;
+    grid-template-columns: repeat(1fr);
+    
+}
 
 
 .contact-form{
@@ -159,6 +171,34 @@ textarea.input{
     text-align: center;
     font-weight: 600;
     
+}
+.btn{
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+    box-shadow: none;
+    border: none;
+}
+
+.btn2{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+	width: 30%;
+    padding: 0.6rem 1.3rem;
+    background-color: #fff;
+    border: 2px solid #fafafa;
+    font-size: 1rem;
+    color: #4481eb;
+    line-height: 1;
+    border-radius: 25px;
+    outline: none;
+    text-decoration: none;
+    cursor: pointer;
+    transition: 0.3s;
+    text-align: center;
+    font-weight: 600;
 }
 
 .btn1:hover{
@@ -358,11 +398,16 @@ textarea.input{
     .btn1{
         padding: 0.45rem 1.2rem;
     }
+
+    .btn2{
+        padding: 0.45rem 1.2rem;
+        width: 50%;
+    }
 }
 
 .select-options {
     display: none;
-    padding: 10px;
+    padding: 5px;
     max-height: 100px;
     border: solid 2px #fff;
     color: #fff;
@@ -373,7 +418,7 @@ textarea.input{
     overflow-y: scroll;
 }
 
-.input-container.select-municipio.focused ~ .select-options {
+.input-container.select-rol.focused ~ .select-options {
     display: flex;
     flex-direction: column;
 }
@@ -397,7 +442,7 @@ textarea.input{
     transition: .0s;
 }
 
-.input-container.select-municipio.focused .input.selector {
+.input-container.select-rol.focused .input.selector {
     height: 2rem;
     border-bottom: none;
     border-radius: 25px 25px 0 0;

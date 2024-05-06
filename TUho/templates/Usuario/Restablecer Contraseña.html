@@ -18,7 +18,10 @@
     <img class="wave" src="{% static 'img/wave-blue.png' %}" alt="">
     <div class="container">
         <div class="img">
-            <img src="{% static 'img/undraw_sign_in_re_o58h.svg' %}" alt="">
+            <img src="{% static 'img/undraw_forgot_password_re_hxwm (1).svg' %}" alt="">
+        </div>
+        <div id="error-container">
+
         </div>
         {% if response %}
         {% if response == 'incorrecto' %}
@@ -35,29 +38,27 @@
             <form action="" method="POST">
                 {% csrf_token %}
                 <img class="logo" src="" alt="">
-                <h2 style="color:#005296;">Bienvenido</h2>
-                <div class="input-div one">
-                    <div class="i">
-                        <i class="bx bxs-user"></i>
-                    </div>
-                    <div>
-                        <h5>Usuario</h5>
-                        <input class="input" type="text" name="username" required>
-                    </div>
+                <h2 style="color:#005296;">Restablecer Contraseña</h2>
+                <div class="text">
+                    <p>¿Olvidaste tu contraseña? </br>
+                        Ingrese su dirección de correo electrónico y le enviaremos las instrucciones para configurar una
+                        nueva.</p>
                 </div>
                 <div class="input-div two">
                     <div class="i">
-                        <i class="bx bxs-lock-alt"></i>
+                        <i class="bx bxs-envelope"></i>
                     </div>
                     <div>
-                        <h5>Contraseña</h5>
-                        <input class="input" type="password" name="password" required>
+                        <h5>Email</h5>
+                        {% for i in form %}
+                        {{ i }}
+                        {% endfor %}
                     </div>
                 </div>
-                <a class="a" href="{% url 'password_reset' %}" class="link">¿Has olvidado la contraseña?</a>
-                <a class="a" href="{% url 'Registrar' %}" class="link">¿No tienes cuenta todavía? Registrate </a>
-                <input type="submit" class="btn1" value="Iniciar Sesión">
+                <a class="a" href="{% url 'Login' %}">¿Recordaste la contraseña?</a>
+                <input type="submit" class="btn1" value="Restablecer Contraseña">
             </form>
+
         </div>
     </div>
 

@@ -8,7 +8,6 @@
 <link rel="stylesheet" href=" {% static 'libs/Datatable/CSS/buttons.bootstrap5.css' %}">
 <link rel="stylesheet" href=" {% static 'libs/Datatable/CSS/responsive.bootstrap5.css' %}">
 <link rel="stylesheet" href=" {% static 'css/datatable.css' %}">
-<link rel="stylesheet" href=" {% static 'libs/Chart/css/chart.css' %}">
 {% endblock %}
 <!-- End Conatiner CSS -->
 
@@ -16,21 +15,21 @@
 {% block content %}
 <main class="content-inside px-3 py-2 mx-2">
     <section id="tablaUsuarios">
-        <div class="card p-2">
+        <div class="card">
             <div class="card-header">
                 <h5 class="card-title">
                     Usuarios
                 </h5>
             </div>
-
+            <div class="p-2">
             <table id="Usuarios" class="display table table-striped table-hover table-primary" style="width:100%">
                 <thead class="encabezado">
                     <tr>
                         <th scope="col" style="color: white; text-align: start;">Usuario</th>
                         <th scope="col" style="color: white; text-align: start;">Teléfono</th>
                         <th scope="col" style="color: white; text-align: start;">Email</th>
-                        <th scope="col" style="color: white; text-align: start;">Ultima Conexion</th>
-                        <th scope="col" style="color: white; text-align: start;">Rol</th>
+                        <th scope="col" style="color: white; text-align: start;">Última Conexión</th>
+                        <th scope="col" style="color: white; text-align: start;">Cambiar Rol</th>
                         <th scope="col" style="color: white; text-align: start;">Eliminar</th>
 
                     </tr>
@@ -48,7 +47,7 @@
                         </td>
                         <td style="text-align: start;">
                             {% if usuario.email %}
-                            <a href="mailto:{{ usuario.email }}">{{ usuario.email }}</a>
+                            <a class="iconos" href="mailto:{{ usuario.email }}">{{ usuario.email }}</a>
                             {% else %}
                             N/A
                             {% endif %}
@@ -61,11 +60,7 @@
                             {% endif %}
                         </td>
                         <td style="text-align: start;">
-                            <select class="form-select role-selection">
-                                <option value="Usuario">Usuario</option>
-                                <option value="Administración">Administrador</option>
-                                <option value="Supervisor">Supervisor</option>
-                            </select>
+                            <a class="iconos"  href="{% url 'CambiarRol' usuario.id %}">{{ usuario.groups.all.0 }}</a>
                         </td>
                         <td style="text-align: center; font-size: 1.2rem;"><a class="iconos"
                                 href="{% url 'EliminarUsuario' usuario.id %}"><i class="bx bx-trash"></i></a></td>
@@ -101,14 +96,6 @@
 <!-- Modal -->
 <script src="{% static 'js/Modals.js' %}"></script>
 
-<script>    
-    $( document ).ready( () => {
-    let options = document.querySelectorAll(".role-selection")
-    {% for usuario in usuarios %}
-        options[{{ forloop.counter0 }}].value = "{{ usuario.groups.all.0 }}"
-    {% endfor %}
-    })
-</script>
 
 {% endblock %}
 <!-- End Conatiner JS -->
