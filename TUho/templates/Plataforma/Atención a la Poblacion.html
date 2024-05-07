@@ -44,6 +44,9 @@
       <form action="." method="POST">
         {% csrf_token %}
         <h3 class="title">Contactanos</h3>
+        <div id="error-container">
+
+        </div>
         {% if response %}
         {% if response == 'correcto' %}
         <div class="alert alert-success alert-dismissible fade show" role="alert"
@@ -94,16 +97,16 @@
           <div aria-valuetext="Urbano Noris" class="element">Urbano Noris</div>
         </div>
         <div class="input-container">
-          <input type="text" name="subject" class="input" required>
+          <input type="text" name="subject" class="input" id="asunto" required>
           <label for="">Asunto</label>
           <span>Asunto</span>
         </div>
         <div class="input-container textarea">
-          <textarea name="message" class="input" required></textarea>
+          <textarea name="message" class="input" id="inputText" required></textarea>
           <label for="">Mensaje</label>
           <span>Mensaje</span>
         </div>
-        <input type="submit" value="Enviar" class="btn1">
+        <input type="submit" value="Enviar" id="boton" class="btn1">
       </form>
     </div>
   </div>
@@ -147,5 +150,6 @@ selectElements.addEventListener("click", (e) => {
 
 </script>
 <script src="{% static 'js/FormularioSelect.js' %}"></script>
+<script src="{% static 'js/Trim AtencionP.js' %}"></script>
 {% endblock %}
 <!-- End Conatiner JS -->

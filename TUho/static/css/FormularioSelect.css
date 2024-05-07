@@ -362,7 +362,7 @@ textarea.input{
 
 .select-options {
     display: none;
-    padding: 10px;
+    padding: 5px;
     max-height: 100px;
     border: solid 2px #fff;
     color: #fff;

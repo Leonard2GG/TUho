@@ -16,14 +16,44 @@ const errorContainer = document.querySelector("#error-container")
             </div>
             `
         }
-        const c = (e)=>{
+        const validate_space_trim = () => {
+            username.value = username.value.trim();
+            email.value = email.value.trim();
+            password1.value = password1.value.trim();
+            password2.value = password2.value.trim();
+          }
+
+const c = (e)=>{
         let validador = /^\w+([.-_+]?\w+)*@\w+([.-]?\w+)*(\.\w{2,10})+$/
+        if(username.value == ""){
+            errorContainer.innerHTML = createMessage("Campo 'Nombre' inválido")
+            e.preventDefault()
+        }
+        if(email.value == ""){
+            errorContainer.innerHTML = createMessage("Campo 'Email' inválido")
+            e.preventDefault()
+        }
         if (!validador.test(email.value)) {
-          errorContainer.innerHTML = createMessage("No es un correo valido")
+          errorContainer.innerHTML = createMessage("No es un correo válido")
           e.preventDefault()   
         }
+        if(password1.value == ""){
+            errorContainer.innerHTML = createMessage("Campo 'Contraseña' inválido")
+            e.preventDefault()
         }
-        
+        if(password2.value == password1.value){
+            errorContainer.innerHTML = createMessage("Campo  inválido, las contraseñas deben coincidir")
+            e.preventDefault()
+        }
+        if(username.value == "" || email.value == "" || password1.value == "" || password2.value ==""){
+            errorContainer.innerHTML = createMessage("Campos  inválidos")
+            e.preventDefault()
+        }
+        }
+        username.addEventListener("input",validate_space_trim);
+        email.addEventListener("input",validate_space_trim);
+        password1.addEventListener("input",validate_space_trim);
+        password2.addEventListener("input",validate_space_trim);
         boton.addEventListener("click", c, false)
            
 

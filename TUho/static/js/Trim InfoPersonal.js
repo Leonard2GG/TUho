@@ -30,16 +30,44 @@ var boton =  document.getElementById("boton");
         
 const c = (e)=>{
         let validador = /^\w+([.-_+]?\w+)*@\w+([.-]?\w+)*(\.\w{2,10})+$/
+        if(nombre.value == ""){
+          errorContainer.innerHTML = createMessage("Campo 'Nombre' inválido")
+          e.preventDefault()
+        }
+        if(apellido.value == ""){
+          errorContainer.innerHTML = createMessage("Campo 'Apellidos' inválido")
+          e.preventDefault()
+        }
         if (!validador.test(email.value)) {
-          errorContainer.innerHTML = createMessage("No es un correo valido")
+          errorContainer.innerHTML = createMessage("No es un correo válido")
           e.preventDefault()   
         }
+        if(email.value == ""){
+          errorContainer.innerHTML = createMessage("Campo 'Email' inválido")
+          e.preventDefault()
+        }
         if(ci.value.length != 11 || isNaN(ci.value)){
-          errorContainer.innerHTML = createMessage("No es un número carnet valido")
+          errorContainer.innerHTML = createMessage("No es un número carnet válido")
+          e.preventDefault()
+        }
+        if(ci.value == ""){
+          errorContainer.innerHTML = createMessage("Campo 'Número de Carnet' inválido")
           e.preventDefault()
         }
         if(tel.value.length != 8 || isNaN(tel.value)){
-          errorContainer.innerHTML = createMessage("No es un número de teléfono valido")
+          errorContainer.innerHTML = createMessage("No es un número de teléfono válido")
+          e.preventDefault()
+        }
+        if(tel.value == ""){
+          errorContainer.innerHTML = createMessage("Campo 'Teléfono' inválido")
+          e.preventDefault()
+        }
+        if(text.value == ""){
+          errorContainer.innerHTML = createMessage("Campo 'Dirección' inválido")
+          e.preventDefault()
+        }
+        if(nombre.value == "" || apellido.value == "" || email.value == "" || ci.value == "" || tel.value == "" || text.value == ""){
+          errorContainer.innerHTML = createMessage("Campos inválido")
           e.preventDefault()
         }
         }
