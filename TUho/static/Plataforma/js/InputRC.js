@@ -1,6 +1,4 @@
-var username = document.getElementById("username");
-var password1 = document.getElementById("password1");
-var password2 = document.getElementById("password2");
+
 var email = document.getElementById("email");
 var boton =  document.getElementById("boton");
 
@@ -17,28 +15,22 @@ const errorContainer = document.querySelector("#error-container")
             `
         }
         const validate_space_trim = () => {
-          username.value = username.value.trim();
-          password.value = password.value.trim();
+          email.value = email.value.trim();
         }
 
 const c = (e)=>{
-        if(username.value == ""){
-            errorContainer.innerHTML = createMessage("Campo 'Nombre' inválido")
+        let validador = /^\w+([.-_+]?\w+)*@\w+([.-]?\w+)*(\.\w{2,10})+$/
+        if(email.value == ""){
+            errorContainer.innerHTML = createMessage("Campo 'Email' inválido")
             e.preventDefault()
         }
-        if(password.value == ""){
-            errorContainer.innerHTML = createMessage("Campo 'Contraseña' inválido")
-            e.preventDefault()
+        if (!validador.test(email.value)) {
+            errorContainer.innerHTML = createMessage("No es un correo válido")
+            e.preventDefault()   
+          }
         }
         
-        if(username.value == "" || password.value == ""   ){
-            errorContainer.innerHTML = createMessage("Campos  inválidos")
-            e.preventDefault()
-        }
-        }
-        
-        username.addEventListener("input",validate_space_trim);
-        password.addEventListener("input",validate_space_trim);
+        email.addEventListener("input",validate_space_trim);
         boton.addEventListener("click", c, false)
            
 

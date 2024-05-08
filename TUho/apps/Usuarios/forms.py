@@ -9,20 +9,20 @@ class CustomPasswordResetForm(PasswordResetForm):
     email = forms.EmailField(
         label=("Email"),
         max_length=254,
-        widget=forms.EmailInput(attrs={'type':"text",'name':"email", 'class':"input", 'required':'true', 'id': 'inputEmail'}),
+        widget=forms.EmailInput(attrs={'type':"email",'name':"email", 'class':"input", 'required':'true', 'id': 'email'}),
     )
 
 # Formulario de Cambiar Contraseña
 class ChangePasswordForm(SetPasswordForm):
     new_password1 = forms.CharField(
         label=("Contraseña"),
-        widget=forms.PasswordInput(attrs={"class":"input", "name":"password1", "type":"password","required":"true"}),
+        widget=forms.PasswordInput(attrs={"class":"input", "name":"password1", "type":"password","required":"true","id":"password1"}),
         strip=False,
     )
     new_password2 = forms.CharField(
         label=("Repetir Contraseña"),
         strip=False,
-        widget=forms.PasswordInput(attrs={"class":"input", "name":"password2", "type":"password","required":"true"}),
+        widget=forms.PasswordInput(attrs={"class":"input", "name":"password2", "type":"password","required":"true", "id":"password2"}),
     )
 # Formulario de Usuario
 class InformacionPersonal(ModelForm):
