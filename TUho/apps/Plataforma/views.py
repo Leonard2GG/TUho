@@ -129,10 +129,10 @@ def EliminarNoticia(request,id):
     noticia.delete()
     return redirect("Noticias")
 
-
-
-
-
+# Instalación de Módulos
+@login_required
+def InstalarModulos(request):
+    return render(request,"Plataforma/Instalacion de Modulos.html")
 
 
 

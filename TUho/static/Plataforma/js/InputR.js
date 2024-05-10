@@ -7,7 +7,7 @@ var boton =  document.getElementById("boton");
 const errorContainer = document.querySelector("#error-container")
         const createMessage = (message) => {
             return `
-            <div style=" position: absolute; right: 20px; top:10px; display: flex; align-items: center; padding-right: 0rem;margin-left:20px"
+            <div style="height:40px; position: absolute; right: 20px; top:10px; display: flex; align-items: center; padding-right: 0rem;margin-left:20px"
             class="alert alert-danger alert-dismissible fade show" role="alert">
             ${message}
                 <button style="font-size: 10px; border-bottom: none; position: relative; box-shadow: none;" type="button"
@@ -39,10 +39,6 @@ const c = (e)=>{
         }
         if(password1.value == ""){
             errorContainer.innerHTML = createMessage("Campo 'Contraseña' inválido")
-            e.preventDefault()
-        }
-        if(password2.value == password1.value){
-            errorContainer.innerHTML = createMessage("Campo  inválido, las contraseñas deben coincidir")
             e.preventDefault()
         }
         if(username.value == "" || email.value == "" || password1.value == "" || password2.value ==""){

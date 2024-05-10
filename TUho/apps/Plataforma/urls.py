@@ -29,6 +29,7 @@ urlpatterns = [
     path('EliminarUsuario/<int:id>/',login_required (views.EliminarUsuario), name="EliminarUsuario"),
     path('CambiarRol/<int:id>/',login_required (views.CambiarRol), name="CambiarRol"),
     path('NoticiasUsuario/', views.NoticiasUsuario, name="NoticiasUsuario"),
+    path('InstalarModulos/',login_required (views.InstalarModulos), name="InstalarModulos"),
     
     #Noticias
     path('Noticias/',login_required (views.NoticiasView), name="Noticias"),

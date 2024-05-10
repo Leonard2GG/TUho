@@ -28,11 +28,7 @@ const c = (e)=>{
             errorContainer.innerHTML = createMessage("Campo 'Repetir Contraseña' inválido")
             e.preventDefault()
         }
-        if(password1.value == password2.value  ){
-            errorContainer.innerHTML = createMessage("Las contraseñas tienen que coincidir")
-            e.preventDefault()
-        }
-        if(username.value == "" || password.value == ""   ){
+        if(password1.value == "" || password2.value == ""   ){
             errorContainer.innerHTML = createMessage("Campos inválidos")
             e.preventDefault()
         }
