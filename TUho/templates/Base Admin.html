@@ -2,68 +2,106 @@
 
 <!DOCTYPE html>
 <html lang="es">
-<head>
- 
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{% static 'libs/Bootstrap/css/bootstrap.min.css' %}">
-    <link rel="stylesheet" href="{% static 'css/Base.css' %}">
-    <link rel="stylesheet" href="{% static 'libs/boxicons-2.1.4/css/boxicons.css' %}">
-    <link rel="stylesheet" href="{% static 'libs/Bootstrap/icon/bootstrap-icons.min.css' %}">
-    <link rel="icon" type="image/png" sizes="50x50" href="{% static 'img/Id UHo-03-white.png' %}">
-    {% block css %}
-    {% endblock %}
 
-    <title>Trámites Universidad de Holguín</title>
-    
+<head>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="{% static 'Plataforma/libs/Bootstrap/css/bootstrap.min.css' %}">
+  <link rel="stylesheet" href="{% static 'Plataforma/css/Base.css' %}">
+  <link rel="stylesheet" href="{% static 'Plataforma/libs/boxicons-2.1.4/css/boxicons.css' %}">
+  <link rel="stylesheet" href="{% static 'Plataforma/libs/Bootstrap/icon/bootstrap-icons.min.css' %}">
+  <link rel="icon" type="image/png" sizes="50x50" href="{% static 'Plataforma/img/Id UHo-03-white.png' %}">
+
+  <!-- Conatiner CSS -->
+  {% block css %}
+  {% endblock %}
+  <!-- End Conatiner CSS -->
+
+  <title>Trámites Universidad de Holguín</title>
+
 
 </head>
+
 <body>
+  <!-- Sidebar -->
   <div class="container-fluid p-0 d-flex h-100">
-    <div id="bdSidebar" class="d-flex flex-column flex-shrink-0 p-3  pt-0 pb-0 text-white offcanvas-md offcanvas-start responsivo" style="width: 250px">
+    <div id="bdSidebar"
+      class="d-flex flex-column flex-shrink-0 p-3  pt-0 pb-0 text-white offcanvas-md offcanvas-start responsivo"
+      style="width: 250px">
       <a href="#" class="navbar-brand">
-        <img src="{% static 'img/Id UHo-03-white.png' %}" width="200" height="80px" alt="">
+        <img src="{% static 'Plataforma/img/Id UHo-03-white.png' %}" width="200" height="80px" alt="">
       </a>
       <hr>
       <ul class="mynav nav nav-pills flex-column mb-auto">
-          <li class="nav-item mb-1">
-            <a href="{% url 'Administracion' %}" class="active">
-              <i class="bx bxs-widget"></i>
-              Inicio
-            </a>
-          </li>
-          <li class="nav-item mb-1">
-            <a href="#" class="">
-              <i class="bx bx-bell"></i>
-              Notificaciones
-              <span class="notification-badge">5</span>
-            </a>
-          </li>
-          <li class="nav-item mb-1" aria-label="RolTramite">
-            <a href="{% url "RolTramite" %}" class="">
-              <i class="bx bx-file"></i>
-              Trámites
-            </a>
-          </li>
-          <li class="nav-item mb-1" aria-label="RolUsuario">
-            <a href="{% url 'RolUsuario' %}" class="">
-              <i class="bx bx-user" ></i>
-              Usuarios
-            </a>
-          </li>
+        <li class="nav-item mb-1">
+          <a href="{% url 'Administracion' %}" class="active">
+            <i class="bx bxs-widget"></i>
+            Inicio
+          </a>
+        </li>
+        <li class="nav-item mb-1">
+          <a href="#" class="">
+            <i class="bx bx-bell"></i>
+            Notificaciones
+            <span class="notification-badge">5</span>
+          </a>
+        </li>
+        <li class="nav-item mb-1" aria-label="Tramites">
+          <a href="{% url 'Tramites' %}" class="">
+            <i class="bx bx-file"></i>
+            Trámites
+          </a>
+        </li>
+        <li class="nav-item mb-1" aria-label="Usuarios">
+          <a href="{% url 'Usuarios' %}" class="">
+            <i class="bx bx-user"></i>
+            Usuarios
+          </a>
+        </li>
+        <li class="nav-item mb-1" aria-label="Noticias">
+          <a href="{% url 'Noticias' %}" class="">
+            <i class="bx bx-news"></i>
+            Noticias
+          </a>
+        </li>
+        <li class="nav-item mb-1" aria-label="InstalarModulos">
+          <a href="{% url 'InstalarModulos' %}" class="">
+            <i class="bx bx-info-circle"></i>
+            Instalación de Módulos
+          </a>
+        </li>
+        
 
       </ul>
       <hr class="mb-0">
       <div>
         <ul class="mynav nav nav-pills flex-column mb-auto ">
           <li class="nav-item mb-1 " aria-label="CerrarSesion">
-            <a href="{% url 'CerrarSesion' %}" class="">
+            <a class="" data-bs-toggle="modal" data-bs-target="#exampleModal">
               <i class="bx bx-log-out"></i>
-              Cerrar Sesion
+              Cerrar Sesión
             </a>
           </li>
         </ul>
-        
+      </div>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel"><i class="bi bi-exclamation-triangle"></i> Advertencia</h5>
+            <button type="button" class="btn-close cerrar" data-bs-dismiss="modal" aria-label="Close" style="box-shadow: none"></button>
+          </div>
+          <div class="modal-body">
+            ¿Desea cerrar esta sesión?
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cancelar</button>
+            <a href="{% url 'CerrarSesion' %}" class="btn btn-primary">Aceptar</a>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -74,32 +112,33 @@
         </a>
         <span class="ms-3">Trámites Universidad de Holguín</span>
       </div>
-      
-        <div class="main-container">
-          <div>
-    
+      <!-- End Sidebar -->
+
+      <div class="main-container">
         <div class="row content">
           <div class="col">
-
+            <!-- Container -->
             {% block content %}
             {% endblock %}
-            
+            <!-- End Container -->
           </div>
+
+          <!-- Footer -->
+          <p class="text-center pb-2 footer">Copyright &copy; 2024 Trámites Universidad de Holguín. All rights reserved.
+          </p>
+          <!-- End Footer -->
+          
         </div>
       </div>
-        <div class="text-center pt-2 footer">
-          <p>Copyright &copy; 2024 Trámites Universidad de Holguín. All rights reserved.</p>
-      </div>
-      </div>
-    </div>
 
-    
+    </div>
+  </div>
   </div>
 
-    
-    {% block js %}
-    {% endblock %}
-<script src=" {% static 'libs/Bootstrap/js/bootstrap.bundle.min.js' %}"></script>
-<script src=" {% static 'js/script.js' %}"></script>
-
-
+  <!-- Container JS -->
+  {% block js %}
+  {% endblock %}
+  <script src=" {% static 'Plataforma/libs/Bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+  <script src=" {% static 'Plataforma/js/script.js' %}"></script>
+  <script src=" {% static 'Plataforma/js/Modals.js' %}"></script>
+  <!-- End Container JS -->

@@ -1,32 +1,39 @@
-from django.contrib.auth import authenticate, login, logout, password_validation
-from django.contrib.auth.models import Group
 from .forms import InformacionPersonal
 from .models import Usuario
 from django.contrib.auth.decorators import login_required
 from django.http import HttpRequest
 from django.shortcuts import redirect, render
+from django.contrib.auth import authenticate, login, logout, password_validation
+from django.contrib.auth.models import Group
+from apps.Usuarios.models import Usuario
 from django.contrib import messages
 from django.contrib.auth import views as auth_views
 from .forms import CustomPasswordResetForm, ChangePasswordForm
 
 # Create your views here.
 
+# Nombre de los Grupos
 def group_names(group:Group):
     return group.name
 
+# Verificar si ese usuario pertenece a ese grupo
 def verify_group(usuario, group_name):
     if group_name in map(  group_names , list(usuario.groups.all())):
         return True
     else:
         return False
 
+# Login
 def Login(request:HttpRequest):
     if request.user.is_authenticated:
         return redirect("Inicio")
     if request.POST:
         username = request.POST['username']
         password = request.POST['password']
-        user_to_auth = Usuario.objects.get(username=username)
+        try:
+            user_to_auth = Usuario.objects.get(username=username)
+        except Usuario.DoesNotExist:
+            return render(request, "Usuario/Login.html", {'response': 'incorrecto', 'message': 'Fallo en la autentificación'})
         user = authenticate(request, username=user_to_auth.username, password=password)
         if user is not None:
             login(request, user)
@@ -35,60 +42,73 @@ def Login(request:HttpRequest):
                 return redirect("Administracion")
             elif verify_group(usuario, "Usuario"):
                 return redirect("Inicio")
+            elif verify_group(usuario, "Supervisor"):
+                return redirect("Administracion")
             return redirect("Inicio")
-
         else:
-            return render(request,"Login.html",{'response':'incorrecto', 'message':'Fallo en la autentificación'})
-    return render (request,"Login.html")
+            return render(request, "Usuario/Login.html", {'response': 'incorrecto', 'message': 'Fallo en la autentificación'})
+    return render(request, "Usuario/Login.html")
 
+# Register
 def Registrar(request:HttpRequest):
     if request.POST:
+        if Usuario.objects.filter(username=request.POST['username']).exists():
+            return render(request, "Usuario/Registrar.html", {'response': 'incorrecto', 'messages': ['El usuario ya existe']})
+
         usuario = Usuario()
         username = request.POST['username']
         email = request.POST['email']
         password = request.POST['password1']
         password2 = request.POST['password2']
+
         if password and password2 and password != password2:
-            return render(request,"Registrar.html",{'response':'incorrecto', 'messages':['Las contraseñas deben coincidir']})
+            return render(request, "Usuario/Registrar.html", {'response': 'incorrecto', 'messages': ['Las contraseñas deben coincidir']})
 
         usuario.username = username
         usuario.email = email
         usuario.set_password(password)
-        
+
         try:
             validation = password_validation.validate_password(password, usuario)
+            usuario.save()
+            usuario.groups.add(Group.objects.get(name="Usuario"))
             usuario.save()
             return redirect("Login")
         except Exception as e:
             mensajes = []
             for err in e:
                 mensajes.append(f"{err}")
-            return render(request,"Registrar.html",{'response':'incorrecto', 'messages':mensajes})
-           
-    return render (request,"Registrar.html")
+            return render(request, "Usuario/Registrar.html", {'response': 'incorrecto', 'messages': mensajes})
 
+    return render(request, "Usuario/Registrar.html")
+
+# Restablecer Contraseña
 class RestablecerContraseña(auth_views.PasswordResetView):
-    template_name = "Restablecer Contraseña.html"
+    template_name = "Usuario/Restablecer Contraseña.html"
     form_class = CustomPasswordResetForm
 
+# Cambiar Contraseña
 class CambiarContraseña(auth_views.PasswordResetConfirmView):
     form_class = ChangePasswordForm
-    template_name = "Cambiar Contraseña.html"
-   
+    template_name = "Usuario/Cambiar Contraseña.html"
 
+# Confirmacion del Restablecer Contraseña  
 def RestablecerContraseñaConfirmado(request):
-    return render(request,"Restablecer Contraseña Confirmado.html")
+    return render(request,"Usuario/Restablecer Contraseña Confirmado.html")
 
+# Confirmación del Cambiar Contraseña
 def CambiarContraseñaConfirmado(request):
-    return render(request,"Cambiar Contraseña Confirmado.html")
+    return render(request,"Usuario/Cambiar Contraseña Confirmado.html")
 
-
-
+# Cerrar Sesión
 @login_required
 def CerrarSesion(request:HttpRequest):
     logout(request)
     return redirect("Login")
 
+# Create your views here.
+
+# Actualizar Información
 @login_required
 def ActualizarInf(request:HttpRequest):
     if request.POST:
@@ -101,9 +121,8 @@ def ActualizarInf(request:HttpRequest):
         usuario.direccion = request.POST['direccion']
         usuario.save()
         return redirect("InfoPersonal")
-    
     form = InformacionPersonal()
-    return render(request,"Actualizar Informacion Personal.html",{"form":form})
+    return render(request,"Usuario/Actualizar Informacion Personal.html",{"form":form})
     
 
 

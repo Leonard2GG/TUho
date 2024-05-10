@@ -19,11 +19,21 @@ from apps.Plataforma import views
 from django.contrib.auth.decorators import login_required
 
 urlpatterns = [
-    path('Inicio/',login_required (views.Inicio), name="Inicio"),
+    path('',(views.Inicio), name="Inicio"),
     path('MisTramites/',login_required (views.MisTramites), name="MisTramites"),
     path('InfoPersonal/',login_required (views.InformacionPersonal), name="InfoPersonal"),
     path('AtencionPoblacion/',login_required (views.AtencionPoblacion), name="AtencionPoblacion"),
     path('Administracion/',login_required (views.Administracion), name="Administracion"),
-    path('RolTramite/',login_required (views.RolTramite), name="RolTramite"),
-    path('RolUsuario/',login_required (views.RolUsuario), name="RolUsuario"),
+    path('Tramites/',login_required (views.Tramites), name="Tramites"),
+    path('Usuarios/',login_required (views.Usuarios), name="Usuarios"),
+    path('EliminarUsuario/<int:id>/',login_required (views.EliminarUsuario), name="EliminarUsuario"),
+    path('CambiarRol/<int:id>/',login_required (views.CambiarRol), name="CambiarRol"),
+    path('NoticiasUsuario/', views.NoticiasUsuario, name="NoticiasUsuario"),
+    path('InstalarModulos/',login_required (views.InstalarModulos), name="InstalarModulos"),
+    
+    #Noticias
+    path('Noticias/',login_required (views.NoticiasView), name="Noticias"),
+    path('CrearNoticia/',login_required (views.CrearNoticia), name="CrearNoticia"),
+    path('EditarNoticia/<int:id>/',login_required (views.EditarNoticia), name="EditarNoticia"),
+    path('EliminarNoticia/<int:id>/',login_required (views.EliminarNoticia), name="EliminarNoticia"),
 ]

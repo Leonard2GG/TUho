@@ -1,0 +1,238 @@
+{% extends "Base Admin.html" %}
+{% load static %}
+
+<!-- Conatiner CSS -->
+{% block css %}
+<link rel="stylesheet" href=" {% static 'Plataforma/css/Sitio Administrativo.css' %}">
+<link rel="stylesheet" href=" {% static 'Plataforma/libs/Datatable/CSS/dataTables.bootstrap5.css' %}">
+<link rel="stylesheet" href=" {% static 'Plataforma/libs/Datatable/CSS/buttons.bootstrap5.css' %}">
+<link rel="stylesheet" href=" {% static 'Plataforma/libs/Datatable/CSS/responsive.bootstrap5.css' %}">
+<link rel="stylesheet" href=" {% static 'Plataforma/css/datatable.css' %}">
+{% endblock %}
+<!-- End Conatiner CSS -->
+
+{% block content %}
+<div class="main">
+  <main class="content-inside px-3 py-2">
+    <div class="container-fluid">
+      <div class="container-fluid">
+        <!-- Small boxes (Stat box) -->
+        <div class="row d-flex justify-content-center">
+          <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-box-one">
+              <div class="inner">
+                <h3>150</h3>
+
+                <p>Trámites</p>
+              </div>
+              <div class="icon">
+                <i class=" bx bx-file"></i>
+              </div>
+              <a href="{% url 'Tramites' %}" class="small-box-footer">Más información <i
+                  class="bi bi-arrow-right-circle"></i></a>
+            </div>
+          </div>
+          <!-- ./col -->
+          <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-box-one">
+              <div class="inner">
+                <h3>53<sup style="font-size: 20px">%</sup></h3>
+
+                <p>Cantidad Trámites</p>
+              </div>
+              <div class="icon">
+                <i class="bx bx-bar-chart"></i>
+              </div>
+              <a href="#graficaBarTrámites" class="small-box-footer">Más información <i
+                  class="bi bi-arrow-right-circle"></i></a>
+            </div>
+          </div>
+          <!-- ./col -->
+          <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-box-one">
+              <div class="inner">
+                {% for usuario in usuarios %}
+                {% if forloop.last %}
+                <h3>{{ forloop.counter }}</h3>
+                {% endif %}
+                {% endfor %}
+                <p>Usuarios</p>
+              </div>
+              <div class="icon">
+                <i class="bx bx-user-plus"></i>
+              </div>
+              <a href="{% url 'Usuarios' %}" class="small-box-footer">Más información <i
+                  class="bi bi-arrow-right-circle"></i></a>
+            </div>
+          </div>
+          <!-- ./col -->
+          <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-box-one">
+              <div class="inner">
+                <h3>65</h3>
+
+                <p>Estados Trámites</p>
+              </div>
+              <div class="icon">
+                <i class="bx bxs-pie-chart-alt-2"></i>
+              </div>
+              <a href="#graficaPieTrámites" class="small-box-footer">Más información <i
+                  class="bi bi-arrow-right-circle"></i></a>
+            </div>
+          </div>
+
+          <!--Table Element-->
+          <section id="tablaTramites">
+            <div class="card">
+              <div class="card-header ">
+                <h5 class="card-title ">
+                  Trámites
+                </h5>
+              </div>
+              <div class="p-2">
+              <table id="Tramites" class="display table table-striped table-hover table-primary" style="width:100%;">
+                <thead class="encabezado">
+                  <tr>
+                    <th scope="col" style="color: white; text-align: start;">Nombre</th>
+                    <th scope="col" style="color: white; text-align: start;">Apellidos</th>
+                    <th scope="col" style="color: white; text-align: start;">Carnet ID</th>
+                    <th scope="col" style="color: white; text-align: start;">Teléfono</th>
+                    <th scope="col" style="color: white; text-align: start;">Tipo de Trámite</th>
+                    <th scope="col" style="color: white; text-align: start;">Estado del Trámite</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td style="text-align: start;">Tiger Nixon</td>
+                    <td style="text-align: start;">System Architect</td>
+                    <td style="text-align: start;">01060578004</td>
+                    <td style="text-align: start;">55568719</td>
+                    <td style="text-align: start;">Certificacion del titulo</td>
+                    <td style="text-align: start;">Listo para entregar</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          </section>
+
+          <section id="tablaUsuarios">
+            <div class="card">
+              <div class="card-header">
+                <h5 class="card-title">
+                  Usuarios
+                </h5>
+              </div>
+              <div class="p-2">
+              <table id="Usuarios" class="display table table-striped table-hover table-primary" style="width:100%">
+                <thead class="encabezado">
+                  <tr>
+                    <th scope="col" style="color: white; text-align: start;">Usuario</th>
+                    <th scope="col" style="color: white; text-align: start;">Teléfono</th>
+                    <th scope="col" style="color: white; text-align: start;">Email</th>
+                    <th scope="col" style="color: white; text-align: start;">Última Conexión</th>
+                    <th scope="col" style="color: white; text-align: start;">Rol</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for usuario in usuarios %}
+                  <tr>
+                    <td style="text-align: start;">{{ usuario.username }}</td>
+                    <td style="text-align: start;">
+                      {% if usuario.telefono %}
+                      {{ usuario.telefono }}
+                      {% else %}
+                      N/A
+                      {% endif %}
+                    </td>
+                    <td style="text-align: start;">
+                      {% if usuario.email %}
+                      <a class="iconos" href="mailto:{{ usuario.email }}">{{ usuario.email }}</a>
+                      {% else %}
+                      N/A
+                      {% endif %}
+                    </td>
+                    <td style="text-align: start;">
+                      {% if usuario.last_login %}
+                      {{ usuario.last_login }}
+                      {% else %}
+                      N/A
+                      {% endif %}
+                    </td>
+                    <td style="text-align: start;">{{ usuario.groups.all.0 }}</td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+        </div>
+        </section>
+
+        <section class="mb-3 row row-gap-3 ">
+          <section class="col-md-6 col-sm-12" id="graficaBarTrámites">
+            <div class="card">
+              <div class="card-header">
+                <h5 class="card-title ">
+                  Gráfico de Trámites
+                </h5>
+              </div>
+              <div class="p-2">
+              <div id="myChartBar">
+              </div>
+            </div>
+          </div>
+          </section>
+
+          <section class="col-md-6 col-sm-12" id="graficaPieTrámites">
+            <div class="card">
+              <div class="card-header">
+                <h5 class="card-title">
+                  Estados de los Trámites
+                </h5>
+              </div>
+              <div class="p-2">
+              <div id="myChartPie">
+              </div>
+            </div>
+          </div>
+         </section>
+
+        </section>
+      </div>
+  </main>
+</div>
+ 
+  {% endblock %}
+
+  <!-- Conatiner JS -->
+  {% block js%}
+  <script src="{% static 'Plataforma/libs/Datatable/JS/jquery-3.7.1.js' %}"></script>
+  <script src="{% static 'Plataforma/libs/Datatable/JS/dataTables.js' %}"></script>
+  <script src="{% static 'Plataforma/libs/Datatable/JS/dataTables.bootstrap5.js' %}"></script>
+  <!--Botones DataTables-->
+  <script src="{% static 'Plataforma/libs/Datatable/JS/dataTables.buttons.js' %}"></script>
+  <script src="{% static 'Plataforma/libs/Datatable/JS/buttons.bootstrap5.js' %}"></script>
+  <script src="{% static 'Plataforma/libs/Datatable/JS/jszip.min.js' %}"></script>
+  <script src="{% static 'Plataforma/libs/Datatable/JS/pdfmake.min.js' %}"></script>
+  <script src="{% static 'Plataforma/libs/Datatable/JS/vfs_fonts.js' %}"></script>
+  <script src="{% static 'Plataforma/libs/Datatable/JS/buttons.html5.min.js' %}"></script>
+  <script src="{% static 'Plataforma/libs/Datatable/JS/buttons.print.min.js' %}"></script>
+  <script src="{% static 'Plataforma/libs/Datatable/JS/bottons.colVis.min.js' %}"></script>
+  <!--DataTables responsivo-->
+  <script src="{% static 'Plataforma/libs/Datatable/JS/dataTables.responsive.js' %}"></script>
+  <script src="{% static 'Plataforma/libs/Datatable/JS/responsive.bootstrap5.js' %}"></script>
+  <!--Inicializar DataTables-->
+  <script src="{% static 'Plataforma/libs/Datatable/JS/Administracion.js' %}"></script>
+  <!--Inicializar Charts-->
+  <script src="{% static 'Plataforma/libs/Highcharts/code/highcharts.js' %}"></script>
+  <script src="{% static 'Plataforma/libs/Highcharts/code/modules/accessibility.js' %}"></script>
+  <script src="{% static 'Plataforma/libs/Highcharts/code/modules/exporting.js' %}"></script>
+  <script src="{% static 'Plataforma/libs/Highcharts/code/modules/offline-exporting.js' %}"></script>
+  <script src="{% static 'Plataforma/libs/Highcharts/code/modules/export-data.js' %}"></script>
+  <script src="{% static 'Plataforma/libs/Highcharts/newChart.js' %}"></script>
+  {% endblock %}
+  <!-- End Conatiner JS -->
