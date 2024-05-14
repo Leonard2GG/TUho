@@ -7,6 +7,7 @@ from apps.Plataforma.models import Noticias
 from django.contrib.auth.models import Group
 from django.http import HttpResponseRedirect
 from django.urls import reverse
+from django.http import FileResponse 
 
 
 # Create your views here.
@@ -131,8 +132,8 @@ def EliminarNoticia(request,id):
 
 # Instalación de Módulos
 @login_required
-def InstalarModulos(request):
-    return render(request,"Plataforma/Instalacion de Modulos.html")
+def InstalarModulosPDF(request):
+    return FileResponse(open('static/Plataforma/pdf/Instalación Módulo.pdf', 'rb'), content_type='application/pdf')
 
 
 
