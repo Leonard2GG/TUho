@@ -130,7 +130,7 @@ def EliminarNoticia(request,id):
     noticia.delete()
     return redirect("Noticias")
 
-# Instalación de Módulos
+# Instalación de Módulos PDF
 @login_required
 def InstalarModulosPDF(request):
     return FileResponse(open('static/Plataforma/pdf/Instalación Módulo.pdf', 'rb'), content_type='application/pdf')
