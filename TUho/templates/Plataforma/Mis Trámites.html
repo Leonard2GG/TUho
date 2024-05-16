@@ -24,7 +24,8 @@
             <table id="Tramites" class="display table table-striped table-hover table-primary" style="width:100%">
                 <thead class="encabezado">
                     <tr>
-                        <th scope="col" style="color: white; text-align: start;">Carnet ID</th>
+                        <th scope="col" style="color: white; text-align: start;">#</th>
+                        <th scope="col" style="color: white; text-align: start;">Carnet</th>
                         <th scope="col" style="color: white; text-align: start;">Tipo de Trámite</th>
                         <th scope="col" style="color: white; text-align: start;">Estado del Trámite</th>
                         <th scope="col" style="color: white; text-align: start;">Eliminar</th>
@@ -33,6 +34,7 @@
                 </thead>
                 <tbody>
                     <tr>
+                        <td style="text-align: start;">{{ forloop.counter }}</td>
                         <td style="text-align: start;">01060578004</td>
                         <td style="text-align: start;">Certificacion del titulo</td>
                         <td style="text-align: start;">En espera</td>

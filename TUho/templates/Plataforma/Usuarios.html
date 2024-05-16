@@ -25,6 +25,7 @@
             <table id="Usuarios" class="display table table-striped table-hover table-primary" style="width:100%">
                 <thead class="encabezado">
                     <tr>
+                        <th scope="col" style="color: white; text-align: start;">#</th>
                         <th scope="col" style="color: white; text-align: start;">Usuario</th>
                         <th scope="col" style="color: white; text-align: start;">Teléfono</th>
                         <th scope="col" style="color: white; text-align: start;">Email</th>
@@ -37,6 +38,7 @@
                 <tbody>
                     {% for usuario in usuarios %}
                     <tr>
+                        <td style="text-align: start;">{{ forloop.counter }}</td>
                         <td style="text-align: start;">{{ usuario.username }}</td>
                         <td style="text-align: start;">
                             {% if usuario.telefono %}

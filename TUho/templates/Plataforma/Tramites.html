@@ -26,9 +26,10 @@
                 style="width:100%; height: 100%;">
                 <thead class="encabezado">
                     <tr>
+                        <th scope="col" style="color: white; text-align: start;">#</th>
                         <th scope="col" style="color: white; text-align: start;">Nombre</th>
                         <th scope="col" style="color: white; text-align: start;">Apellidos</th>
-                        <th scope="col" style="color: white; text-align: start;">Carnet ID</th>
+                        <th scope="col" style="color: white; text-align: start;">Carnet</th>
                         <th scope="col" style="color: white; text-align: start;">Teléfono</th>
                         <th scope="col" style="color: white; text-align: start;">Tipo de Trámite</th>
                         <th scope="col" style="color: white; text-align: start;">Estado del Trámite</th>
@@ -37,6 +38,7 @@
                 </thead>
                 <tbody>
                     <tr>
+                        <td style="text-align: start;">{{ forloop.counter }}</td>
                         <td style="text-align: start;">Tiger Nixon</td>
                         <td style="text-align: start;">System Architect</td>
                         <td style="text-align: start;">01060578004</td>

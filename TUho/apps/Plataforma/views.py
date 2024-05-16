@@ -80,7 +80,7 @@ def EliminarUsuario(request,id):
 def CambiarRol(request, id):
     if request.method == 'POST':  
         usuario = Usuario.objects.get(id=id)
-        group_names =['Administración','Supervisor', 'Usuario']
+        group_names =['Administración','Supervisor', 'Usuario', 'Administrador Trámites']
         selected_group = request.POST['role']
         if selected_group in group_names:
             group = Group.objects.get(name=selected_group)
