@@ -31,12 +31,6 @@
           <p>+53 55568719</p>
         </div>
       </div>
-      <p class="text">
-        Nuestro objetivo es contribuir al bienestar y la mejora de la calidad de vida de toda la comunidad, brindando
-        una
-        atención integral y de calidad a cada persona que lo necesite.</br>
-        ¡Estamos aquí para ayudarte!
-      </p>
     </div>
     <div class="contact-form">
       <span class="circle one"></span>
@@ -58,21 +52,6 @@
         </div>
         {% endif %}
         {% endif %}
-        <div class="input-container focus">
-          <input type="text" name="first_name" class="input" value="{{ request.user.first_name }}" disabled>
-          <label for="">Nombre</label>
-          <span>Nombre</span>
-        </div>
-        <div class="input-container focus">
-          <input type="text" name="last_name" class="input" value="{{ request.user.last_name }}" disabled>
-          <label for="">Apellidos</label>
-          <span>Apellidos</span>
-        </div>
-        <div class="input-container focus">
-          <input type="text" name="address" class="input" value="{{ request.user.direccion }}" disabled>
-          <label for="">Dirección</label>
-          <span>Dirección</span>
-        </div>
         <div class="input-container select-municipio">
           <input type="hidden" name="municipality" required>
           <div class="input selector">
@@ -95,6 +74,18 @@
           <div aria-valuetext="Rafael Freyre" class="element">Rafael Freyre</div>
           <div aria-valuetext="Sagua de Tánamo" class="element">Sagua de Tánamo</div>
           <div aria-valuetext="Urbano Noris" class="element">Urbano Noris</div>
+        </div>
+        <div class="input-container select-consulta">
+          <input type="hidden" name="consulta" required>
+          <div class="input selector ">
+          </div>
+          <label for="">Tipo de consulta</label>
+          <span>Tipo de consulta</span>
+        </div>
+        <div class="select-options-consulta">
+          <div aria-valuetext="Duda" class="element">Duda</div>
+          <div aria-valuetext="Queja" class="element">Queja</div>
+          <div aria-valuetext="Solicitid de Infomación" class="element">Solicitud de Infomación</div>
         </div>
         <div class="input-container">
           <input type="text" name="subject" class="input" id="asunto" required>
@@ -146,9 +137,39 @@ selectElements.addEventListener("click", (e) => {
         selectInput.classList.toggle("focused")
     }
 })
-
-
 </script>
+<script>
+  /*
+ * Seccion de Select
+ */
+ const selectInputConsulta = document.querySelector(".select-consulta")
+ //const selectElements = document.querySelectorAll(".select-options .element")
+ const selectElementsConsulta = document.querySelector(".select-options-consulta")
+ let selectionConsulta = false
+ 
+ selectInputConsulta.addEventListener("click", () => {
+     selectInputConsulta.classList.toggle("focused")
+     if (!selectionConsulta){
+         selectInputConsulta.classList.toggle("focus")
+         if ( Array.from(selectInputConsulta.classList).indexOf("focus") != -1 ){
+             selectInputConsulta.children[1].innerText = "Selecciona un tipo de consulta"
+         } else {
+             selectInputConsulta.children[1].innerText = ""
+         }
+     }
+ })
+ 
+ selectElementsConsulta.addEventListener("click", (e) => {
+     if (e.target.className === "element"){
+         let trueField = selectInputConsulta.children[0]
+         let fakeField = selectInputConsulta.children[1]
+         trueField.value = e.target.ariaValueText
+         fakeField.innerText = e.target.innerText
+         selectionConsulta = true
+         selectInputConsulta.classList.toggle("focused")
+     }
+ })
+ </script>
 <script src="{% static 'Plataforma/js/FormularioSelect.js' %}"></script>
 <script src="{% static 'Plataforma/js/Trim AtencionP.js' %}"></script>
 {% endblock %}

@@ -7,6 +7,7 @@ from apps.Plataforma.models import Noticias
 from django.contrib.auth.models import Group
 from django.http import HttpResponseRedirect
 from django.urls import reverse
+from django.http import HttpRequest
 from django.http import FileResponse 
 
 
@@ -28,19 +29,18 @@ def InformacionPersonal(request):
 
 # Atencion a la Población
 @login_required
-def AtencionPoblacion(request):
+def AtencionPoblacion(request:HttpRequest):
     if request.POST:
         email = request.user.email
-        nombre = request.user.first_name
-        last_name = request.user.last_name
-        address = request.user.direccion
+        usuario = request.user.username
         municipality = request.POST['municipality']
+        consulta = request.POST['consulta']
         subject = request.POST['subject']
         message = request.POST['message']
         #email
         send_mail(
             subject= subject,
-            message=f"Email: {email}\nNombre: {nombre}\nApellidos: {last_name}\nDireccion: {address}\nMuniciopio: {municipality}\nMensaje: {message}",
+            message=f"Email: {email}\nNombre del usuario: {usuario}\nMuniciopio: {municipality}\nTipo de consulta: {consulta}\nAsunto: {subject}\nMensaje: {message}",
             from_email="smtp.gmail.com",
             recipient_list= ["kiri05062001@gmail.com"]
         )
@@ -144,12 +144,14 @@ def EliminarNoticia(request,id):
     noticia.delete()
     return redirect("Noticias")
 
-# Instalación de Módulos PDF
+# Instalar Modulos PDF
 @login_required
 def InstalarModulosPDF(request):
-    return FileResponse(open('static/Plataforma/pdf/Instalación Módulo.pdf', 'rb'), content_type='application/pdf')
+    return render(request,"Plataforma/Instalacion Modulo.html")
 
-
+@login_required
+def Graficos(request):
+    return render(request,"Plataforma/Graficos.html")
 
 
 

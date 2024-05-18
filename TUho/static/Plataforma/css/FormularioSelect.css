@@ -408,3 +408,36 @@ textarea.input{
     padding-bottom: 25px;
 }
 
+.select-options-consulta {
+    display: none;
+    padding: 5px;
+    max-height: 100px;
+    border: solid 2px #fff;
+    color: #fff;
+    border-top: none;
+    border-radius: 0 0 25px 25px;
+    transform: translateY(-18px);
+    transition: .8s;
+    overflow-y: scroll;
+}
+
+.input-container.select-consulta.focused ~ .select-options-consulta {
+    display: flex;
+    flex-direction: column;
+}
+
+.input.selector {
+    height: 3rem;
+    font-family: sans-serif;
+    font-weight: 700;
+    transition: .0s;
+}
+
+.input-container.select-consulta.focused .input.selector {
+    height: 2rem;
+    border-bottom: none;
+    border-radius: 25px 25px 0 0;
+}
+
+
+

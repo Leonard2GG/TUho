@@ -28,6 +28,7 @@ urlpatterns = [
     path('Usuarios/',login_required (views.Usuarios), name="Usuarios"),
     path('EliminarUsuario/<int:id>/',login_required (views.EliminarUsuario), name="EliminarUsuario"),
     path('CambiarRol/<int:id>/',login_required (views.CambiarRol), name="CambiarRol"),
+    path('Graficos/',login_required (views.Graficos), name="Graficos"),
     path('NoticiasUsuario/', views.NoticiasUsuario, name="NoticiasUsuario"),
     path('InstalarModulosPDF/',login_required (views.InstalarModulosPDF), name="InstalarModulosPDF"),
     

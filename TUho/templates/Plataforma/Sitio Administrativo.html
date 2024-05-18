@@ -45,7 +45,7 @@
               <div class="icon">
                 <i class="bx bx-bar-chart"></i>
               </div>
-              <a href="#graficaBarTrámites" class="small-box-footer">Más información <i
+              <a href="{% url 'Graficos' %}" class="small-box-footer">Más información <i
                   class="bi bi-arrow-right-circle"></i></a>
             </div>
           </div>
@@ -80,7 +80,7 @@
               <div class="icon">
                 <i class="bx bxs-pie-chart-alt-2"></i>
               </div>
-              <a href="#graficaPieTrámites" class="small-box-footer">Más información <i
+              <a href="{% url 'Graficos' %}" class="small-box-footer">Más información <i
                   class="bi bi-arrow-right-circle"></i></a>
             </div>
           </div>
@@ -176,14 +176,9 @@
         </div>
         </section>
 
-        <section class="mb-3 row row-gap-3 ">
-          <section class="col-md-6 col-sm-12" id="graficaBarTrámites">
+        <section class="mb-1 row row-gap-1 ">
+          <section class="col-md-6 col-sm-12" id="">
             <div class="card">
-              <div class="card-header">
-                <h5 class="card-title ">
-                  Gráfico de Trámites
-                </h5>
-              </div>
               <div class="p-2">
               <div id="myChartBar">
               </div>
@@ -191,13 +186,8 @@
           </div>
           </section>
 
-          <section class="col-md-6 col-sm-12" id="graficaPieTrámites">
+          <section class="col-md-6 col-sm-12" id="">
             <div class="card">
-              <div class="card-header">
-                <h5 class="card-title">
-                  Estados de los Trámites
-                </h5>
-              </div>
               <div class="p-2">
               <div id="myChartPie">
               </div>
