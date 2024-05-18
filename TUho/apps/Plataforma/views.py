@@ -78,16 +78,30 @@ def EliminarUsuario(request,id):
 # Cambiar Rol de Usuarios
 @login_required
 def CambiarRol(request, id):
-    if request.method == 'POST':  
-        usuario = Usuario.objects.get(id=id)
-        group_names =['Administración','Supervisor', 'Usuario', 'Administrador Trámites']
+    if request.method == 'POST':
+        try:
+            usuario = Usuario.objects.get(id=id)
+        except Usuario.DoesNotExist:
+            return render (request,"Plataforma/Atención a la Poblacion.html",{'response':'incorrecto', 'message':'Usuario no encontrado'})
+
+        group_names = list(Group.objects.all().values_list('name', flat=True)) 
         selected_group = request.POST['role']
+
         if selected_group in group_names:
-            group = Group.objects.get(name=selected_group)
+            try:
+                group = Group.objects.get(name=selected_group)
+            except Group.DoesNotExist:
+                return render (request,"Plataforma/Atención a la Poblacion.html",{'response':'incorrecto', 'message':'Grupo no encontrado'})
+
             usuario.groups.clear()
             usuario.groups.add(group)
             return redirect('Usuarios')
-    return render(request,"Plataforma/Cambiar Rol.html")
+        else:
+           return render (request,"Plataforma/Atención a la Poblacion.html",{'response':'incorrecto', 'message':'Rol inválido'})
+    else:
+        group_names = list(Group.objects.all().values_list('name', flat=True))
+        return render(request, "Plataforma/Cambiar Rol.html", {'group_names': group_names})
+
         
 # Noticas del usuario
 def NoticiasUsuario(request):

@@ -26,7 +26,7 @@
                 {% csrf_token %}
                 <h3 class="title">Cambiar</h3>  
                 {% if response %}
-                {% if response == 'correcto' %}
+                {% if response == 'incorrecto' %}
                 <div class="alert alert-success alert-dismissible fade show" role="alert"
                 style="height:40px; position: fixed; right: 20px; top: 50px; display: flex; align-items: center; padding-right: 0rem;">
                 {{ message }}
@@ -44,10 +44,9 @@
                     <span>Rol de Usuario</span>
                   </div>
                   <div class="select-options" name="role">
-                    <div aria-valuetext="Administración" value="Administración" class="element">Administración</div>
-                    <div aria-valuetext="Administrador Trámites" value="Administrador Trámites" class="element">Administrador de Trámites</div>
-                    <div aria-valuetext="Supervisor" value="Supervisor" class="element">Supervisor</div>
-                    <div aria-valuetext="Usuario" value="Usaurio" class="element">Usuario</div>
+                    {% for group_name in group_names%}
+                    <div aria-valuetext="{{group_name}}" value="{{group_name}}" class="element">{{group_name}}</div>
+                    {% endfor %}
                   </div>
                   <div class="btn">
                     <a href="{% url 'Usuarios' %}" class="btn2">Cancelar</a>
