@@ -28,8 +28,9 @@ body,input,textarea{
 }
 
 .title{
-    color: #005296;
+    color: black;
     padding: 0.1rem 0 0 0.9rem;
+    font-weight: bolder;
 }
 
 .noticias{
