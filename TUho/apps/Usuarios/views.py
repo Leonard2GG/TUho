@@ -108,7 +108,6 @@ def CerrarSesion(request:HttpRequest):
     logout(request)
     return redirect("Login")
 
-# Create your views here.
 
 # Actualizar Información
 @login_required
@@ -126,8 +125,6 @@ def ActualizarInf(request:HttpRequest):
     form = InformacionPersonal()
     return render(request,"Usuarios/Actualizar Informacion Personal.html",{"form":form})
     
-
-
 
 
 

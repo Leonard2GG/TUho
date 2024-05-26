@@ -29,5 +29,5 @@ urlpatterns = [
     path('reset/<uidb64>/<token>', views.CambiarContraseña.as_view(), name="password_reset_confirm"),
     path('reset_password_complete/', views.CambiarContraseñaConfirmado, name="password_reset_complete"),
      # Informacion Personal
-    path('ActualizarInf/', views.ActualizarInf, name="ActualizarInf"),
+    path('ActualizarInf/', login_required(views.ActualizarInf), name="ActualizarInf"),
 ]

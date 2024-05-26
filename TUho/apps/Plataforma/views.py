@@ -2,13 +2,12 @@ from django.shortcuts import redirect, render, HttpResponse, get_list_or_404
 from django.contrib.auth.decorators import login_required
 from django.core.mail import send_mail
 from apps.Usuarios.models import Usuario
-from .forms import CrearNoticiasForm
-from apps.Plataforma.models import Noticias
+from .forms import CrearNoticiasForm,  CrearGrupoForm
+from .models import Noticias
 from django.contrib.auth.models import Group
-from django.http import HttpResponseRedirect
-from django.urls import reverse
-from django.http import HttpRequest
-from django.http import FileResponse 
+from django.db.models import Count
+from django.http import HttpRequest, HttpResponseRedirect
+
 
 
 # Create your views here.
@@ -38,11 +37,12 @@ def AtencionPoblacion(request:HttpRequest):
         subject = request.POST['subject']
         message = request.POST['message']
         #email
+        admin_list = [i.email for i in Usuario.objects.filter(groups__name="Administración")]
         send_mail(
+            recipient_list=admin_list,
             subject= subject,
             message=f"Email: {email}\nNombre del usuario: {usuario}\nMuniciopio: {municipality}\nTipo de consulta: {consulta}\nAsunto: {subject}\nMensaje: {message}",
             from_email="smtp.gmail.com",
-            recipient_list= ["kiri05062001@gmail.com"]
         )
         return render (request,"Plataforma/Atención a la Poblacion.html",{'response':'correcto', 'message':'Se ha enviado correctamente'})
     return render (request,"Plataforma/Atención a la Poblacion.html")
@@ -153,5 +153,36 @@ def InstalarModulosPDF(request):
 def Graficos(request):
     return render(request,"Plataforma/Graficos.html")
 
+@login_required
+def Configuracion(request):
+    grupos = Group.objects.annotate(user_count=Count('user'))
+    return render(request,"Plataforma/Configuracion.html",{'grupos':grupos})
 
+# Crear Grupo
+@login_required
+def CrearGrupo(request:HttpRequest):
+    if request.POST:
+        form = CrearGrupoForm(request.POST)
+        if form.is_valid():
+            nombre_grupo = form.cleaned_data['name']
+            grupo, created = Group.objects.get_or_create(name=nombre_grupo)
+            return redirect('Configuracion')
+    else:
+        form = CrearGrupoForm()
+    return render(request,'Plataforma/Crear Grupo.html',{'form':form})
 
+def EditarGrupo(request, id):
+    grupo = Group.objects.get(id=id)
+    if request.POST:
+        form = CrearGrupoForm(request.POST, instance=grupo)
+        if form.is_valid():
+            form.save()
+            return redirect('Configuracion')
+    else:
+        form = CrearGrupoForm(instance=grupo)
+    return render(request,'Plataforma/Editar Grupo.html',{'form':form})
+
+def EliminarGrupo(request, id):
+    grupo = Group.objects.get(id=id)
+    grupo.delete()
+    return redirect("Configuracion")
