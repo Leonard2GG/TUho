@@ -39,7 +39,7 @@
                         <td style="text-align: start;">{{ forloop.counter }}</td>
                         <td style="text-align: start;">{{grupo.name}}</td>
                         <td style="text-align: start;">{{grupo.user_count}} usuario(s)</td>
-                        <td style="text-align: center; font-size: 1.2rem; "><a class="iconos p-2"
+                        <td style="text-align: center; font-size: 1.2rem;"><a class="iconos p-2"
                             href="{% url 'EditarGrupo' grupo.id  %}"><i class="bx bx-edit"></i></a><a class="iconos p-2"
                             href="{% url 'EliminarGrupo' grupo.id  %}"><i class="bx bx-trash"></i></a></td>
                     </tr>

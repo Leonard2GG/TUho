@@ -154,9 +154,9 @@ def Graficos(request):
     return render(request,"Plataforma/Graficos.html")
 
 @login_required
-def Configuracion(request):
+def Grupos(request):
     grupos = Group.objects.annotate(user_count=Count('user'))
-    return render(request,"Plataforma/Configuracion.html",{'grupos':grupos})
+    return render(request,"Plataforma/Grupos.html",{'grupos':grupos})
 
 # Crear Grupo
 @login_required
@@ -166,7 +166,7 @@ def CrearGrupo(request:HttpRequest):
         if form.is_valid():
             nombre_grupo = form.cleaned_data['name']
             grupo, created = Group.objects.get_or_create(name=nombre_grupo)
-            return redirect('Configuracion')
+            return redirect('Grupos')
     else:
         form = CrearGrupoForm()
     return render(request,'Plataforma/Crear Grupo.html',{'form':form})
@@ -177,7 +177,7 @@ def EditarGrupo(request, id):
         form = CrearGrupoForm(request.POST, instance=grupo)
         if form.is_valid():
             form.save()
-            return redirect('Configuracion')
+            return redirect('Grupos')
     else:
         form = CrearGrupoForm(instance=grupo)
     return render(request,'Plataforma/Editar Grupo.html',{'form':form})
@@ -185,4 +185,4 @@ def EditarGrupo(request, id):
 def EliminarGrupo(request, id):
     grupo = Group.objects.get(id=id)
     grupo.delete()
-    return redirect("Configuracion")
+    return redirect("Grupos")
