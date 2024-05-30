@@ -7,6 +7,8 @@ from .models import Noticias
 from django.contrib.auth.models import Group
 from django.db.models import Count
 from django.http import HttpRequest, HttpResponseRedirect
+from django.utils.decorators import method_decorator
+from .decorators import admin_required
 
 
 
@@ -49,6 +51,7 @@ def AtencionPoblacion(request:HttpRequest):
 
 # Administración
 @login_required
+@admin_required
 def Administracion(request):
     context = {
         'usuarios': Usuario.objects.all()
@@ -57,11 +60,13 @@ def Administracion(request):
 
 # Trámites
 @login_required
+@admin_required
 def Tramites(request):
     return render (request,"Plataforma/Tramites.html")
 
 # Usuarios
 @login_required
+@admin_required
 def Usuarios(request):
     context = {
         'usuarios': Usuario.objects.all()
@@ -70,6 +75,7 @@ def Usuarios(request):
 
 # Eliminar Usuarios
 @login_required
+@admin_required
 def EliminarUsuario(request,id):
     usuario = Usuario.objects.get(id=id)
     usuario.delete()
@@ -77,6 +83,7 @@ def EliminarUsuario(request,id):
 
 # Cambiar Rol de Usuarios
 @login_required
+@admin_required
 def CambiarRol(request, id):
     if request.method == 'POST':
         try:
@@ -110,12 +117,14 @@ def NoticiasUsuario(request):
 
 # Visualizar Noticias
 @login_required
+@admin_required
 def NoticiasView(request):
     noticias = Noticias.objects.all()
     return render(request,"Plataforma/Noticias.html", {'noticias':noticias})
 
 # Crear Noticias
 @login_required
+@admin_required
 def CrearNoticia(request):
     noticia = Noticias()
     form = CrearNoticiasForm()
@@ -128,6 +137,7 @@ def CrearNoticia(request):
 
 # Editar Noticias
 @login_required
+@admin_required
 def EditarNoticia(request,id):
     noticia = Noticias.objects.get(id=id)
     if request.POST:
@@ -139,6 +149,7 @@ def EditarNoticia(request,id):
 
 # Eliminar Noticias
 @login_required
+@admin_required
 def EliminarNoticia(request,id):
     noticia = Noticias.objects.get(id=id)
     noticia.delete()
@@ -146,20 +157,24 @@ def EliminarNoticia(request,id):
 
 # Instalar Modulos PDF
 @login_required
+@admin_required
 def InstalarModulosPDF(request):
     return render(request,"Plataforma/Instalacion Modulo.html")
 
 @login_required
+@admin_required
 def Graficos(request):
     return render(request,"Plataforma/Graficos.html")
 
 @login_required
+@admin_required
 def Grupos(request):
     grupos = Group.objects.annotate(user_count=Count('user'))
     return render(request,"Plataforma/Grupos.html",{'grupos':grupos})
 
 # Crear Grupo
 @login_required
+@admin_required
 def CrearGrupo(request:HttpRequest):
     if request.POST:
         form = CrearGrupoForm(request.POST)
@@ -171,6 +186,9 @@ def CrearGrupo(request:HttpRequest):
         form = CrearGrupoForm()
     return render(request,'Plataforma/Crear Grupo.html',{'form':form})
 
+# Editar Grupo
+@login_required
+@admin_required
 def EditarGrupo(request, id):
     grupo = Group.objects.get(id=id)
     if request.POST:
@@ -182,6 +200,9 @@ def EditarGrupo(request, id):
         form = CrearGrupoForm(instance=grupo)
     return render(request,'Plataforma/Editar Grupo.html',{'form':form})
 
+# Eliminar Grupo
+@login_required
+@admin_required
 def EliminarGrupo(request, id):
     grupo = Group.objects.get(id=id)
     grupo.delete()

@@ -13,9 +13,7 @@
         <div class="contact-info">
             <h3 class="title">Grupos </h3>
             <p class="text">
-                Si tienes información relevante, interesante o impactante que qieras compartir con el mundo ¡Esta es tu
-                oportunidad! Envianos tus noticias y ayuda
-                a mantener nuestra sociedad informada y actualizada.
+                Edita tu grupo para colaborar, compartir ideas y trabajar en equipo de manera eficiente.
             </p>
         </div>
         <div class="contact-form">
@@ -23,7 +21,7 @@
             <span class="circle two"></span>
             <form action="." method="POST">
                 {% csrf_token %}
-                <h3 class="title">Crear Grupo</h3>
+                <h3 class="title">Editar Grupo</h3>
                 <div class="input-container focus">
                     {{ form.name }}
                     <label for="">Nombre</label>
