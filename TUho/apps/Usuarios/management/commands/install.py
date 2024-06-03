@@ -4,7 +4,7 @@ from apps.Usuarios.models import Usuario
 
 from django.contrib.auth.models import Group
 
-GRUPOS = ["Administración", "Usuario", "Supervisor"]
+GRUPOS = ["Administración", "Usuario", "Supervisor","Administrador Trámites"]
 
 class Command(BaseCommand):
 

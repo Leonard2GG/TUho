@@ -19,6 +19,9 @@ from apps.Usuarios import views
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import views as auth_views
 
+
+
+
 urlpatterns = [
     path('Login/', views.Login, name="Login"),
     path('Registrar/', views.Registrar, name="Registrar"),
@@ -29,5 +32,5 @@ urlpatterns = [
     path('reset/<uidb64>/<token>', views.CambiarContraseña.as_view(), name="password_reset_confirm"),
     path('reset_password_complete/', views.CambiarContraseñaConfirmado, name="password_reset_complete"),
      # Informacion Personal
-    path('ActualizarInf/', views.ActualizarInf, name="ActualizarInf"),
+    path('ActualizarInf/', login_required(views.ActualizarInf), name="ActualizarInf"),
 ]
