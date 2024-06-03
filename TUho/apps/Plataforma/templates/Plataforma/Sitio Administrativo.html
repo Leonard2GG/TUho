@@ -8,6 +8,7 @@
 <link rel="stylesheet" href=" {% static 'Plataforma/libs/Datatable/CSS/buttons.bootstrap5.css' %}">
 <link rel="stylesheet" href=" {% static 'Plataforma/libs/Datatable/CSS/responsive.bootstrap5.css' %}">
 <link rel="stylesheet" href=" {% static 'Plataforma/css/datatable.css' %}">
+<link src="{% static 'Plataforma/libs/Highcharts/css/highcharts.js' %}">
 {% endblock %}
 <!-- End Conatiner CSS -->
 
@@ -22,14 +23,14 @@
             <!-- small box -->
             <div class="small-box bg-box-one">
               <div class="inner">
-                <h3>1</h3>
+                <h3>0</h3>
                 <p>Trámites</p>
               </div>
               <div class="icon">
                 <i class=" bx bx-file"></i>
               </div>
-              <a href="{% url 'Tramites' %}" class="small-box-footer">Más información <i
-                  class="bi bi-arrow-right-circle"></i></a>
+              <a href="{% url 'Tramites' %}" class="small-box-footer">Más información 
+                <i class="bi bi-arrow-right-circle"></i></a>
             </div>
           </div>
           <!-- ./col -->
@@ -37,7 +38,7 @@
             <!-- small box -->
             <div class="small-box bg-box-one">
               <div class="inner">
-                <h3>0.1<sup style="font-size: 20px">%</sup></h3>
+                <h3>0<sup style="font-size: 20px">%</sup></h3>
 
                 <p>Cantidad Trámites</p>
               </div>
@@ -72,7 +73,7 @@
             <!-- small box -->
             <div class="small-box bg-box-one">
               <div class="inner">
-                <h3 style="color:transparent;">65</h3>
+                <h3>-</h3>
 
                 <p>Estados de los Trámites</p>
               </div>
@@ -106,15 +107,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td style="text-align: start;">{{ forloop.counter }}</td>
-                    <td style="text-align: start;">Tiger Nixon</td>
-                    <td style="text-align: start;">System Architect</td>
-                    <td style="text-align: start;">01060578004</td>
-                    <td style="text-align: start;">55568719</td>
-                    <td style="text-align: start;">Certificacion del titulo</td>
-                    <td style="text-align: start;">Listo para entregar</td>
-                  </tr>
+                  
                 </tbody>
               </table>
             </div>

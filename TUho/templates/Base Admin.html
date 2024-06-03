@@ -33,6 +33,7 @@
         <img src="{% static 'img/Id UHo-03-white.png' %}" width="200" height="80px" alt="">
       </a>
       <hr>
+      {% if "Administración" in grupos %}
       <ul class="mynav nav nav-pills flex-column mb-auto">
         <li class="nav-item mb-1">
           <a href="{% url 'Administracion' %}" class="active">
@@ -40,6 +41,7 @@
             Inicio
           </a>
         </li>
+        
         <li class="nav-item mb-1" aria-label="Noticias">
           <a href="{% url 'Noticias' %}" class="">
             <i class="bx bx-news"></i>
@@ -95,6 +97,48 @@
           </li>
         </ul>
       </div>
+      {% endif %}
+      {% if "Administrador Trámites" in grupos %}
+      <ul class="mynav nav nav-pills flex-column mb-auto">
+        <li class="nav-item mb-1">
+          <a href="{% url 'Administracion' %}" class="active">
+            <i class="bx bxs-widget"></i>
+            Inicio
+          </a>
+        </li>
+        <li class="nav-item mb-1">
+          <a href="#" class="">
+            <i class="bx bx-bell"></i>
+            Notificaciones
+            <span class="notification-badge">5</span>
+          </a>
+        </li>
+        <li class="nav-item mb-1" aria-label="Tramites">
+          <a href="{% url 'Tramites' %}" class="">
+            <i class="bx bx-file"></i>
+            Trámites
+          </a>
+        </li>
+        <li class="nav-item mb-1" aria-label="Graficos">
+          <a href="{% url 'Graficos' %}" class="">
+            <i class="bx bxs-doughnut-chart"></i>
+            Gráficos
+          </a>
+        </li>
+      </ul>
+      <hr class="mb-0">
+      <div>
+        <ul class="mynav nav nav-pills flex-column mb-auto ">
+          <li class="nav-item mb-1 " aria-label="CerrarSesion">
+            <a class="" data-bs-toggle="modal" data-bs-target="#exampleModal">
+              <i class="bx bx-log-out"></i>
+              Cerrar Sesión
+            </a>
+          </li>
+        </ul>
+      </div>
+      {% endif %}
+
     </div>
     <!-- Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

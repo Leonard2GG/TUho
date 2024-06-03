@@ -1,5 +1,5 @@
-from django.shortcuts import redirect, render, HttpResponse, get_list_or_404
-from django.contrib.auth.decorators import login_required
+from django.shortcuts import redirect, render, HttpResponse
+from django.contrib.auth.decorators import login_required, permission_required
 from django.core.mail import send_mail
 from apps.Usuarios.models import Usuario
 from .forms import CrearNoticiasForm,  CrearGrupoForm
@@ -8,7 +8,9 @@ from django.contrib.auth.models import Group
 from django.db.models import Count
 from django.http import HttpRequest, HttpResponseRedirect
 from django.utils.decorators import method_decorator
-from .decorators import admin_required
+from .decorators import admin_required, pure_admin_required
+
+
 
 
 
@@ -52,10 +54,14 @@ def AtencionPoblacion(request:HttpRequest):
 # Administración
 @login_required
 @admin_required
-def Administracion(request):
+def Administracion(request:HttpRequest):
     context = {
         'usuarios': Usuario.objects.all()
     }
+    if request.user.groups.filter(name='Administración').exists():
+        return render (request,"Plataforma/Sitio Administrativo.html", context)
+    elif request.user.groups.filter(name='Administrador Trámites').exists():
+        return render (request,"Plataforma/Sitio Administrativo.html", context)
     return render (request,"Plataforma/Sitio Administrativo.html", context)
 
 # Trámites
@@ -66,7 +72,7 @@ def Tramites(request):
 
 # Usuarios
 @login_required
-@admin_required
+@pure_admin_required
 def Usuarios(request):
     context = {
         'usuarios': Usuario.objects.all()
@@ -75,7 +81,7 @@ def Usuarios(request):
 
 # Eliminar Usuarios
 @login_required
-@admin_required
+@pure_admin_required
 def EliminarUsuario(request,id):
     usuario = Usuario.objects.get(id=id)
     usuario.delete()
@@ -83,7 +89,7 @@ def EliminarUsuario(request,id):
 
 # Cambiar Rol de Usuarios
 @login_required
-@admin_required
+@pure_admin_required
 def CambiarRol(request, id):
     if request.method == 'POST':
         try:
@@ -117,14 +123,14 @@ def NoticiasUsuario(request):
 
 # Visualizar Noticias
 @login_required
-@admin_required
+@pure_admin_required
 def NoticiasView(request):
     noticias = Noticias.objects.all()
     return render(request,"Plataforma/Noticias.html", {'noticias':noticias})
 
 # Crear Noticias
 @login_required
-@admin_required
+@pure_admin_required
 def CrearNoticia(request):
     noticia = Noticias()
     form = CrearNoticiasForm()
@@ -137,7 +143,7 @@ def CrearNoticia(request):
 
 # Editar Noticias
 @login_required
-@admin_required
+@pure_admin_required
 def EditarNoticia(request,id):
     noticia = Noticias.objects.get(id=id)
     if request.POST:
@@ -149,7 +155,7 @@ def EditarNoticia(request,id):
 
 # Eliminar Noticias
 @login_required
-@admin_required
+@pure_admin_required
 def EliminarNoticia(request,id):
     noticia = Noticias.objects.get(id=id)
     noticia.delete()
@@ -157,7 +163,7 @@ def EliminarNoticia(request,id):
 
 # Instalar Modulos PDF
 @login_required
-@admin_required
+@pure_admin_required
 def InstalarModulosPDF(request):
     return render(request,"Plataforma/Instalacion Modulo.html")
 
@@ -167,14 +173,14 @@ def Graficos(request):
     return render(request,"Plataforma/Graficos.html")
 
 @login_required
-@admin_required
+@pure_admin_required
 def Grupos(request):
     grupos = Group.objects.annotate(user_count=Count('user'))
     return render(request,"Plataforma/Grupos.html",{'grupos':grupos})
 
 # Crear Grupo
 @login_required
-@admin_required
+@pure_admin_required
 def CrearGrupo(request:HttpRequest):
     if request.POST:
         form = CrearGrupoForm(request.POST)
@@ -188,7 +194,7 @@ def CrearGrupo(request:HttpRequest):
 
 # Editar Grupo
 @login_required
-@admin_required
+@pure_admin_required
 def EditarGrupo(request, id):
     grupo = Group.objects.get(id=id)
     if request.POST:
@@ -202,7 +208,7 @@ def EditarGrupo(request, id):
 
 # Eliminar Grupo
 @login_required
-@admin_required
+@pure_admin_required
 def EliminarGrupo(request, id):
     grupo = Group.objects.get(id=id)
     grupo.delete()
