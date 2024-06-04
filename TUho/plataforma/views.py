@@ -1,7 +1,7 @@
 from django.shortcuts import redirect, render, HttpResponse
 from django.contrib.auth.decorators import login_required, permission_required
 from django.core.mail import send_mail
-from apps.Usuarios.models import Usuario
+from usuarios.models import Usuario
 from .forms import CrearNoticiasForm,  CrearGrupoForm
 from .models import Noticias
 from django.contrib.auth.models import Group
@@ -18,17 +18,17 @@ from .decorators import admin_required, pure_admin_required
 
 # Inicio
 def Inicio(request):
-    return render(request,"Plataforma/Inicio.html")
+    return render(request,"plataforma/Inicio.html")
 
 # Mis Tramites
 @login_required
 def MisTramites(request):
-    return render(request,"Plataforma/Mis Trámites.html")
+    return render(request,"plataforma/Mis Trámites.html")
 
 # Información Personal
 @login_required
 def InformacionPersonal(request):
-    return render (request,"Plataforma/Informacion Personal.html")
+    return render (request,"plataforma/Informacion Personal.html")
 
 # Atencion a la Población
 @login_required
@@ -48,8 +48,8 @@ def AtencionPoblacion(request:HttpRequest):
             message=f"Email: {email}\nNombre del usuario: {usuario}\nMuniciopio: {municipality}\nTipo de consulta: {consulta}\nAsunto: {subject}\nMensaje: {message}",
             from_email="smtp.gmail.com",
         )
-        return render (request,"Plataforma/Atención a la Poblacion.html",{'response':'correcto', 'message':'Se ha enviado correctamente'})
-    return render (request,"Plataforma/Atención a la Poblacion.html")
+        return render (request,"plataforma/Atención a la Poblacion.html",{'response':'correcto', 'message':'Se ha enviado correctamente'})
+    return render (request,"plataforma/Atención a la Poblacion.html")
 
 # Administración
 @login_required
@@ -59,16 +59,16 @@ def Administracion(request:HttpRequest):
         'usuarios': Usuario.objects.all()
     }
     if request.user.groups.filter(name='Administración').exists():
-        return render (request,"Plataforma/Sitio Administrativo.html", context)
+        return render (request,"plataforma/Sitio Administrativo.html", context)
     elif request.user.groups.filter(name='Administrador Trámites').exists():
-        return render (request,"Plataforma/Sitio Administrativo.html", context)
-    return render (request,"Plataforma/Sitio Administrativo.html", context)
+        return render (request,"plataforma/Sitio Administrativo.html", context)
+    return render (request,"plataforma/Sitio Administrativo.html", context)
 
 # Trámites
 @login_required
 @admin_required
 def Tramites(request):
-    return render (request,"Plataforma/Tramites.html")
+    return render (request,"plataforma/Tramites.html")
 
 # Usuarios
 @login_required
@@ -77,7 +77,7 @@ def Usuarios(request):
     context = {
         'usuarios': Usuario.objects.all()
     }
-    return render (request,"Plataforma/Usuarios.html", context)
+    return render (request,"plataforma/Usuarios.html", context)
 
 # Eliminar Usuarios
 @login_required
@@ -95,7 +95,7 @@ def CambiarRol(request, id):
         try:
             usuario = Usuario.objects.get(id=id)
         except Usuario.DoesNotExist:
-            return render (request,"Plataforma/Atención a la Poblacion.html",{'response':'incorrecto', 'message':'Usuario no encontrado'})
+            return render (request,"plataforma/Atención a la Poblacion.html",{'response':'incorrecto', 'message':'Usuario no encontrado'})
 
         group_names = list(Group.objects.all().values_list('name', flat=True)) 
         selected_group = request.POST['role']
@@ -104,29 +104,29 @@ def CambiarRol(request, id):
             try:
                 group = Group.objects.get(name=selected_group)
             except Group.DoesNotExist:
-                return render (request,"Plataforma/Atención a la Poblacion.html",{'response':'incorrecto', 'message':'Grupo no encontrado'})
+                return render (request,"plataforma/Atención a la Poblacion.html",{'response':'incorrecto', 'message':'Grupo no encontrado'})
 
             usuario.groups.clear()
             usuario.groups.add(group)
             return redirect('Usuarios')
         else:
-           return render (request,"Plataforma/Atención a la Poblacion.html",{'response':'incorrecto', 'message':'Rol inválido'})
+           return render (request,"plataforma/Atención a la Poblacion.html",{'response':'incorrecto', 'message':'Rol inválido'})
     else:
         group_names = list(Group.objects.all().values_list('name', flat=True))
-        return render(request, "Plataforma/Cambiar Rol.html", {'group_names': group_names})
+        return render(request, "plataforma/Cambiar Rol.html", {'group_names': group_names})
 
         
 # Noticas del usuario
 def NoticiasUsuario(request):
     noticias = Noticias.objects.all()
-    return render(request,"Plataforma/Noticias Usuario.html", {'noticias':noticias})
+    return render(request,"plataforma/Noticias Usuario.html", {'noticias':noticias})
 
 # Visualizar Noticias
 @login_required
 @pure_admin_required
 def NoticiasView(request):
     noticias = Noticias.objects.all()
-    return render(request,"Plataforma/Noticias.html", {'noticias':noticias})
+    return render(request,"plataforma/Noticias.html", {'noticias':noticias})
 
 # Crear Noticias
 @login_required
@@ -139,7 +139,7 @@ def CrearNoticia(request):
         noticia.cuerpo = request.POST["cuerpo"]
         noticia.save()
         return redirect('Noticias')
-    return render(request,"Plataforma/Crear Noticia.html",{"noticias":form})
+    return render(request,"plataforma/Crear Noticia.html",{"noticias":form})
 
 # Editar Noticias
 @login_required
@@ -151,7 +151,7 @@ def EditarNoticia(request,id):
         noticia.cuerpo = request.POST["cuerpo"]
         noticia.save()
         return redirect('Noticias')    
-    return render(request,"Plataforma/Editar Noticia.html",{"noticias":noticia})
+    return render(request,"plataforma/Editar Noticia.html",{"noticias":noticia})
 
 # Eliminar Noticias
 @login_required
@@ -165,18 +165,18 @@ def EliminarNoticia(request,id):
 @login_required
 @pure_admin_required
 def InstalarModulosPDF(request):
-    return render(request,"Plataforma/Instalacion Modulo.html")
+    return render(request,"plataforma/Instalacion Modulo.html")
 
 @login_required
 @admin_required
 def Graficos(request):
-    return render(request,"Plataforma/Graficos.html")
+    return render(request,"plataforma/Graficos.html")
 
 @login_required
 @pure_admin_required
 def Grupos(request):
     grupos = Group.objects.annotate(user_count=Count('user'))
-    return render(request,"Plataforma/Grupos.html",{'grupos':grupos})
+    return render(request,"plataforma/Grupos.html",{'grupos':grupos})
 
 # Crear Grupo
 @login_required
@@ -190,7 +190,7 @@ def CrearGrupo(request:HttpRequest):
             return redirect('Grupos')
     else:
         form = CrearGrupoForm()
-    return render(request,'Plataforma/Crear Grupo.html',{'form':form})
+    return render(request,'plataforma/Crear Grupo.html',{'form':form})
 
 # Editar Grupo
 @login_required
@@ -204,7 +204,7 @@ def EditarGrupo(request, id):
             return redirect('Grupos')
     else:
         form = CrearGrupoForm(instance=grupo)
-    return render(request,'Plataforma/Editar Grupo.html',{'form':form})
+    return render(request,'plataforma/Editar Grupo.html',{'form':form})
 
 # Eliminar Grupo
 @login_required

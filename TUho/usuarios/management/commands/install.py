@@ -1,6 +1,6 @@
 from typing import Any
 from django.core.management.base import BaseCommand
-from apps.Usuarios.models import Usuario
+from usuarios.models import Usuario
 
 from django.contrib.auth.models import Group
 

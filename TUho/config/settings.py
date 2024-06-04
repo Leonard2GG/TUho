@@ -37,8 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-    'apps.Plataforma',
-    'apps.Usuarios',
+    'plataforma',
+    'usuarios',
 ]
 
 MIDDLEWARE = [
@@ -140,7 +140,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_URL = 'Login'
 
-AUTH_USER_MODEL = 'Usuarios.Usuario'
+AUTH_USER_MODEL = 'usuarios.Usuario'
 
 # Email Config
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
