@@ -9,6 +9,7 @@ from django.db.models import Count
 from django.http import HttpRequest, HttpResponseRedirect
 from django.utils.decorators import method_decorator
 from .decorators import admin_required, pure_admin_required
+from django.core.paginator import Paginator
 
 
 
@@ -118,15 +119,23 @@ def CambiarRol(request, id):
         
 # Noticas del usuario
 def NoticiasUsuario(request):
-    noticias = Noticias.objects.all()
-    return render(request,"plataforma/Noticias Usuario.html", {'noticias':noticias})
+    noticias = list(Noticias.objects.all().order_by("on_modified"))[::-1]
+    paginator = Paginator(noticias,5)
+
+    page_number = request.GET.get("page")
+    page_obj = paginator.get_page(page_number)
+    return render(request,"plataforma/Noticias Usuario.html", {'noticias':noticias, 'page_obj':page_obj})
 
 # Visualizar Noticias
 @login_required
 @pure_admin_required
 def NoticiasView(request):
-    noticias = Noticias.objects.all()
-    return render(request,"plataforma/Noticias.html", {'noticias':noticias})
+    noticias = list(Noticias.objects.all().order_by("on_modified"))[::-1]
+    paginator = Paginator(noticias,5)
+
+    page_number = request.GET.get("page")
+    page_obj = paginator.get_page(page_number)
+    return render(request,"plataforma/Noticias.html", {'noticias':noticias, 'page_obj':page_obj})
 
 # Crear Noticias
 @login_required
@@ -176,7 +185,7 @@ def Graficos(request):
 @pure_admin_required
 def Grupos(request):
     grupos = Group.objects.annotate(user_count=Count('user'))
-    return render(request,"plataforma/Grupos.html",{'grupos':grupos})
+    return render(request,"plataforma/Grupos.html",{'grupos_query':grupos})
 
 # Crear Grupo
 @login_required
