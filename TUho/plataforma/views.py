@@ -32,7 +32,6 @@ def InformacionPersonal(request):
     return render (request,"plataforma/Informacion Personal.html")
 
 # Atencion a la Población
-@login_required
 def AtencionPoblacion(request:HttpRequest):
     if request.POST:
         email = request.user.email
@@ -121,10 +120,9 @@ def CambiarRol(request, id):
 def NoticiasUsuario(request):
     noticias = list(Noticias.objects.all().order_by("on_modified"))[::-1]
     paginator = Paginator(noticias,5)
-
     page_number = request.GET.get("page")
     page_obj = paginator.get_page(page_number)
-    return render(request,"plataforma/Noticias Usuario.html", {'noticias':noticias, 'page_obj':page_obj})
+    return render(request,"plataforma/Noticias Usuario.html", {'page_obj':page_obj})
 
 # Visualizar Noticias
 @login_required
@@ -135,7 +133,8 @@ def NoticiasView(request):
 
     page_number = request.GET.get("page")
     page_obj = paginator.get_page(page_number)
-    return render(request,"plataforma/Noticias.html", {'noticias':noticias, 'page_obj':page_obj})
+    print(page_obj.paginator.count)
+    return render(request,"plataforma/Noticias.html", {'page_obj':page_obj})
 
 # Crear Noticias
 @login_required

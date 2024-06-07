@@ -15,8 +15,8 @@
     <h3 class="card-title text-center" style="color: #005296;">Noticias</h3>
   </div>
   <hr class="noticias">
-  {% if noticias %}
-  {% for noticia in noticias %}
+  {% if page_obj.paginator.count > 0 %}
+  {% for noticia in page_obj %}
   <div class="card">
     <span class="fecha">{{ noticia.on_create }}</span>
     <hr>
@@ -38,8 +38,8 @@
         </span>
 
         {% if page_obj.has_next %}
-            <a href="?page={{ page_obj.next_page_number }}">Next ></a>
-            <a href="?page={{ page_obj.paginator.num_pages }}">Last >></a>
+            <a href="?page={{ page_obj.next_page_number }}"><i class="bi bi-chevron-right"></i></a>
+            <a href="?page={{ page_obj.paginator.num_pages }}"><i class="bi bi-chevron-double-right"></i></a>
         {% endif %}
     </span>
 </div>

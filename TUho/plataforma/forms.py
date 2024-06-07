@@ -2,6 +2,8 @@ from django import forms
 from django.forms import ModelForm
 from .models import Noticias
 from django.contrib.auth.models import Group
+#from ckeditor.widgets import CKEditorWidget
+
 
 # Formulario de Noticias
 class CrearNoticiasForm(ModelForm):
