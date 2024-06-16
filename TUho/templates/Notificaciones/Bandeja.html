@@ -73,11 +73,16 @@
                 <tr>
                   <td>
                     <div class="icheck-primary">
-                      <input type="checkbox" value="" id="check1">
+                      <input type="checkbox" value="{{n.id}}" id="check1">
                       <label for="check1"></label>
                     </div>
                   </td>
-                  <td class="mailbox-name"><b>{{n.asunto}}</b></td>
+                  <td class="mailbox-name"><span 
+                    class="badge bg-{% if n.tipo == 'Info' %}primary {% elif n.tipo == 'Warning' %}danger {% else %}secondary{% endif %}"
+                    style="color: #fff;"
+                    >
+                    {{n.asunto}}
+                  </span></td>
                   <td class="mailbox-subject">{{n.cuerpo}}
                   </td>
                   <td class="mailbox-attachment"></td>
