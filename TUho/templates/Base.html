@@ -48,11 +48,11 @@
             Noticias
           </a>
         </li>
-        <li class="nav-item mb-1">
-          <a href="#" class="">
+        <li class="nav-item mb-1" aria-label="Notificaciones">
+          <a href="{% url 'Bandeja' %}" class="">
             <i class="bx bx-bell"></i>
             Notificaciones
-            <span class="notification-badge">5</span>
+            <span class="notification-badge">{{notificaciones_count}}</span>
           </a>
         </li>
         <li class="nav-item mb-1" aria-label="Tramite">
@@ -92,7 +92,7 @@
       <div>
         <ul class="mynav nav nav-pills flex-column mb-auto ">
           <li class="nav-item mb-1 " aria-label="CerrarSesion">
-            <a class="" data-bs-toggle="modal" data-bs-target="#Inicio">
+            <a  href="{% url 'CerrarSesion' %}" class="" data-bs-toggle="modal" data-bs-target="#Inicio">
               <i class="bx bx-log-out"></i>
               Cerrar Sesión
             </a>
@@ -175,7 +175,7 @@
 
       <div class="main-container">
         <div class="row content">
-          <div class="col">
+          <div class="col-12">
             <!-- Container -->
             {% block content %}
             {% endblock %}
