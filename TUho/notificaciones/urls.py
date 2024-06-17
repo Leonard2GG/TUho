@@ -1,5 +1,5 @@
 from django.urls import path
-from apps.Notificaciones import views
+from notificaciones import views
 from django.contrib.auth.decorators import login_required
 
 urlpatterns = [

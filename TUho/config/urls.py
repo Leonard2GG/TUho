@@ -25,7 +25,7 @@ urlpatterns = [
     path('Usuarios/',include('usuarios.urls')),
     path('AtencionPoblacion/',include('atencion_poblacion.urls')),
     # Sección Notificaciones
-    path('Notificaciones/',include('apps.Notificaciones.urls')),
+    path('Notificaciones/',include('notificaciones.urls')),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

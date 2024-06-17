@@ -43,7 +43,7 @@ INSTALLED_APPS = [
     'plataforma',
     'usuarios',
     'atencion_poblacion',
-    'apps.Notificaciones',
+    'notificaciones',
 ]
 
 MIDDLEWARE = [
@@ -69,7 +69,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'apps.Notificaciones.context.notificacionesContext',
+                'notificaciones.context.notificacionesContext',
                 'config.context.groups_processor'
             ],
         },
