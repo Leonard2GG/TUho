@@ -61,12 +61,6 @@
             Trámites
           </a>
         </li>
-        <li class="nav-item mb-1" aria-label="Graficos">
-          <a href="{% url 'Graficos' %}" class="">
-            <i class="bx bxs-doughnut-chart"></i>
-            Gráficos
-          </a>
-        </li>
         <li class="nav-item mb-1" aria-label="Usuarios">
           <a href="{% url 'Usuarios' %}" class="">
             <i class="bx bx-user"></i>
@@ -76,12 +70,18 @@
         <li class="nav-item mb-1" aria-label="Grupos">
           <a href="{% url 'Grupos' %}" class="">
             <i class="bi bi-people mx-1" style="font-size:1.1rem;"></i>
-            Grupos
+            Roles de Usuario
+          </a>
+        </li>
+        <li class="nav-item mb-1" aria-label="Configuración">
+          <a href="#" class="">
+            <i class="bi bi-gear mx-1" style="font-size:1.1rem;"></i>
+            Configuración
           </a>
         </li>
         <li class="nav-item mb-1" aria-label="InstalarModulosPDF">
           <a href="{% url 'InstalarModulosPDF' %}" class="">
-            <i class="bx bx-info-circle"></i>
+            <i class="bi bi-question-circle mx-1" style="font-size:1.1rem;"></i>
             Instalación de Módulos
           </a>
         </li>
@@ -119,12 +119,6 @@
             Trámites
           </a>
         </li>
-        <li class="nav-item mb-1" aria-label="Graficos">
-          <a href="{% url 'Graficos' %}" class="">
-            <i class="bx bxs-doughnut-chart"></i>
-            Gráficos
-          </a>
-        </li>
       </ul>
       <hr class="mb-0">
       <div>
@@ -159,7 +153,7 @@
       </div>
     </div>
 
-    <div class="bg-light contenedor">
+    <div class="contenedor" style="background: white">
       <div class="p-2 d-md-none d-flex text-white responsivo">
         <a href="#" class="text-white" data-bs-toggle="offcanvas" data-bs-target="#bdSidebar">
           <i class="bx bx-menu"></i>
