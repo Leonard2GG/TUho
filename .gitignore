@@ -163,3 +163,6 @@ TUho_Env
 
 libs
 migrations
+
+*/media/*
+ckeditor

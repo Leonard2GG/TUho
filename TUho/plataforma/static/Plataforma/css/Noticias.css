@@ -28,7 +28,7 @@ body,input,textarea{
 
 
 .title{
-    color: black;
+    color: #222e58;
     padding: 0.1rem 0 0 0.9rem;
     font-weight: bolder;
 }
@@ -40,9 +40,20 @@ body,input,textarea{
     background-color: #005296;
 }
 
+.step-links a{
+    color: black !important;
+}
 
+.step-links a:hover{
+    color: #005296 !important;
+}
 
+@media(max-width:850px){
 
+    .img{
+        height: 300px;
+    }
+}
 
 @media(max-width:850px){
 

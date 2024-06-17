@@ -5,7 +5,7 @@ var boton =  document.getElementById("boton");
 const errorContainer = document.querySelector("#error-container")
         const createMessage = (message) => {
             return `
-            <div style="height:40px; position: absolute; right: 20px; top: 40px; display: flex; align-items: center; padding-right: 0rem;"
+            <div style="position: absolute; right: 20px; top: 40px; display: flex; align-items: center; padding-right: 0rem; z-index: 2000"
             class="alert alert-danger alert-dismissible fade show" role="alert">
             ${message}
             <button style="font-size: 10px; border-bottom: none; position: relative; box-shadow: none;" type="button"
@@ -20,19 +20,25 @@ const errorContainer = document.querySelector("#error-container")
         }
 
 const c = (e)=>{
+        let mensaje = ""
         if(username.value == ""){
-            errorContainer.innerHTML = createMessage("Campo 'Nombre' inválido")
+            username.style = "border:solid 2px red;"
+            mensaje += `Campo 'Usuario' en blanco <br>`
             e.preventDefault()
+        }else{ 
+            username.style = "border:solid 2px green;"
         }
         if(password.value == ""){
-            errorContainer.innerHTML = createMessage("Campo 'Contraseña' inválido")
+            password.style = "border:solid 2px red;"
+            mensaje += `Campo 'Contraseña' en blanco <br>`
             e.preventDefault()
+        }else{
+            password.style = "border:solid 2px green;"
         }
-        
-        if(username.value == "" || password.value == ""   ){
-            errorContainer.innerHTML = createMessage("Campos  inválidos")
-            e.preventDefault()
+        if (mensaje) {
+            errorContainer.innerHTML += createMessage(mensaje)
         }
+    
         }
         
         username.addEventListener("input",validate_space_trim);

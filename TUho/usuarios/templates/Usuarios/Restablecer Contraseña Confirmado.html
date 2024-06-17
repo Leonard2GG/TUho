@@ -10,16 +10,13 @@
     <link rel="stylesheet" href="{% static 'Usuarios/libs/boxicons-2.1.4/css/boxicons.min.css' %}">
     <link rel="stylesheet" href="{% static 'Usuarios/libs/Bootstrap/css/bootstrap.min.css' %}">
     <link rel="icon" type="image/png" sizes="50x50" href="{% static 'Usuarios/img/Id UHo-03-white.png' %}">
+    <link rel="stylesheet" href="{% static 'libs/Bootstrap/icon/bootstrap-icons.min.css' %}">
     <!-- End Conatiner CSS -->
     <title>Trámites Universidad de Holguín</title>
 </head>
 
 <body>
-    <img class="wave" src="{% static 'Usuarios/img/wave-blue.png' %}" alt="">
     <div class="container">
-        <div class="img">
-            <img src="{% static 'Usuarios/img/undraw_forgot_password_re_hxwm (1).svg' %}" alt="">
-        </div>
         {% if response %}
         {% if response == 'incorrecto' %}
         <div style="height:40px; position: absolute; right: 20px; top: 40px; display: flex; align-items: center; padding-right: 0rem;"
@@ -34,8 +31,8 @@
         <div class="login-container">
             <form action="" method="POST">
                 {% csrf_token %}
-                <img class="logo" src="" alt="">
-                <h2 style="color:#005296;">Confirmación</h2>
+                <img class="logo" style="margin-left:50px;" src="{% static 'Usuarios/img/Id UHo-01.png' %}" alt="">
+                <h2 style="color:#222e58">Confirmación</h2>
                 <div class="text">
                     <p>Le enviamos instrucciones por correro electrónico para configurar su contraseña, si existe una
                         cuenta con el correo electrónico que ingresó.
@@ -43,6 +40,7 @@
                         la dirección con la que se registró y verifique la carpeta de correos no deseados.
                     </p>
                 </div>
+                <a class="a" href="{% url 'Login' %}"><i class="bi bi-arrow-left-circle-fill" style="font-size: 0.9rem;padding-right: 2px;font-weight:900;"></i>Regresar a Iniciar Sesión</a>
             </form>
 
         </div>

@@ -27,6 +27,7 @@ urlpatterns = [
     path('Registrar/', views.Registrar, name="Registrar"),
     path('CerrarSesion/',login_required(views.CerrarSesion), name="CerrarSesion"), 
     # Contraseña Olvidada
+    path('verify/<token>', views.TokenValidationView , name="token_verify"),
     path('reset_password/', views.RestablecerContraseña.as_view() , name="password_reset"),
     path('reset_password_send/', views.RestablecerContraseñaConfirmado, name="password_reset_done"),
     path('reset/<uidb64>/<token>', views.CambiarContraseña.as_view(), name="password_reset_confirm"),

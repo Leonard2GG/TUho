@@ -16,11 +16,11 @@
 <main class="content-inside px-3 py-2">
     <section id="tablaTramites">
         <div class="card">
-            <div class="card-header d-flex">
+            <div class="card-header grupo">
                 <h5 class="card-title">
                     Grupos
                 </h5>
-                <a href="{% url 'CrearGrupo' %}" class="btn btn-primary btn-sm" style="margin-left:83%">Crear Grupo</a>
+                <a href="{% url 'CrearGrupo' %}" class="btn btn-primary btn-sm ">Crear Grupo</a>
             </div>
             <div class="p-2">
             <table id="Grupos" class="display table table-striped table-hover table-primary"
@@ -39,9 +39,9 @@
                         <td style="text-align: start;">{{ forloop.counter }}</td>
                         <td style="text-align: start;">{{grupo.name}}</td>
                         <td style="text-align: start;">{{grupo.user_count}} usuario(s)</td>
-                        <td style="text-align: center; font-size: 1.2rem;"><a class="iconos p-2"
-                            href="{% url 'EditarGrupo' grupo.id  %}"><i class="bx bx-edit"></i></a><a class="iconos p-2"
-                            href="{% url 'EliminarGrupo' grupo.id  %}"><i class="bx bx-trash"></i></a></td>
+                        <td style="text-align: center; font-size: 1.2rem;">
+                            <a class="iconos p-2" href="{% url "EditarGrupo" grupo.id %}"><i class="bx bx-edit"></i></a>
+                            <a class="iconos p-2" href="{% url 'EliminarGrupo' grupo.id  %}"><i class="bx bx-trash"></i></a></td>
                     </tr>
                     {% endfor %}
                 </tbody>

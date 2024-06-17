@@ -1,18 +1,18 @@
+from django.conf import settings
 from django.shortcuts import redirect, render, HttpResponse
 from django.contrib.auth.decorators import login_required, permission_required
 from django.core.mail import send_mail
 from usuarios.models import Usuario
-from .forms import CrearNoticiasForm,  CrearGrupoForm
-from .models import Noticias
-from django.contrib.auth.models import Group
+from usuarios.forms import InformacionPersonalForm
+from atencion_poblacion.models import AtencionPoblacion
+from .forms import CrearNoticiasForm, ConfiguracionEmail
+from .models import Noticias, ConfiguracionGeneral
+from django.contrib.auth.models import Group, Permission
 from django.db.models import Count
 from django.http import HttpRequest, HttpResponseRedirect
 from django.utils.decorators import method_decorator
 from .decorators import admin_required, pure_admin_required
 from django.core.paginator import Paginator
-
-
-
 
 
 # Create your views here.
@@ -31,32 +31,13 @@ def MisTramites(request):
 def InformacionPersonal(request):
     return render (request,"plataforma/Informacion Personal.html")
 
-# Atencion a la Población
-def AtencionPoblacion(request:HttpRequest):
-    if request.POST:
-        email = request.user.email
-        usuario = request.user.username
-        municipality = request.POST['municipality']
-        consulta = request.POST['consulta']
-        subject = request.POST['subject']
-        message = request.POST['message']
-        #email
-        admin_list = [i.email for i in Usuario.objects.filter(groups__name="Administración")]
-        send_mail(
-            recipient_list=admin_list,
-            subject= subject,
-            message=f"Email: {email}\nNombre del usuario: {usuario}\nMuniciopio: {municipality}\nTipo de consulta: {consulta}\nAsunto: {subject}\nMensaje: {message}",
-            from_email="smtp.gmail.com",
-        )
-        return render (request,"plataforma/Atención a la Poblacion.html",{'response':'correcto', 'message':'Se ha enviado correctamente'})
-    return render (request,"plataforma/Atención a la Poblacion.html")
-
 # Administración
 @login_required
 @admin_required
 def Administracion(request:HttpRequest):
     context = {
-        'usuarios': Usuario.objects.all()
+        'usuarios': Usuario.objects.all(),
+        'APoblacion': AtencionPoblacion.objects.all(),
     }
     if request.user.groups.filter(name='Administración').exists():
         return render (request,"plataforma/Sitio Administrativo.html", context)
@@ -68,7 +49,16 @@ def Administracion(request:HttpRequest):
 @login_required
 @admin_required
 def Tramites(request):
-    return render (request,"plataforma/Tramites.html")
+    APoblacion = AtencionPoblacion.objects.all()
+    return render (request,"plataforma/Tramites.html",{"APoblacion":APoblacion})
+
+@login_required
+@admin_required
+def EliminarTramite(request,id):
+    aPoblacion = AtencionPoblacion.objects.get(id=id)
+    aPoblacion.delete()
+    return redirect("Tramites")
+
 
 # Usuarios
 @login_required
@@ -78,6 +68,23 @@ def Usuarios(request):
         'usuarios': Usuario.objects.all()
     }
     return render (request,"plataforma/Usuarios.html", context)
+
+@login_required
+@pure_admin_required
+def InformacionUsuario(request,id):
+    usuario = Usuario.objects.get(id=id)
+    if request.POST:
+        form = InformacionPersonal(request.POST,instance=usuario)
+        usuario.first_name = request.POST['first_name']
+        usuario.last_name = request.POST['last_name']
+        usuario.carnet = request.POST['carnet']
+        usuario.email = request.POST['email']
+        usuario.telefono = request.POST['telefono']
+        usuario.direccion = request.POST['direccion']
+        usuario.save()
+        return redirect("Usuarios")
+    form = InformacionPersonalForm(instance=usuario)
+    return render(request,"plataforma/Informacion Usuario.html",{"form":form})
 
 # Eliminar Usuarios
 @login_required
@@ -130,24 +137,34 @@ def NoticiasUsuario(request):
 def NoticiasView(request):
     noticias = list(Noticias.objects.all().order_by("on_modified"))[::-1]
     paginator = Paginator(noticias,5)
-
     page_number = request.GET.get("page")
     page_obj = paginator.get_page(page_number)
-    print(page_obj.paginator.count)
     return render(request,"plataforma/Noticias.html", {'page_obj':page_obj})
+
+# Visualizar Noticia Admin
+def VisualizarNoticiasAdmin(request,id):
+    noticia = Noticias.objects.get(id=id)
+    return render(request,"plataforma/Visualizar NoticiaA.html", {'noticia':noticia})
+
+# Visualizar Noticia Admin
+def VisualizarNoticiasUsuario(request,id):
+    noticia = Noticias.objects.get(id=id)
+    return render(request,"plataforma/Visualizar NoticiaU.html", {'noticia':noticia})
 
 # Crear Noticias
 @login_required
 @pure_admin_required
 def CrearNoticia(request):
-    noticia = Noticias()
     form = CrearNoticiasForm()
     if request.POST:
+        noticia = Noticias()
         noticia.titulo = request.POST["titulo"]
+        noticia.imagen_cabecera = request.FILES["imagen_cabecera"]
+        noticia.resumen = request.POST["resumen"]
         noticia.cuerpo = request.POST["cuerpo"]
         noticia.save()
         return redirect('Noticias')
-    return render(request,"plataforma/Crear Noticia.html",{"noticias":form})
+    return render(request,"plataforma/Crear Noticia.html",{"form":form})
 
 # Editar Noticias
 @login_required
@@ -156,6 +173,8 @@ def EditarNoticia(request,id):
     noticia = Noticias.objects.get(id=id)
     if request.POST:
         noticia.titulo = request.POST["titulo"]
+        noticia.imagen_cabecera = request.FILES["imagen_cabecera"]
+        noticia.resumen = request.POST["resumen"]
         noticia.cuerpo = request.POST["cuerpo"]
         noticia.save()
         return redirect('Noticias')    
@@ -176,11 +195,6 @@ def InstalarModulosPDF(request):
     return render(request,"plataforma/Instalacion Modulo.html")
 
 @login_required
-@admin_required
-def Graficos(request):
-    return render(request,"plataforma/Graficos.html")
-
-@login_required
 @pure_admin_required
 def Grupos(request):
     grupos = Group.objects.annotate(user_count=Count('user'))
@@ -191,28 +205,50 @@ def Grupos(request):
 @pure_admin_required
 def CrearGrupo(request:HttpRequest):
     if request.POST:
-        form = CrearGrupoForm(request.POST)
-        if form.is_valid():
-            nombre_grupo = form.cleaned_data['name']
-            grupo, created = Group.objects.get_or_create(name=nombre_grupo)
-            return redirect('Grupos')
+        nombre_grupo = request.POST['nombre_grupo']
+        grupo = Group()
+        grupo.name=nombre_grupo
+        grupo.save()
+        permisos_seleccioandos = request.POST.getlist('permisos[]')
+        for permiso_id in permisos_seleccioandos:
+            permiso = Permission.objects.get(id=permiso_id)
+            grupo.permissions.add(permiso)
+        grupo.save()
+        return redirect ('Grupos')
     else:
-        form = CrearGrupoForm()
-    return render(request,'plataforma/Crear Grupo.html',{'form':form})
+        permisos = Permission.objects.all()
+        context = {'permisos':permisos}
+        return render(request,'plataforma/Crear Grupo.html', context)
 
 # Editar Grupo
 @login_required
 @pure_admin_required
 def EditarGrupo(request, id):
     grupo = Group.objects.get(id=id)
+    permisos = Permission.objects.all()
+    permisos_list = []
+    for i in permisos:
+        if i in grupo.permissions.all():
+            permisos_list.append([True,i])
+        else:
+            permisos_list.append([False,i])
     if request.POST:
-        form = CrearGrupoForm(request.POST, instance=grupo)
-        if form.is_valid():
-            form.save()
-            return redirect('Grupos')
+        grupo.name = request.POST['nombre_grupo']
+        permisos_seleccioandos = request.POST.getlist('permisos[]')
+        grupo.permissions.clear()
+        for permiso_id in permisos_seleccioandos:
+            permiso = Permission.objects.get(id=permiso_id)
+            grupo.permissions.add(permiso)
+        grupo.save()
+        return redirect ('Grupos')
+        
     else:
-        form = CrearGrupoForm(instance=grupo)
-    return render(request,'plataforma/Editar Grupo.html',{'form':form})
+        
+        context = {
+            'permisos':permisos_list,
+            'grupo': grupo,
+            }
+        return render(request,'plataforma/Editar Grupo.html', context)
 
 # Eliminar Grupo
 @login_required
@@ -221,3 +257,17 @@ def EliminarGrupo(request, id):
     grupo = Group.objects.get(id=id)
     grupo.delete()
     return redirect("Grupos")
+
+def ConfiguracionCorreo(request):
+    if request.POST():
+        conf_global = ConfiguracionGeneral.objects.all().first()
+        conf_global.correo = request.POST["correo"]
+        conf_global.contraseña_correo = request.POST["contraseña_correo"]
+        conf_global.save()
+        settings.configure(
+                EMAIL_HOST_USER = conf_global.correo,
+                EMAIL_HOST_PASSWORD = conf_global.contraseña_correo,  
+            ) 
+        return redirect("Administracion")
+    form = ConfiguracionEmail()
+    return render(request, "Cambio de Email_settings.html", {"form":form})

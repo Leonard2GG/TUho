@@ -25,7 +25,7 @@ class ChangePasswordForm(SetPasswordForm):
         widget=forms.PasswordInput(attrs={"class":"input", "name":"password2", "type":"password","required":"true", "id":"password2"}),
     )
 # Formulario de Usuario
-class InformacionPersonal(ModelForm):
+class InformacionPersonalForm(ModelForm):
     def __init__(self,*args,**kwargs):
         super().__init__(*args,**kwargs)
         

@@ -1,6 +1,7 @@
 from typing import Any
 from django.core.management.base import BaseCommand
 from usuarios.models import Usuario
+from plataforma.models import ConfiguracionGeneral
 
 from django.contrib.auth.models import Group
 
@@ -30,5 +31,9 @@ class Command(BaseCommand):
                 print("Admin creado con exito")
             except Exception as e:
                 print(e)
-
+        conf_inicial = ConfiguracionGeneral()
+        conf_inicial.correo = "incial@gmail.com"
+        conf_inicial.contraseña_correo = "contraseña"
+        
         self.stdout.write("Completado")
+

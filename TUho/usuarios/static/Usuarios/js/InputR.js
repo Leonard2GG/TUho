@@ -7,7 +7,7 @@ var boton =  document.getElementById("boton");
 const errorContainer = document.querySelector("#error-container")
         const createMessage = (message) => {
             return `
-            <div style="height:40px; position: absolute; right: 20px; top:10px; display: flex; align-items: center; padding-right: 0rem;margin-left:20px"
+            <div style=" position: absolute; right: 20px; top:10px; display: flex; align-items: center; padding-right: 0rem;  z-index: 2000"
             class="alert alert-danger alert-dismissible fade show" role="alert">
             ${message}
                 <button style="font-size: 10px; border-bottom: none; position: relative; box-shadow: none;" type="button"
@@ -25,25 +25,55 @@ const errorContainer = document.querySelector("#error-container")
 
 const c = (e)=>{
         let validador = /^\w+([.-_+]?\w+)*@\w+([.-]?\w+)*(\.\w{2,10})+$/
+        let mensaje = ""
         if(username.value == ""){
-            errorContainer.innerHTML = createMessage("Campo 'Nombre' inválido")
+            username.style = "border:solid 2px red;"
+            mensaje += `Campo 'Usuario' en blanco <br>`
             e.preventDefault()
+        }else{ 
+            username.style = "border:solid 2px green;"
         }
         if(email.value == ""){
-            errorContainer.innerHTML = createMessage("Campo 'Email' inválido")
+            email.style = "border:solid 2px red;"
+            mensaje += `Campo 'Email' en blanco <br>`
             e.preventDefault()
+        }
+        else{ 
+            email.style = "border:solid 2px green;"
         }
         if (!validador.test(email.value)) {
-          errorContainer.innerHTML = createMessage("No es un correo válido")
-          e.preventDefault()   
+            email.style = "border:solid 2px red;"
+            mensaje += `Campo 'Email' no es válido <br>`
+            e.preventDefault()  
+        }
+        else{ 
+            email.style = "border:solid 2px green;"
         }
         if(password1.value == ""){
-            errorContainer.innerHTML = createMessage("Campo 'Contraseña' inválido")
+            password1.style = "border:solid 2px red;"
+            mensaje += `Campo 'Contraseña' en blanco <br>`
             e.preventDefault()
         }
-        if(username.value == "" || email.value == "" || password1.value == "" || password2.value ==""){
-            errorContainer.innerHTML = createMessage("Campos  inválidos")
+        else{ 
+            password1.style = "border:solid 2px green;"
+        }
+        if(password2.value == ""){
+            password2.style = "border:solid 2px red;"
+            mensaje += `Campo 'Repetir contraseña' en blanco <br>`
             e.preventDefault()
+        }
+        else{ 
+            password2.style = "border:solid 2px green;"
+        }
+        if(password1.value != password2.value){
+            password1.style = "border:solid 2px red;"
+            password2.style = "border:solid 2px red;"
+            mensaje += `Campo 'Contraseña' y 'Repetir contraseña' deben coincidir <br>`
+            e.preventDefault()
+        }
+           
+        if (mensaje) {
+            errorContainer.innerHTML += createMessage(mensaje)
         }
         }
         username.addEventListener("input",validate_space_trim);

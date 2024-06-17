@@ -14,13 +14,15 @@
 
 {% block content %}
 <main class="content-inside px-3 py-2">
-    <section id="tablaTramites">
-        <div class="card">
-            <div class="card-header">
-                <h5 class="card-title">
-                    Trámites
-                </h5>
+    <div class="row">
+        <nav class="pt-2">
+            <div class="nav nav-tabs mb-3" id="nav-tab" role="tablist">
+                <button class="nav-link active text-primary" style="color:black;" id="nav-AtencionP-tab" data-bs-toggle="tab" data-bs-target="#nav-AtencioP" type="button" role="tab" aria-controls="nav-AtencioP" aria-selected="true"><i class=""></i><b>Atención a la Población</b></button>
             </div>
+        </nav>
+    <section class="tab-content" id="nav-tabContent" >
+     <div class="tab-pane fade show active" id="nav-AtencioP" role="tabpanel" aria-labelledby="nav-AtencioP-tab"> 
+        <div class="card">
             <div class="p-2">
             <table id="Tramites" class="display table table-striped table-hover table-primary"
                 style="width:100%; height: 100%;">
@@ -32,17 +34,23 @@
                         <th scope="col" style="color: white; text-align: start;">Fecha</th>
                         <th scope="col" style="color: white; text-align: start;">Tipo de Trámite</th>
                         <th scope="col" style="color: white; text-align: start;">Estado del Trámite</th>
+                        <th scope="col" style="color: white; text-align: start;">Opción </th>
                     </tr>
                 </thead>
                 <tbody>
+                    {% for i in APoblacion %}
                     <tr>
                         <td style="text-align: start;">{{ forloop.counter }}</td>
-                        <td style="text-align: start;">Tiger </td>
-                        <td style="text-align: start;">Nixon</td>
-                        <td style="text-align: start;">6 de noviembre de 2023</td>
+                        <td style="text-align: start;">{{ i.nombre }} </td>
+                        <td style="text-align: start;">{{ i.apellidos }}</td>
+                        <td style="text-align: center;">{{ i.on_create|date:"d-m-Y" }}</td>
                         <td style="text-align: start;">Certificacion del titulo</td>
-                        <td style="text-align: start;">En espera</td>
+                        <td style="text-align: center;">En espera</td>
+                        <td style="text-align: center; font-size: 1.2rem;">
+                            <a class="iconos p-2" href="{% url "VisualizarAtencionPoblacion" i.id %}"><i class="bx bx-info-circle"></i></a>
+                            <a class="iconos p-2" href="{% url 'EliminarTramite' i.id %}"><i class="bx bx-trash"></i></a></td>
                     </tr>
+                    {% endfor %}
                 </tbody>
             </table>
             </div>

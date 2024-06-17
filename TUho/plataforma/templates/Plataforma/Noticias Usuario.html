@@ -17,16 +17,26 @@
   <hr class="noticias">
   {% if page_obj.paginator.count > 0 %}
   {% for noticia in page_obj %}
-  <div class="card">
-    <span class="fecha">{{ noticia.on_create }}</span>
-    <hr>
-    <div>
-      <h6 class="title">{{ noticia.titulo }}</h6>
-      <p class="text">{{ noticia.cuerpo }}</p>
+  <section>
+    <div class="card">
+        <div class="row p-2 d-flex justify-content-center">
+            <div class="row"style="display:flex;">
+            {% if noticia.imagen_cabecera %}
+            <div class="col-lg-3 col-md-12 col-sm-12">
+                <img class="img-noticias" src="{{ noticia.imagen_cabecera.url }}"></img>
+            </div>
+            {% endif %}
+            <div class="col-lg-9 col-md-12 col-sm-12 pt-2" style="padding-right:0;">
+                <h6 class="title">{{ noticia.titulo }}</h6>
+                 <!-- <span class="fecha">{{ noticia.on_create|date:"d-m-Y" }}</span> -->
+                 <p class="text" aria-valuetext="{% url 'VisualizarNoticiasUsuario' noticia.id %}">{{ noticia.resumen }}</p>
+            </div>
+            </div>
+        </div>
     </div>
-  </div>
-  {% endfor %}
-  <div class="pagination d-flex justify-content-center align-content-center">
+</section>
+{% endfor %}
+<div class="pagination d-flex justify-content-center align-content-center">
     <span class="step-links">
         {% if page_obj.has_previous  %}
         <a href="?page=1"><i class="bi bi-chevron-double-left"></i></a>
@@ -55,5 +65,20 @@
 
 <!-- Conatiner JS -->
 {% block js%}
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        let elementos = document.querySelectorAll(".text");
+        let elementos_aux = [];
+    
+        elementos.forEach((e) => {
+            elementos_aux.push(e.innerText);
+        });
+    
+        elementos.forEach((e) => {
+            e.innerHTML = `${e.innerText} <a style="text-decoration: none;" href="${e.ariaValueText}"> ...leer más</a>`;
+        });
+    
+    });
+</script>
 {% endblock %}
 <!-- End Conatiner JS -->

@@ -8,14 +8,11 @@
 <!-- End Conatiner CSS -->
 
 {% block content %}
+<div id="error-container">
+
+</div>
 <div class="container-form">
     <div class="form">
-        <div class="contact-info">
-            <h3 class="title">Grupos </h3>
-            <p class="text">
-                Crea tu propio grupo para colaborar, compartir ideas y trabajar en equipo de manera eficiente.
-            </p>
-        </div>
         <div class="contact-form">
             <span class="circle one"></span>
             <span class="circle two"></span>
@@ -23,11 +20,22 @@
                 {% csrf_token %}
                 <h3 class="title">Crear Grupo</h3>
                 <div class="input-container">
-                    {{ form.name }}
+                    <input type="text" name="nombre_grupo" class="input" required id="grupo">
                     <label for="">Nombre</label>
                     <span>Nombre</span>
                 </div>
-                <input type="submit" value="Aceptar" class="btn1">
+                <h5 style="color:white" class="title">Permisos:</h5>
+                <div style="border: solid 2px white; padding-left: 10px; border-radius: 10px;" class="mb-2 permisos" id="contenedor-permisos">
+                {% for permiso  in permisos  %}
+                <div class="form-check" >
+                    <input type="checkbox" name="permisos[]" class="form-check-input" value="{{ permiso.id }}" id="permiso{{ permiso.pk }}">
+                    <label style="color:white" for="permiso{{ permiso.pk }}" class="form-check-label">
+                        {{ permiso.name }}
+                    </label>
+                </div>
+                {% endfor %}
+                </div>
+                <input type="submit" value="Crear Grupo" class="btn1" id="boton">
             </form>
         </div>
     </div>
@@ -37,5 +45,6 @@
 <!-- Conatiner JS -->
 {% block js %}
 <script src="{% static 'Plataforma/js/FormularioSelect.js' %}"></script>
+<script src="{% static 'Plataforma/js/Crear Grupo.js' %}"></script>
 {% endblock %}
 <!-- End Conatiner JS -->

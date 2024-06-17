@@ -14,13 +14,8 @@
     <title>Trámites Universidad de Holguín</title>
 </head>
 
-<body>
-    <img class="wave" src="{% static 'Usuarios/img/wave-blue.png' %}" alt="">
-    <div class="container">
-        <div class="img">
-            <img src="{% static 'Usuarios/img/undraw_forgot_password_re_hxwm (1).svg' %}" alt="">
-        </div>
-        
+<body>  
+    <div class="container">  
         {% if response %}
         {% if response == 'incorrecto' %}
         <div style="height:40px; position: absolute; right: 20px; top: 40px; display: flex; align-items: center; padding-right: 0rem;"
@@ -35,24 +30,20 @@
         <div class="login-container">
             <form action="" method="POST">
                 {% csrf_token %}
-                <img class="logo" src="" alt="">
-                <h2 style="color:#005296;">Restablecer Contraseña</h2>
+                <img class="logo" style="margin-left:50px;" src="{% static 'Usuarios/img/Id UHo-01.png' %}" alt="">
+                <h2 style="color:#222e58;">Restablecer Contraseña</h2>
                 <div class="text">
                     <p>¿Olvidaste tu contraseña? </br>
                         Ingrese su dirección de correo electrónico y le enviaremos las instrucciones para configurar una
                         nueva.</p>
                 </div>
-                <div class="input-div two">
-                    <div class="i">
-                        <i class="bx bxs-envelope"></i>
-                    </div>
-                    <div>
-                        <h5>Email</h5>
-                        {% for i in form %}
+                <div class="input-container">
+                    {% for i in form %}
                         {{ i }}
                         {% endfor %}
-                    </div>
-                </div>
+                    <label for="">Email</label>
+                    <span>Email</span>
+                  </div>
                 <a class="a" href="{% url 'Login' %}">¿Recordaste la contraseña?</a>
                 <input type="submit" class="btn1" id="boton" value="Restablecer Contraseña">
             </form>
@@ -65,7 +56,7 @@
     <!-- Conatiner JS -->
     <script src="{% static 'Usuarios/js/jquery-3.7.1.js' %}"></script>
     <script src="{% static 'Usuarios/js/popper.min.js' %}"></script>
-    <script src="{% static 'Usuarios/js/Login.js' %}"></script>
+    <script src="{% static 'Usuarios/js/FormularioSelect.js' %}"></script>
     <script src="{% static 'Usuarios/js/InputRC.js' %}"></script>
     <script src="{% static 'Usuarios/libs/Bootstrap/js/bootstrap.bundle.min.js' %}"></script>
     <!-- End Conatiner JS -->

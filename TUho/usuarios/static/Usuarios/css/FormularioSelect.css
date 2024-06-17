@@ -39,25 +39,6 @@ body,input,textarea{
     position: relative    ;
 }
 
-.circle{
-    border-radius: 50%;
-    background: linear-gradient(135deg, transparent 20%, #222e58);
-    position: absolute;
-}
-
-.circle.one{
-    width: 130px;
-    height: 130px;
-    top: 130px;
-    right: -40px;
-}
-
-.circle.two{
-    width: 80px;
-    height: 80px;
-    top: 10px;
-    right: 30px;
-}
 
 .contact-form::before{
     content: "";

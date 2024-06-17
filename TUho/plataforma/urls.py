@@ -17,7 +17,7 @@ Including another URLconf
 from django.urls import path
 from plataforma import views
 from django.contrib.auth.decorators import login_required
-from  rest_framework import routers
+from rest_framework import routers
 from .api import NoticiaViewSet
 from usuarios.api import UsuarioViewSet
 
@@ -31,14 +31,16 @@ urlpatterns = [
     path('',(views.Inicio), name="Inicio"),
     path('MisTramites/',login_required (views.MisTramites), name="MisTramites"),
     path('InfoPersonal/',login_required (views.InformacionPersonal), name="InfoPersonal"),
-    path('AtencionPoblacion/',views.AtencionPoblacion, name="AtencionPoblacion"),
     path('Administracion/',login_required (views.Administracion), name="Administracion"),
     path('Tramites/',login_required (views.Tramites), name="Tramites"),
+    path('EliminarTramite/<int:id>/',login_required (views.EliminarTramite), name="EliminarTramite"),
     path('Usuarios/',login_required (views.Usuarios), name="Usuarios"),
+    path('InformacionUsuario/<int:id>/',login_required (views.InformacionUsuario), name="InformacionUsuario"),
     path('EliminarUsuario/<int:id>/',login_required (views.EliminarUsuario), name="EliminarUsuario"),
     path('CambiarRol/<int:id>/',login_required (views.CambiarRol), name="CambiarRol"),
-    path('Graficos/',login_required (views.Graficos), name="Graficos"),
     path('NoticiasUsuario/', views.NoticiasUsuario, name="NoticiasUsuario"),
+    path('VisualizarNoticiasAdmin/<int:id>/', views.VisualizarNoticiasAdmin, name="VisualizarNoticiasAdmin"),
+    path('VisualizarNoticiasUsuario/<int:id>/', views.VisualizarNoticiasUsuario, name="VisualizarNoticiasUsuario"),
     path('InstalarModulosPDF/',login_required (views.InstalarModulosPDF), name="InstalarModulosPDF"),
     
     # Grupos

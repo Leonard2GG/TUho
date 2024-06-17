@@ -14,13 +14,15 @@
 
 {% block content %}
 <main class="content-inside px-3 py-2 mx-2">
-    <section id="tablaUsuarios">
-        <div class="card">
-            <div class="card-header">
-                <h5 class="card-title">
-                    Usuarios
-                </h5>
+    <div class="row">
+        <nav class="pt-2">
+            <div class="nav nav-tabs mb-3" id="nav-tab" role="tablist">
+                <button class="nav-link active text-primary" style="color:black;" id="nav-general-tab" data-bs-toggle="tab" data-bs-target="#nav-general" type="button" role="tab" aria-controls="nav-general" aria-selected="true"><i class=""></i><b>Usuarios</b></button>
             </div>
+        </nav>
+    <section class="tab-content" id="nav-tabContent" >
+     <div class="tab-pane fade show active" id="nav-general" role="tabpanel" aria-labelledby="nav-general-tab"> 
+        <div class="card">
             <div class="p-2">
             <table id="Usuarios" class="display table table-striped table-hover table-primary" style="width:100%">
                 <thead class="encabezado">
@@ -30,7 +32,7 @@
                         <th scope="col" style="color: white; text-align: start;">Teléfono</th>
                         <th scope="col" style="color: white; text-align: start;">Email</th>
                         <th scope="col" style="color: white; text-align: start;">Última Conexión</th>
-                        <th scope="col" style="color: white; text-align: start;">Cambiar Rol</th>
+                        <th scope="col" style="color: white; text-align: start;">Rol</th>
                         <th scope="col" style="color: white; text-align: start;">Eliminar</th>
 
                     </tr>
@@ -64,15 +66,18 @@
                         <td style="text-align: start;">
                             <a class="iconos"  href="{% url 'CambiarRol' usuario.id %}">{{ usuario.groups.all.0 }}</a>
                         </td>
-                        <td style="text-align: center; font-size: 1.2rem;"><a class="iconos"
-                                href="{% url 'EliminarUsuario' usuario.id %}"><i class="bx bx-trash"></i></a></td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
+                        <td style="text-align: center; font-size: 1.2rem;">
+                            <a class="iconos p-2" href="{% url 'InformacionUsuario' usuario.id %}"><i class="bx bx-info-circle"></i></a>
+                            <a class="iconos p-2"href="{% url 'EliminarUsuario' usuario.id %}"><i class="bx bx-trash"></i></a></td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
         </div>
-        </div>
+     </div>
     </section>
+
 </main>
 {% endblock %}
 

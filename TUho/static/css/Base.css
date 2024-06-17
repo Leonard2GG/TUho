@@ -15,6 +15,7 @@ html,body{
 
 .col {
     min-height: calc(100vh - 2rem) !important;
+    
 }
 
 .mynav{
@@ -97,11 +98,13 @@ a.sidebar-link {
 
 .contenedor {
     width: calc( 100% - 250px );
+    background-color: white;
 }
 
 .responsivo{
     background-color: #212d57 !important;
 }
+
 
 
 
