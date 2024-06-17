@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
     'apps.Plataforma',
     'apps.Usuarios',
     'apps.Notificaciones',
@@ -56,7 +57,7 @@ ROOT_URLCONF = 'config.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ["templates"],
+        'DIRS': ["templates","templates/"],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -65,6 +66,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'apps.Notificaciones.context.notificacionesContext',
+                'config.context.groups_processor'
             ],
         },
     },
@@ -82,6 +84,18 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
+# Base de Datos postgreSQL
+'''DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'TUho',
+        'USER': 'postgres',
+        'PASSWORD': 'postgres',
+        'HOST':'127.0.0.1',
+        'DATABASE_PORT':'5432',
+    }
+}'''
 
 
 # Password validation

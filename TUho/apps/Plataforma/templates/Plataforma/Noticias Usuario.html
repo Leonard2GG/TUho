@@ -1,0 +1,42 @@
+{% extends "Base.html" %}
+{% load static %}
+
+<!-- Conatiner CSS -->
+{% block css %}
+<link rel="stylesheet" href=" {% static 'Plataforma/css/Sitio Administrativo.css' %}">
+<link rel="stylesheet" href=" {% static 'Plataforma/css/Noticias Usuario.css' %}">
+{% endblock %}
+<!-- End Conatiner CSS -->
+
+
+{% block content %}
+<main class="content-inside px-3 py-2 mx-2">
+  <div>
+    <h3 class="card-title text-center" style="color: #005296;">Noticias</h3>
+  </div>
+  <hr class="noticias">
+  {% if noticias %}
+  {% for noticia in noticias %}
+  <div class="card">
+    <span class="fecha">{{ noticia.on_create }}</span>
+    <hr>
+    <div>
+      <h6 class="title">{{ noticia.titulo }}</h6>
+      <p class="text">{{ noticia.cuerpo }}</p>
+    </div>
+  </div>
+  {% endfor %}
+  {% else %}
+  <section class="d-flex flex-column justify-content-center align-content-center">
+    <p class="text text-center">
+      No hay noticias
+    </p>
+  </section>
+  {% endif %}
+</main>
+{% endblock %}
+
+<!-- Conatiner JS -->
+{% block js%}
+{% endblock %}
+<!-- End Conatiner JS -->
