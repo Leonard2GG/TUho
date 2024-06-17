@@ -21,4 +21,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('',include('apps.Plataforma.urls')),
     path('Usuarios/',include('apps.Usuarios.urls')),
+    # Sección Notificaciones
+    path('Notificaciones/',include('apps.Notificaciones.urls')),
 ]
