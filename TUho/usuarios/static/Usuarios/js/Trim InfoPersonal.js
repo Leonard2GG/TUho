@@ -45,7 +45,7 @@ const c = (e)=>{
   else{
     apellidos.style = "border:solid 2px green;"
   }
-  if(carnet.value == "" || isNaN(carnet.value)){
+  if(carnet.value == "" || isNaN(carnet.value) || carnet.value.length != 11 ){
     carnet.style = "border:solid 2px red;"
     mensaje += `Campo 'Carnet' en blanco o esta incorrecto <br>`
     e.preventDefault()
