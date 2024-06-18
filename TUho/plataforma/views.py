@@ -24,7 +24,10 @@ def Inicio(request):
 # Mis Tramites
 @login_required
 def MisTramites(request):
-    return render(request,"plataforma/Mis Trámites.html")
+    context = {
+        'APoblacion': AtencionPoblacion.objects.all(),
+    }
+    return render(request,"plataforma/Mis Trámites.html", context)
 
 # Información Personal
 @login_required
@@ -49,8 +52,11 @@ def Administracion(request:HttpRequest):
 @login_required
 @admin_required
 def Tramites(request):
-    APoblacion = AtencionPoblacion.objects.all()
-    return render (request,"plataforma/Tramites.html",{"APoblacion":APoblacion})
+    context = {
+        'APoblacion': AtencionPoblacion.objects.all(),
+    }
+
+    return render (request,"plataforma/Tramites.html",context)
 
 @login_required
 @admin_required
@@ -58,6 +64,12 @@ def EliminarTramite(request,id):
     aPoblacion = AtencionPoblacion.objects.get(id=id)
     aPoblacion.delete()
     return redirect("Tramites")
+
+@login_required
+def EliminarTramiteUsuario(request,id):
+    aPoblacion = AtencionPoblacion.objects.get(id=id)
+    aPoblacion.delete()
+    return redirect("MisTramites")
 
 
 # Usuarios

@@ -56,4 +56,4 @@ def AtencionPoblacionView(request:HttpRequest):
 @pure_admin_required
 def VisualizarAtencionPoblacion(request, id):
     aPoblacion = AtencionPoblacion.objects.get(id=id)
-    return render(request,'AtencionPoblacion/Visualizar Atención a la Poblacion.html',{'data':aPoblacion})
+    return render(request,'AtencionPoblacion/Visualizar Atención a la Poblacion.html',{'form':aPoblacion})

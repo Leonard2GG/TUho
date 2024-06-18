@@ -33,14 +33,16 @@
                     </tr>
                 </thead>
                 <tbody>
+                    {% for i in APoblacion %}
                     <tr>
                         <td style="text-align: start;">{{ forloop.counter }}</td>
-                        <td style="text-align: start;">01060578004</td>
-                        <td style="text-align: start;">Certificacion del titulo</td>
+                        <td style="text-align: start;">{{ i.carnet }}</td>
+                        <td style="text-align: start;">Atención a la Población</td>
                         <td style="text-align: start;">En espera</td>
-                        <td style="text-align: center; font-size: 1.2rem;"><a class="iconos" href="#"><i
-                                    class="bx bx-trash"></i></a></td>
+                        <td style="text-align: center; font-size: 1.2rem;">
+                        <a class="iconos" href="{% url "EliminarTramiteUsuario" i.id %}"><i class="bx bx-trash"></i></a></td>
                     </tr>
+                    {% endfor %}
                 </tbody>
             </table>
             </div>
