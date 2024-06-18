@@ -187,6 +187,11 @@ textarea.input{
     color: #fff;
 }
 
+.btn2:hover{
+    background-color: transparent;
+    color: #fff;
+}
+
 .input-container span{
     position: absolute;
     top: 0;

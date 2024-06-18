@@ -34,6 +34,7 @@ urlpatterns = [
     path('Administracion/',login_required (views.Administracion), name="Administracion"),
     path('Tramites/',login_required (views.Tramites), name="Tramites"),
     path('EliminarTramite/<int:id>/',login_required (views.EliminarTramite), name="EliminarTramite"),
+     path('EliminarTramiteUsuario/<int:id>/',login_required (views.EliminarTramiteUsuario), name="EliminarTramiteUsuario"),
     path('Usuarios/',login_required (views.Usuarios), name="Usuarios"),
     path('InformacionUsuario/<int:id>/',login_required (views.InformacionUsuario), name="InformacionUsuario"),
     path('EliminarUsuario/<int:id>/',login_required (views.EliminarUsuario), name="EliminarUsuario"),
