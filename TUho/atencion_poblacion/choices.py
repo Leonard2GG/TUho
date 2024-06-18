@@ -18,5 +18,5 @@ municipality_choice = [
 consulta_choice = [
     ("Duda", "Duda"),
     ("Queja", "Queja"),
-    ("Solicitid de Infomación", "Solicitid de Infomación"),
+    ("Solicitid de Información", "Solicitid de Información"),
 ]

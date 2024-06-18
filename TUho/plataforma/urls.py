@@ -20,10 +20,12 @@ from django.contrib.auth.decorators import login_required
 from rest_framework import routers
 from .api import NoticiaViewSet
 from usuarios.api import UsuarioViewSet
+from atencion_poblacion.api import AtencionPoblacionViewSet
 
 router = routers.DefaultRouter()
 router.register('api/Noticias', NoticiaViewSet,'Noticias')
 router.register('api/Usuarios', UsuarioViewSet,'Usuarios')
+router.register('api/AtencionPoblacion', AtencionPoblacionViewSet,'AtencionPoblacion')
 
 
 
