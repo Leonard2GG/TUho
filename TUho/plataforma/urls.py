@@ -17,15 +17,24 @@ Including another URLconf
 from django.urls import path
 from plataforma import views
 from django.contrib.auth.decorators import login_required
+<<<<<<< HEAD:TUho/plataforma/urls.py
 from rest_framework import routers
 from .api import NoticiaViewSet
 from usuarios.api import UsuarioViewSet
 from atencion_poblacion.api import AtencionPoblacionViewSet
+=======
+from  rest_framework import routers
+from .api import NoticiaViewSet
+from apps.Usuarios.api import UsuarioViewSet
+>>>>>>> 84284b3abc174c92c9d1701f14501b1ac71047e7:TUho/apps/Plataforma/urls.py
 
 router = routers.DefaultRouter()
 router.register('api/Noticias', NoticiaViewSet,'Noticias')
 router.register('api/Usuarios', UsuarioViewSet,'Usuarios')
+<<<<<<< HEAD:TUho/plataforma/urls.py
 router.register('api/AtencionPoblacion', AtencionPoblacionViewSet,'AtencionPoblacion')
+=======
+>>>>>>> 84284b3abc174c92c9d1701f14501b1ac71047e7:TUho/apps/Plataforma/urls.py
 
 
 

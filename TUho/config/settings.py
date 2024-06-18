@@ -39,11 +39,16 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+<<<<<<< HEAD
     'ckeditor',
     'plataforma',
     'usuarios',
     'atencion_poblacion',
     'notificaciones',
+=======
+    'apps.Plataforma',
+    'apps.Usuarios',
+>>>>>>> 84284b3abc174c92c9d1701f14501b1ac71047e7
 ]
 
 MIDDLEWARE = [
@@ -69,7 +74,10 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+<<<<<<< HEAD
                 'notificaciones.context.notificacionesContext',
+=======
+>>>>>>> 84284b3abc174c92c9d1701f14501b1ac71047e7
                 'config.context.groups_processor'
             ],
         },

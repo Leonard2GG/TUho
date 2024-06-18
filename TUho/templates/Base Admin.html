@@ -119,6 +119,33 @@
             Trámites
           </a>
         </li>
+<<<<<<< HEAD
+=======
+        <li class="nav-item mb-1" aria-label="Graficos">
+          <a href="{% url 'Graficos' %}" class="">
+            <i class="bx bxs-doughnut-chart"></i>
+            Gráficos
+          </a>
+        </li>
+        <li class="nav-item mb-1" aria-label="Usuarios">
+          <a href="{% url 'Usuarios' %}" class="">
+            <i class="bx bx-user"></i>
+            Usuarios
+          </a>
+        </li>
+        <li class="nav-item mb-1" aria-label="Grupos">
+          <a href="{% url 'Grupos' %}" class="">
+            <i class="bi bi-people mx-1" style="font-size:1.1rem;"></i>
+            Grupos
+          </a>
+        </li>
+        <li class="nav-item mb-1" aria-label="InstalarModulosPDF">
+          <a href="{% url 'InstalarModulosPDF' %}" class="">
+            <i class="bx bx-info-circle"></i>
+            Instalación de Módulos
+          </a>
+        </li>
+>>>>>>> 84284b3abc174c92c9d1701f14501b1ac71047e7
       </ul>
       <hr class="mb-0">
       <div>
@@ -132,6 +159,49 @@
         </ul>
       </div>
       {% endif %}
+<<<<<<< HEAD
+=======
+      {% if "Administrador Trámites" in grupos %}
+      <ul class="mynav nav nav-pills flex-column mb-auto">
+        <li class="nav-item mb-1">
+          <a href="{% url 'Administracion' %}" class="active">
+            <i class="bx bxs-widget"></i>
+            Inicio
+          </a>
+        </li>
+        <li class="nav-item mb-1">
+          <a href="#" class="">
+            <i class="bx bx-bell"></i>
+            Notificaciones
+            <span class="notification-badge">5</span>
+          </a>
+        </li>
+        <li class="nav-item mb-1" aria-label="Tramites">
+          <a href="{% url 'Tramites' %}" class="">
+            <i class="bx bx-file"></i>
+            Trámites
+          </a>
+        </li>
+        <li class="nav-item mb-1" aria-label="Graficos">
+          <a href="{% url 'Graficos' %}" class="">
+            <i class="bx bxs-doughnut-chart"></i>
+            Gráficos
+          </a>
+        </li>
+      </ul>
+      <hr class="mb-0">
+      <div>
+        <ul class="mynav nav nav-pills flex-column mb-auto ">
+          <li class="nav-item mb-1 " aria-label="CerrarSesion">
+            <a class="" data-bs-toggle="modal" data-bs-target="#exampleModal">
+              <i class="bx bx-log-out"></i>
+              Cerrar Sesión
+            </a>
+          </li>
+        </ul>
+      </div>
+      {% endif %}
+>>>>>>> 84284b3abc174c92c9d1701f14501b1ac71047e7
 
     </div>
     <!-- Modal -->

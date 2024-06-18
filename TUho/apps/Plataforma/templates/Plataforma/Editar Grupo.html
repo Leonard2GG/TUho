@@ -10,32 +10,24 @@
 {% block content %}
 <div class="container-form">
     <div class="form">
-<<<<<<< HEAD:TUho/plataforma/templates/Plataforma/Email_Settings.html
-=======
         <div class="contact-info">
             <h3 class="title">Grupos </h3>
             <p class="text">
-                Crea tu propio grupo para colaborar, compartir ideas y trabajar en equipo de manera eficiente.
+                Edita tu grupo para colaborar, compartir ideas y trabajar en equipo de manera eficiente.
             </p>
         </div>
->>>>>>> 84284b3abc174c92c9d1701f14501b1ac71047e7:TUho/apps/Plataforma/templates/Plataforma/Crear Grupo.html
         <div class="contact-form">
             <span class="circle one"></span>
             <span class="circle two"></span>
             <form action="." method="POST">
                 {% csrf_token %}
-                <h3 class="title">Cambiar Configuración de Correo </h3>
-                <div class="input-container">
-                    {{form.correo}}
-                    <label for="">Correo</label>
-                    <span>Correo</span>
+                <h3 class="title">Editar Grupo</h3>
+                <div class="input-container focus">
+                    {{ form.name }}
+                    <label for="">Nombre</label>
+                    <span>Nombre</span>
                 </div>
-                <div class="input-container">
-                    {{form.contraseña_correo}}
-                    <label for="">Contraseña</label>
-                    <span>Contraseña</span>
-                </div>
-                <input type="submit" value="Guardar Cambios" class="btn1">
+                <input type="submit" value="Aceptar" class="btn1">
             </form>
         </div>
     </div>

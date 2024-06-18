@@ -5,5 +5,9 @@ django-js-asset==2.2.0
 djangorestframework==3.15.1
 pillow==10.3.0
 psycopg2==2.9.9
+=======
+Django==5.0.3
+djangorestframework==3.15.1
+>>>>>>> 84284b3abc174c92c9d1701f14501b1ac71047e7
 sqlparse==0.4.4
 tzdata==2024.1
