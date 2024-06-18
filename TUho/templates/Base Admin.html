@@ -33,6 +33,7 @@
         <img src="{% static 'img/Id UHo-03-white.png' %}" width="200" height="80px" alt="">
       </a>
       <hr>
+      {% if "Administración" in grupos %}
       <ul class="mynav nav nav-pills flex-column mb-auto">
         <li class="nav-item mb-1">
           <a href="{% url 'Administracion' %}" class="active">
@@ -40,10 +41,69 @@
             Inicio
           </a>
         </li>
+        
         <li class="nav-item mb-1" aria-label="Noticias">
           <a href="{% url 'Noticias' %}" class="">
             <i class="bx bx-news"></i>
             Noticias
+          </a>
+        </li>
+        <li class="nav-item mb-1" aria-label="Notificaciones">
+          <a href="{% url 'Bandeja' %}" class="">
+            <i class="bx bx-bell"></i>
+            Notificaciones
+            <span class="notification-badge">{{notificaciones_count}}</span>
+          </a>
+        </li>
+        <li class="nav-item mb-1" aria-label="Tramites">
+          <a href="{% url 'Tramites' %}" class="">
+            <i class="bx bx-file"></i>
+            Trámites
+          </a>
+        </li>
+        <li class="nav-item mb-1" aria-label="Usuarios">
+          <a href="{% url 'Usuarios' %}" class="">
+            <i class="bx bx-user"></i>
+            Usuarios
+          </a>
+        </li>
+        <li class="nav-item mb-1" aria-label="Grupos">
+          <a href="{% url 'Grupos' %}" class="">
+            <i class="bi bi-people mx-1" style="font-size:1.1rem;"></i>
+            Roles de Usuario
+          </a>
+        </li>
+        <li class="nav-item mb-1" aria-label="Configuración">
+          <a href="#" class="">
+            <i class="bi bi-gear mx-1" style="font-size:1.1rem;"></i>
+            Configuración
+          </a>
+        </li>
+        <li class="nav-item mb-1" aria-label="InstalarModulosPDF">
+          <a href="{% url 'InstalarModulosPDF' %}" class="">
+            <i class="bi bi-question-circle mx-1" style="font-size:1.1rem;"></i>
+            Instalación de Módulos
+          </a>
+        </li>
+      </ul>
+      <hr class="mb-0">
+      <div>
+        <ul class="mynav nav nav-pills flex-column mb-auto ">
+          <li class="nav-item mb-1 " aria-label="CerrarSesion">
+            <a class="" data-bs-toggle="modal" data-bs-target="#exampleModal">
+              <i class="bx bx-log-out"></i>
+              Cerrar Sesión
+            </a>
+          </li>
+        </ul>
+      </div>
+      {% endif %}
+      {% if "Administrador Trámites" in grupos %}
+      <ul class="mynav nav nav-pills flex-column mb-auto">
+        <li class="nav-item mb-1">
+          <a href="{% url 'Administracion' %}" class="active">
+            <i class="bx bxs-widget"></i>
+            Inicio
           </a>
         </li>
         <li class="nav-item mb-1">
@@ -59,32 +119,6 @@
             Trámites
           </a>
         </li>
-        <li class="nav-item mb-1" aria-label="Graficos">
-          <a href="{% url 'Graficos' %}" class="">
-            <i class="bx bxs-doughnut-chart"></i>
-            Gráficos
-          </a>
-        </li>
-        <li class="nav-item mb-1" aria-label="Usuarios">
-          <a href="{% url 'Usuarios' %}" class="">
-            <i class="bx bx-user"></i>
-            Usuarios
-          </a>
-        </li>
-        <li class="nav-item mb-1" aria-label="Grupos">
-          <a href="{% url 'Grupos' %}" class="">
-            <i class="bi bi-people mx-1" style="font-size:1.1rem;"></i>
-            Grupos
-          </a>
-        </li>
-        <li class="nav-item mb-1" aria-label="InstalarModulosPDF">
-          <a href="{% url 'InstalarModulosPDF' %}" class="">
-            <i class="bx bx-info-circle"></i>
-            Instalación de Módulos
-          </a>
-        </li>
-        
-
       </ul>
       <hr class="mb-0">
       <div>
@@ -97,6 +131,8 @@
           </li>
         </ul>
       </div>
+      {% endif %}
+
     </div>
     <!-- Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -117,7 +153,7 @@
       </div>
     </div>
 
-    <div class="bg-light contenedor">
+    <div class="contenedor">
       <div class="p-2 d-md-none d-flex text-white responsivo">
         <a href="#" class="text-white" data-bs-toggle="offcanvas" data-bs-target="#bdSidebar">
           <i class="bx bx-menu"></i>

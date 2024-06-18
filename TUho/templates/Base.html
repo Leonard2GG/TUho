@@ -48,11 +48,11 @@
             Noticias
           </a>
         </li>
-        <li class="nav-item mb-1">
-          <a href="#" class="">
+        <li class="nav-item mb-1" aria-label="Notificaciones">
+          <a href="{% url 'Bandeja' %}" class="">
             <i class="bx bx-bell"></i>
             Notificaciones
-            <span class="notification-badge">5</span>
+            <span class="notification-badge">{{notificaciones_count}}</span>
           </a>
         </li>
         <li class="nav-item mb-1" aria-label="Tramite">
@@ -92,7 +92,7 @@
       <div>
         <ul class="mynav nav nav-pills flex-column mb-auto ">
           <li class="nav-item mb-1 " aria-label="CerrarSesion">
-            <a class="" data-bs-toggle="modal" data-bs-target="#Inicio">
+            <a  href="{% url 'CerrarSesion' %}" class="" data-bs-toggle="modal" data-bs-target="#Inicio">
               <i class="bx bx-log-out"></i>
               Cerrar Sesión
             </a>
@@ -128,6 +128,12 @@
             <!-- Fin de colocar nuevos módulos aquí -->
           </ul>
         </li>
+        <li class="nav-item mb-1" aria-label="AtencionPoblacion">
+          <a href="{% url 'AtencionPoblacion' %}" class="">
+            <i class="bx bx-help-circle"></i>
+            Atención a la población
+          </a>
+        </li>
         <li class="nav-item mb-1 " aria-label="Login">
           <a href="{% url 'Login' %}" class="">
             <i class="bx bx-log-in"></i>
@@ -158,7 +164,7 @@
         </div>
       </div>
     </div>
-    <div class="bg-light contenedor">
+    <div class="contenedor">
       <div class="p-2 d-md-none d-flex text-white responsivo">
         <a href="#" class="text-white" data-bs-toggle="offcanvas" data-bs-target="#bdSidebar">
           <i class="bx bx-menu"></i>

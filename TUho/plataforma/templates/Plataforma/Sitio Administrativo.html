@@ -1,0 +1,255 @@
+{% extends "Base Admin.html" %}
+{% load static %}
+
+<!-- Conatiner CSS -->
+{% block css %}
+<link rel="stylesheet" href=" {% static 'Plataforma/css/Sitio Administrativo.css' %}">
+<link rel="stylesheet" href=" {% static 'Plataforma/libs/Datatable/CSS/dataTables.bootstrap5.css' %}">
+<link rel="stylesheet" href=" {% static 'Plataforma/libs/Datatable/CSS/buttons.bootstrap5.css' %}">
+<link rel="stylesheet" href=" {% static 'Plataforma/libs/Datatable/CSS/responsive.bootstrap5.css' %}">
+<link rel="stylesheet" href=" {% static 'Plataforma/css/datatable.css' %}">
+<link src="{% static 'Plataforma/libs/Highcharts/css/highcharts.js' %}">
+{% endblock %}
+<!-- End Conatiner CSS -->
+
+{% block content %}
+<div class="main">
+  <main class="content-inside px-3 py-2">
+    <div class="container-fluid">
+      <div class="container-fluid">
+        <!-- Small boxes (Stat box) -->
+        <div class="row d-flex justify-content-center">
+          <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-box-one">
+              <div class="inner">
+                {% if not i in APoblacion %}
+                <h3>0</h3>
+                {% else %}
+                {% for i in APoblacion %}
+                {% if forloop.last %}
+                <h3>{{ forloop.counter }}</h3>
+                {% endif %}
+                {% endfor %}
+                {% endif %}
+                <p>Total de Trámites</p>
+              </div>
+              <div class="icon">
+                <i class=" bx bx-file"></i>
+              </div>
+            </div>
+          </div>
+          <!-- ./col -->
+          <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-box-one">
+              <div class="inner">
+                <h3>0</h3>
+
+                <p>Trámites Completados</p>
+              </div>
+              <div class="icon">
+                <i class="bx bx-bar-chart"></i>
+              </div>
+            </div>
+          </div>
+          <!-- ./col -->
+          <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-box-one">
+              <div class="inner">
+                {% for usuario in usuarios %}
+                {% if forloop.last %}
+                <h3>{{ forloop.counter }}</h3>
+                {% endif %}
+                {% endfor %}
+                <p>Cantidad de Usuarios</p>
+              </div>
+              <div class="icon">
+                <i class="bx bx-user-plus"></i>
+              </div>
+            </div>
+          </div>
+          <!-- ./col -->
+          <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-box-one">
+              <div class="inner">
+                <h3>3</h3>
+
+                <p>Nuevos Trámites</p>
+              </div>
+              <div class="icon">
+                <i class="bx bxs-pie-chart-alt-2"></i>
+              </div>
+            </div>
+          </div>
+
+          <!--Table Element-->
+          <section id="tablaTramites">
+            <div class="card">
+              <div class="card-header ">
+                <h5 class="card-title ">
+                  Trámites
+                </h5>
+              </div>
+              <div class="p-2">
+              <table id="Tramites" class="display table table-striped table-hover table-primary" style="width:100%;">
+                <thead class="encabezado">
+                  <tr>
+                    <th scope="col" style="color: white; text-align: start;">#</th>
+                    <th scope="col" style="color: white; text-align: start;">Nombre</th>
+                    <th scope="col" style="color: white; text-align: start;">Apellidos</th>
+                    <th scope="col" style="color: white; text-align: start;">Carnet</th>
+                    <th scope="col" style="color: white; text-align: start;">Teléfono</th>
+                    <th scope="col" style="color: white; text-align: start;">Fecha</th>
+                    <th scope="col" style="color: white; text-align: start;">Tipo de Trámite</th>
+                    <th scope="col" style="color: white; text-align: start;">Estado Trámite</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for i in APoblacion %}
+                    <tr>
+                        <td style="text-align: start;">{{ forloop.counter }}</td>
+                        <td style="text-align: start;">{{ i.nombre }} </td>
+                        <td style="text-align: start;">{{ i.apellidos }}</td>
+                        <td style="text-align: start;">{{ i.carnet }}</td>
+                        <td style="text-align: start;">{{ i.telefono }}</td>
+                        <td style="text-align: center;">{{ i.on_create|date:"d-m-Y" }}</td>
+                        <td style="text-align: start;">Certificacion del titulo</td>
+                        <td style="text-align: center;">En espera</td>
+                    </tr>
+                  {% endfor %}
+                  
+                </tbody>
+              </table>
+            </div>
+          </div>
+          </section>
+
+          <section id="tablaUsuarios">
+            <div class="card">
+              <div class="card-header">
+                <h5 class="card-title">
+                  Usuarios
+                </h5>
+              </div>
+              <div class="p-2">
+              <table id="Usuarios" class="display table table-striped table-hover table-primary" style="width:100%">
+                <thead class="encabezado">
+                  <tr>
+                    <th scope="col" style="color: white; text-align: start;">#</th>
+                    <th scope="col" style="color: white; text-align: start;">Usuario</th>
+                    <th scope="col" style="color: white; text-align: start;">Teléfono</th>
+                    <th scope="col" style="color: white; text-align: start;">Email</th>
+                    <th scope="col" style="color: white; text-align: start;">Última Conexión</th>
+                    <th scope="col" style="color: white; text-align: start;">Rol</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for usuario in usuarios %}
+                  <tr>
+                    <td style="text-align: start;">{{ forloop.counter }}</td>
+                    <td style="text-align: start;">{{ usuario.username }}</td>
+                    <td style="text-align: start;">
+                      {% if usuario.telefono %}
+                      {{ usuario.telefono }}
+                      {% else %}
+                      N/A
+                      {% endif %}
+                    </td>
+                    <td style="text-align: start;">
+                      {% if usuario.email %}
+                      <a class="iconos" href="mailto:{{ usuario.email }}">{{ usuario.email }}</a>
+                      {% else %}
+                      N/A
+                      {% endif %}
+                    </td>
+                    <td style="text-align: start;">
+                      {% if usuario.last_login %}
+                      {{ usuario.last_login }}
+                      {% else %}
+                      N/A
+                      {% endif %}
+                    </td>
+                    <td style="text-align: start;">{{ usuario.groups.all.0 }}</td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+        </div>
+        </section>
+
+        <section class="mb-1 row row-gap-1 ">
+          <section class="col-md-6 col-sm-12" id="">
+            <div class="card">
+              <div class="p-2">
+              <div id="myChartBar">
+              </div>
+            </div>
+          </div>
+          </section>
+
+          <section class="col-md-6 col-sm-12" id="">
+            <div class="card">
+              <div class="p-2">
+              <div id="myChartPie">
+              </div>
+            </div>
+          </div>
+         </section>
+        </section>
+        <section class="mb-2 row row-gap-1 ">
+          <section class="col-md-6 col-sm-12" id="graficaPieTrámites">
+             <div class="card">
+               <div class="p-2">
+               <div id="myChartPieModulo">
+               </div>
+             </div>
+           </div>
+          </section>
+ 
+             <section class="col-md-6 col-sm-12" id="graficaBarTrámites">
+               <div class="card">
+                 <div class="p-2">
+                 <div id="myChartBarCompletados">
+                 </div>
+               </div>
+             </div>
+             </section>
+         </section>
+      </div>
+  </main>
+</div>
+ 
+  {% endblock %}
+
+  <!-- Conatiner JS -->
+  {% block js%}
+  <script src="{% static 'Plataforma/libs/Datatable/JS/jquery-3.7.1.js' %}"></script>
+  <script src="{% static 'Plataforma/libs/Datatable/JS/dataTables.js' %}"></script>
+  <script src="{% static 'Plataforma/libs/Datatable/JS/dataTables.bootstrap5.js' %}"></script>
+  <!--Botones DataTables-->
+  <script src="{% static 'Plataforma/libs/Datatable/JS/dataTables.buttons.js' %}"></script>
+  <script src="{% static 'Plataforma/libs/Datatable/JS/buttons.bootstrap5.js' %}"></script>
+  <script src="{% static 'Plataforma/libs/Datatable/JS/jszip.min.js' %}"></script>
+  <script src="{% static 'Plataforma/libs/Datatable/JS/pdfmake.min.js' %}"></script>
+  <script src="{% static 'Plataforma/libs/Datatable/JS/vfs_fonts.js' %}"></script>
+  <script src="{% static 'Plataforma/libs/Datatable/JS/buttons.html5.min.js' %}"></script>
+  <script src="{% static 'Plataforma/libs/Datatable/JS/buttons.print.min.js' %}"></script>
+  <script src="{% static 'Plataforma/libs/Datatable/JS/bottons.colVis.min.js' %}"></script>
+  <!--DataTables responsivo-->
+  <script src="{% static 'Plataforma/libs/Datatable/JS/dataTables.responsive.js' %}"></script>
+  <script src="{% static 'Plataforma/libs/Datatable/JS/responsive.bootstrap5.js' %}"></script>
+  <!--Inicializar DataTables-->
+  <script src="{% static 'Plataforma/libs/Datatable/JS/Administracion.js' %}"></script>
+  <!--Inicializar Charts-->
+  <script src="{% static 'Plataforma/libs/Highcharts/code/highcharts.js' %}"></script>
+  <script src="{% static 'Plataforma/libs/Highcharts/code/modules/accessibility.js' %}"></script>
+  <script src="{% static 'Plataforma/libs/Highcharts/code/modules/exporting.js' %}"></script>
+  <script src="{% static 'Plataforma/libs/Highcharts/code/modules/offline-exporting.js' %}"></script>
+  <script src="{% static 'Plataforma/libs/Highcharts/code/modules/export-data.js' %}"></script>
+  <script src="{% static 'Plataforma/libs/Highcharts/newChart.js' %}"></script>
+  {% endblock %}
+  <!-- End Conatiner JS -->

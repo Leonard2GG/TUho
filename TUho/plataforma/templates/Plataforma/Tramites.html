@@ -1,0 +1,82 @@
+{% extends "Base Admin.html" %}
+{% load static %}
+
+<!-- Conatiner CSS -->
+{% block css %}
+<link rel="stylesheet" href=" {% static 'Plataforma/css/Sitio Administrativo.css' %}">
+<link rel="stylesheet" href=" {% static 'Plataforma/libs/Datatable/CSS/dataTables.bootstrap5.css' %}">
+<link rel="stylesheet" href=" {% static 'Plataforma/libs/Datatable/CSS/buttons.bootstrap5.css' %}">
+<link rel="stylesheet" href=" {% static 'Plataforma/libs/Datatable/CSS/responsive.bootstrap5.css' %}">
+<link rel="stylesheet" href=" {% static 'Plataforma/css/datatable.css' %}">
+{% endblock %}
+<!-- End Conatiner CSS -->
+
+
+{% block content %}
+<main class="content-inside px-3 py-2">
+    <div class="row">
+        <nav class="pt-2">
+            <div class="nav nav-tabs mb-3" id="nav-tab" role="tablist">
+                <button class="nav-link active text-primary" style="color:black;" id="nav-AtencionP-tab" data-bs-toggle="tab" data-bs-target="#nav-AtencioP" type="button" role="tab" aria-controls="nav-AtencioP" aria-selected="true"><i class=""></i><b>Atención a la Población</b></button>
+            </div>
+        </nav>
+    <section class="tab-content" id="nav-tabContent" >
+     <div class="tab-pane fade show active" id="nav-AtencioP" role="tabpanel" aria-labelledby="nav-AtencioP-tab"> 
+        <div class="card">
+            <div class="p-2">
+            <table id="Tramites" class="display table table-striped table-hover table-primary"
+                style="width:100%; height: 100%;">
+                <thead class="encabezado">
+                    <tr>
+                        <th scope="col" style="color: white; text-align: start;">#</th>
+                        <th scope="col" style="color: white; text-align: start;">Nombre</th>
+                        <th scope="col" style="color: white; text-align: start;">Apellidos</th>
+                        <th scope="col" style="color: white; text-align: start;">Fecha</th>
+                        <th scope="col" style="color: white; text-align: start;">Tipo de Trámite</th>
+                        <th scope="col" style="color: white; text-align: start;">Estado del Trámite</th>
+                        <th scope="col" style="color: white; text-align: start;">Opción </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for i in APoblacion %}
+                    <tr>
+                        <td style="text-align: start;">{{ forloop.counter }}</td>
+                        <td style="text-align: start;">{{ i.nombre }} </td>
+                        <td style="text-align: start;">{{ i.apellidos }}</td>
+                        <td style="text-align: center;">{{ i.on_create|date:"d-m-Y" }}</td>
+                        <td style="text-align: start;">Atención a la Población</td>
+                        <td style="text-align: center;">En espera</td>
+                        <td style="text-align: center; font-size: 1.2rem;">
+                            <a class="iconos p-2" href="{% url "VisualizarAtencionPoblacion" i.id %}"><i class="bx bx-info-circle"></i></a>
+                            <a class="iconos p-2" href="{% url 'EliminarTramite' i.id %}"><i class="bx bx-trash"></i></a></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            </div>
+        </div>
+    </section>
+</main>
+{% endblock %}
+
+<!-- Conatiner JS -->
+{% block js%}
+<script src="{% static 'Plataforma/libs/Datatable/JS/jquery-3.7.1.js' %}"></script>
+<script src="{% static 'Plataforma/libs/Datatable/JS/dataTables.js' %}"></script>
+<script src="{% static 'Plataforma/libs/Datatable/JS/dataTables.bootstrap5.js' %}"></script>
+<!--Botones DataTables-->
+<script src="{% static 'Plataforma/libs/Datatable/JS/dataTables.buttons.js' %}"></script>
+<script src="{% static 'Plataforma/libs/Datatable/JS/buttons.bootstrap5.js' %}"></script>
+<script src="{% static 'Plataforma/libs/Datatable/JS/jszip.min.js' %}"></script>
+<script src="{% static 'Plataforma/libs/Datatable/JS/pdfmake.min.js' %}"></script>
+<script src="{% static 'Plataforma/libs/Datatable/JS/vfs_fonts.js' %}"></script>
+<script src="{% static 'Plataforma/libs/Datatable/JS/buttons.html5.min.js' %}"></script>
+<script src="{% static 'Plataforma/libs/Datatable/JS/buttons.print.min.js' %}"></script>
+<script src="{% static 'Plataforma/libs/Datatable/JS/bottons.colVis.min.js' %}"></script>
+<!--DataTables responsivo-->
+<script src="{% static 'Plataforma/libs/Datatable/JS/dataTables.responsive.js' %}"></script>
+<script src="{% static 'Plataforma/libs/Datatable/JS/responsive.bootstrap5.js' %}"></script>
+<!--Inicializar DataTables-->
+<script src="{% static 'Plataforma/libs/Datatable/JS/Tramites.js' %}"></script>
+{% endblock %}
+<!-- End Conatiner JS -->
