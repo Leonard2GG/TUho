@@ -1,6 +1,6 @@
 from django import forms
 from django.forms import ModelForm
-from .models import Noticias, ConfiguracionGeneral
+from .models import Noticias , Email
 from django.contrib.auth.models import Group, Permission
 from ckeditor.widgets import CKEditorWidget
 
@@ -21,14 +21,16 @@ class CrearNoticiasForm(ModelForm):
         }
 
         
-class ConfiguracionEmail(forms.ModelForm):
+class EmailForm(forms.ModelForm):
     def __init__(self,*args,**kwargs):
         super().__init__(*args,**kwargs)
-    
     class Meta:
-        model = ConfiguracionGeneral
+        model = Email
         fields = '__all__'
         widgets = {
-            'correo' : forms.EmailInput(attrs={'type':"email",'name':"correo", 'class':"input", 'required':'true' ,'id': 'inputCorreo'}),
-            'contraseña_correo': forms.TextInput(attrs={'type':"text",'name':"contraseña_correo", 'class':"input", 'id': 'inputContraseña_Correo'}),
+            'address' : forms.EmailInput(attrs={'type':"email",'name':"email", 'class':"input", 'required':'true' ,'id': 'inputEmail'}),
+            'smtp_server': forms.TextInput(attrs={'type':"text",'name':"server", 'class':"input", 'id': 'inputServer'}),
+            'smtp_port': forms.TextInput(attrs={'type':"text",'name':"port", 'class':"input", 'id': 'inputPort'}),
+            'smtp_username': forms.TextInput(attrs={'type':"text",'name':"username", 'class':"input", 'required':'true' ,'id': 'inputUsername'}),
+            'smtp_password': forms.TextInput(attrs={'type':"text",'name':"password", 'class':"input", 'required':'true' ,'id': 'inputPassword'}),
         }

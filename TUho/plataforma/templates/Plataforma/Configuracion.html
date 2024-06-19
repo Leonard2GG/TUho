@@ -1,0 +1,75 @@
+{% extends "Base Admin.html" %}
+{% load static %}
+
+<!-- Conatiner CSS -->
+{% block css %}
+<link rel="stylesheet" href=" {% static 'Plataforma/css/Sitio Administrativo.css' %}">
+{% endblock %}
+<!-- End Conatiner CSS -->
+
+
+{% block content %}
+<main class="content-inside px-3 py-2">
+    <section id="tablaTramites">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title">
+                    Grupos
+                </h5>
+            </div>
+            <div class="p-2">
+                <div>
+                    
+                    <div class="data">
+                        <label style="color:black">Dirección:</label>
+                        <span style="color:black" >{{ email.address }}</span>
+                        </div>
+                      <div class="data">
+                        <label style="color:black">SMTP_SERVER:</label>
+                        <span style="color:black" >{{ email.smtp_server }}</span>
+                        </div>
+                      <div class="data">
+                        <label style="color:black">SMTP_PORT:</label>
+                        <span style="color:black" >{{ email.smtp_port }}</span>
+                        </div>
+                      
+                      <div class="data">
+                        <label style="color:black">Usuario:</label>
+                        <span style="color:black" >{{ email.username }}</span>
+                        </div>
+                      
+                      <div class="data">
+                        <label style="color:black">Contraseña:</label>
+                        <span style="color:black" >{{ email.password }}</span>
+                        </div>
+                      </div>
+                    
+                </div>
+                
+            </div>
+        </div>
+    </section>
+</main>
+{% endblock %}
+
+<!-- Conatiner JS -->
+{% block js%}
+<script src="{% static 'Plataforma/libs/Datatable/JS/jquery-3.7.1.js' %}"></script>
+<script src="{% static 'Plataforma/libs/Datatable/JS/dataTables.js' %}"></script>
+<script src="{% static 'Plataforma/libs/Datatable/JS/dataTables.bootstrap5.js' %}"></script>
+<!--Botones DataTables-->
+<script src="{% static 'Plataforma/libs/Datatable/JS/dataTables.buttons.js' %}"></script>
+<script src="{% static 'Plataforma/libs/Datatable/JS/buttons.bootstrap5.js' %}"></script>
+<script src="{% static 'Plataforma/libs/Datatable/JS/jszip.min.js' %}"></script>
+<script src="{% static 'Plataforma/libs/Datatable/JS/pdfmake.min.js' %}"></script>
+<script src="{% static 'Plataforma/libs/Datatable/JS/vfs_fonts.js' %}"></script>
+<script src="{% static 'Plataforma/libs/Datatable/JS/buttons.html5.min.js' %}"></script>
+<script src="{% static 'Plataforma/libs/Datatable/JS/buttons.print.min.js' %}"></script>
+<script src="{% static 'Plataforma/libs/Datatable/JS/bottons.colVis.min.js' %}"></script>
+<!--DataTables responsivo-->
+<script src="{% static 'Plataforma/libs/Datatable/JS/dataTables.responsive.js' %}"></script>
+<script src="{% static 'Plataforma/libs/Datatable/JS/responsive.bootstrap5.js' %}"></script>
+<!--Inicializar DataTables-->
+<script src="{% static 'Plataforma/libs/Datatable/JS/Grupos.js' %}"></script>
+{% endblock %}
+<!-- End Conatiner JS -->

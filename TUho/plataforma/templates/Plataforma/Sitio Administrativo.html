@@ -23,15 +23,13 @@
             <!-- small box -->
             <div class="small-box bg-box-one">
               <div class="inner">
-                {% if not i in APoblacion %}
-                <h3>0</h3>
-                {% else %}
+                
                 {% for i in APoblacion %}
                 {% if forloop.last %}
                 <h3>{{ forloop.counter }}</h3>
                 {% endif %}
                 {% endfor %}
-                {% endif %}
+    
                 <p>Total de Trámites</p>
               </div>
               <div class="icon">

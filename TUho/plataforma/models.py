@@ -27,8 +27,13 @@ class Noticias(models.Model):
         verbose_name="noticia"
         verbose_name_plural="noticias"
         
-class ConfiguracionGeneral(models.Model):
-    correo = models.EmailField()
-    contraseña_correo = models.CharField(max_length=50)
-    
+class Email(models.Model):
+    address = models.EmailField(unique=True)
+    smtp_server = models.CharField(max_length=255)
+    smtp_port = models.CharField(max_length=3)
+    smtp_username = models.CharField(max_length=255)
+    smtp_password = models.CharField(max_length=255)
+
+    def __str__(self):
+        return self.address
     

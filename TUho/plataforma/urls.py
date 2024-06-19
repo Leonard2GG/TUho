@@ -45,6 +45,8 @@ urlpatterns = [
     path('VisualizarNoticiasAdmin/<int:id>/', views.VisualizarNoticiasAdmin, name="VisualizarNoticiasAdmin"),
     path('VisualizarNoticiasUsuario/<int:id>/', views.VisualizarNoticiasUsuario, name="VisualizarNoticiasUsuario"),
     path('InstalarModulosPDF/',login_required (views.InstalarModulosPDF), name="InstalarModulosPDF"),
+    path('Configuracion/',login_required (views.Configuracion), name="Configuracion"),
+    
     
     # Grupos
     path('Grupos/',login_required (views.Grupos), name="Grupos"),

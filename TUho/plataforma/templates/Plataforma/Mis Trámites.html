@@ -40,6 +40,7 @@
                         <td style="text-align: start;">Atención a la Población</td>
                         <td style="text-align: start;">En espera</td>
                         <td style="text-align: center; font-size: 1.2rem;">
+                        <a class="iconos p-2" href="{% url "VisualizarAtencionPoblacion" i.id %}"><i class="bx bx-info-circle"></i></a>
                         <a class="iconos" href="{% url "EliminarTramiteUsuario" i.id %}"><i class="bx bx-trash"></i></a></td>
                     </tr>
                     {% endfor %}

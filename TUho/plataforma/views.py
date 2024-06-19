@@ -5,8 +5,8 @@ from django.core.mail import send_mail
 from usuarios.models import Usuario
 from usuarios.forms import InformacionPersonalForm
 from atencion_poblacion.models import AtencionPoblacion
-from .forms import CrearNoticiasForm, ConfiguracionEmail
-from .models import Noticias, ConfiguracionGeneral
+from .forms import CrearNoticiasForm, EmailForm
+from .models import Noticias, Email
 from django.contrib.auth.models import Group, Permission
 from django.db.models import Count
 from django.http import HttpRequest, HttpResponseRedirect
@@ -270,16 +270,22 @@ def EliminarGrupo(request, id):
     grupo.delete()
     return redirect("Grupos")
 
-def ConfiguracionCorreo(request):
-    if request.POST():
-        conf_global = ConfiguracionGeneral.objects.all().first()
-        conf_global.correo = request.POST["correo"]
-        conf_global.contraseña_correo = request.POST["contraseña_correo"]
-        conf_global.save()
-        settings.configure(
-                EMAIL_HOST_USER = conf_global.correo,
-                EMAIL_HOST_PASSWORD = conf_global.contraseña_correo,  
-            ) 
-        return redirect("Administracion")
-    form = ConfiguracionEmail()
-    return render(request, "Cambio de Email_settings.html", {"form":form})
+def Configuracion(request):
+    context = {
+        "email": Email.objects.all()
+    }
+    return render(request,"plataforma/Configuracion.html",context)
+
+def CrearEmail(request:HttpRequest):
+    if request.POST:
+        email = Email.objects.all()
+        email.address = request.POST["address"]
+        email.smtp_server = request.POST["smtp_server"]
+        email.smtp_port = request.POST["smtp_port"]
+        email.username = request.POST["username"]
+        email.password = request.POST["password"]
+        email.save()
+        return redirect("Configuracion")
+    form = EmailForm()
+    return render (request, "plataforma/Crear Email.html",{"form":form})
+    
