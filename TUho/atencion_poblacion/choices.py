@@ -20,3 +20,12 @@ consulta_choice = [
     ("Queja", "Queja"),
     ("Solicitid de Información", "Solicitid de Información"),
 ]
+
+estado_choice = [
+    ("En espera", "En espera"),
+    ("Aceptado", "Aceptado"),
+    ("Procesando", "Procesando"),
+    ("Listo para recoger", "Listo para recoger"),
+    ("Entregado", "Entregado"),
+    ("Completado", "Completado"),
+]

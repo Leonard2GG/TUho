@@ -35,6 +35,12 @@
       <hr>
       {% if "Administración" in grupos %}
       <ul class="mynav nav nav-pills flex-column mb-auto">
+        <li class="nav-item mb-1" aria-label="">
+          <a href="#" class="usuario" >
+            <i class="bi bi-person-circle mx-1" style="font-size:1.1rem;"></i>
+             Bienvenido, <strong>{{ user.username }}</strong>
+          </a>
+        </li>
         <li class="nav-item mb-1">
           <a href="{% url 'Administracion' %}" class="active">
             <i class="bx bxs-widget"></i>
@@ -100,6 +106,12 @@
       {% endif %}
       {% if "Administrador Trámites" in grupos %}
       <ul class="mynav nav nav-pills flex-column mb-auto">
+        <li class="nav-item mb-1" aria-label="">
+          <a href="#" class="usuario" >
+            <i class="bi bi-person-circle mx-1" style="font-size:1.1rem;"></i>
+             Bienvenido, <strong>{{ user.username }}</strong>
+          </a>
+        </li>
         <li class="nav-item mb-1">
           <a href="{% url 'Administracion' %}" class="active">
             <i class="bx bxs-widget"></i>

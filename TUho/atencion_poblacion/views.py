@@ -44,7 +44,7 @@ def AtencionPoblacionView(request:HttpRequest):
             mail.send()
 
             atencionP.save()
-            return render (request, "AtencionPoblacion/Atención a la Poblacion.html",{'response':'correcto', 'message':'Se ha enviado su  correctamente', 'form':form})
+            return render (request, "AtencionPoblacion/Atención a la Poblacion.html",{'response':'correcto', 'message':'Se ha enviado su solicitud correctamente', 'form':form})
         except Exception as e:
             form_persist = AtencionPoblacionForm(request.POST) 
             messages.error(request, "Algo salió mal con el envio del correo, por favor intentelo de nuevo")

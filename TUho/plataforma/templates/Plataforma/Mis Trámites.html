@@ -38,11 +38,31 @@
                         <td style="text-align: start;">{{ forloop.counter }}</td>
                         <td style="text-align: start;">{{ i.carnet }}</td>
                         <td style="text-align: start;">Atención a la Población</td>
-                        <td style="text-align: start;">En espera</td>
+                        <td style="text-align: center;"><a class="estado" href="{% url "CambiarEstado" i.id %}">{{ i.estado }}</a></td>
                         <td style="text-align: center; font-size: 1.2rem;">
-                        <a class="iconos p-2" href="{% url "VisualizarAtencionPoblacion" i.id %}"><i class="bx bx-info-circle"></i></a>
-                        <a class="iconos" href="{% url "EliminarTramiteUsuario" i.id %}"><i class="bx bx-trash"></i></a></td>
+                        <a class="iconos p-2" href="{% url "VisualizarTramiteUsuario" i.id %}"><i class="bx bx-info-circle"></i></a>
+                        <a class="iconos p-2" data-bs-toggle="modal" data-bs-target="#Tramite{{ i.id }}"><i class="bx bx-trash"></i></a>
+                        </td>
                     </tr>
+                    <!-- Modal -->
+                    <div class="modal fade" id="Tramite{{ i.id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel" style="color:black"><i class="bi bi-exclamation-triangle"
+                                style="color:black"></i> Advertencia</h5>
+                            <button type="button" class="btn-close cerrar" data-bs-dismiss="modal" aria-label="Close" style="box-shadow: none"></button>
+                            </div>
+                            <div class="modal-body" style="color:black">
+                            ¿Desea eliminar este trámite?
+                            </div>
+                            <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cancelar</button>
+                            <a href="{% url 'EliminarTramiteUsuario' i.id  %}" class="btn btn-primary">Aceptar</a>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
                     {% endfor %}
                 </tbody>
             </table>

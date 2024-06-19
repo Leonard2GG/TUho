@@ -4,7 +4,7 @@ from datetime import datetime
 from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
 
-from .choices import consulta_choice, municipality_choice
+from .choices import consulta_choice, municipality_choice, estado_choice
 
 def validate_file_extension(value):
     import os
@@ -29,6 +29,7 @@ class AtencionPoblacion(models.Model):
     on_create = models.DateField(auto_now_add=True)
     on_modified = models.DateField(auto_now=True)
     usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE)
+    estado = models.CharField(max_length=255, blank=False, null=False, choices=estado_choice, default="En espera")
 
     def __str__(self) -> str:
         return f"{self.nombre}{self.apellidos} - {self.asunto} - {self.on_create}"

@@ -24,11 +24,7 @@
             <div class="small-box bg-box-one">
               <div class="inner">
                 
-                {% for i in APoblacion %}
-                {% if forloop.last %}
-                <h3>{{ forloop.counter }}</h3>
-                {% endif %}
-                {% endfor %}
+                <h3>{{ tramites_count }}</h3>
     
                 <p>Total de Trámites</p>
               </div>
@@ -42,7 +38,7 @@
             <!-- small box -->
             <div class="small-box bg-box-one">
               <div class="inner">
-                <h3>0</h3>
+                <h3>{{ completado }}</h3>
 
                 <p>Trámites Completados</p>
               </div>
@@ -56,11 +52,9 @@
             <!-- small box -->
             <div class="small-box bg-box-one">
               <div class="inner">
-                {% for usuario in usuarios %}
-                {% if forloop.last %}
-                <h3>{{ forloop.counter }}</h3>
-                {% endif %}
-                {% endfor %}
+                
+                <h3>{{ usuarios_count }}</h3>
+                
                 <p>Cantidad de Usuarios</p>
               </div>
               <div class="icon">
@@ -73,7 +67,7 @@
             <!-- small box -->
             <div class="small-box bg-box-one">
               <div class="inner">
-                <h3>3</h3>
+                <h3>{{ en_espera }}</h3>
 
                 <p>Nuevos Trámites</p>
               </div>
@@ -115,7 +109,7 @@
                         <td style="text-align: start;">{{ i.telefono }}</td>
                         <td style="text-align: center;">{{ i.on_create|date:"d-m-Y" }}</td>
                         <td style="text-align: start;">Certificacion del titulo</td>
-                        <td style="text-align: center;">En espera</td>
+                        <td style="text-align: center;">{{ i.estado }}</td>
                     </tr>
                   {% endfor %}
                   

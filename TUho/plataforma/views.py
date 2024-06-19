@@ -5,6 +5,7 @@ from django.core.mail import send_mail
 from usuarios.models import Usuario
 from usuarios.forms import InformacionPersonalForm
 from atencion_poblacion.models import AtencionPoblacion
+from atencion_poblacion.forms import CambiarEstadoForm
 from .forms import CrearNoticiasForm, EmailForm
 from .models import Noticias, Email
 from django.contrib.auth.models import Group, Permission
@@ -23,11 +24,20 @@ def Inicio(request):
 
 # Mis Tramites
 @login_required
-def MisTramites(request):
+def MisTramites(request:HttpRequest) -> HttpResponse:
+    usuario = request.user
     context = {
-        'APoblacion': AtencionPoblacion.objects.all(),
+        'APoblacion': AtencionPoblacion.objects.filter(usuario=usuario),
     }
     return render(request,"plataforma/Mis Trámites.html", context)
+
+@login_required
+def VisualizarTramiteUsuario(request,id):
+    aPoblacion = AtencionPoblacion.objects.get(id=id)
+    context = {
+        "form":aPoblacion
+    }
+    return render(request,'AtencionPoblacion/Visualizar Atención a la Poblacion Usuario.html',context)
 
 # Información Personal
 @login_required
@@ -38,10 +48,20 @@ def InformacionPersonal(request):
 @login_required
 @admin_required
 def Administracion(request:HttpRequest):
+    tramites_count = AtencionPoblacion.objects.all().count()
+    usuarios_count =  Usuario.objects.all().count()
+    completado = AtencionPoblacion.objects.filter(estado = 'Completado').count()
+    en_espera = AtencionPoblacion.objects.filter(estado = 'En espera').count()
     context = {
         'usuarios': Usuario.objects.all(),
-        'APoblacion': AtencionPoblacion.objects.all(),
+        'APoblacion' : AtencionPoblacion.objects.all(),
+        'tramites_count':tramites_count,
+        'usuarios_count':usuarios_count,
+        'completado': completado,
+        'en_espera': en_espera,
     }
+    estados_count= AtencionPoblacion.objects.values('estado').annotate(total=Count('estado'))
+    estados_count = list(estados_count)      
     if request.user.groups.filter(name='Administración').exists():
         return render (request,"plataforma/Sitio Administrativo.html", context)
     elif request.user.groups.filter(name='Administrador Trámites').exists():
@@ -57,6 +77,15 @@ def Tramites(request):
     }
 
     return render (request,"plataforma/Tramites.html",context)
+ 
+def CambiarEstado(request, id):
+    aPoblacion = AtencionPoblacion.objects.get(id=id)
+    if request.POST:
+        aPoblacion.estado = request.POST["estado"]
+        aPoblacion.save()
+        return redirect("Tramites")
+    form = CambiarEstadoForm(instance=aPoblacion)
+    return render(request,"plataforma/Cambiar Estado.html",{"form":form})
 
 @login_required
 @admin_required
@@ -171,7 +200,8 @@ def CrearNoticia(request):
     if request.POST:
         noticia = Noticias()
         noticia.titulo = request.POST["titulo"]
-        noticia.imagen_cabecera = request.FILES["imagen_cabecera"]
+        if request.FILES:
+            noticia.imagen_cabecera = request.FILES["imagen_cabecera"]
         noticia.resumen = request.POST["resumen"]
         noticia.cuerpo = request.POST["cuerpo"]
         noticia.save()
@@ -185,7 +215,8 @@ def EditarNoticia(request,id):
     noticia = Noticias.objects.get(id=id)
     if request.POST:
         noticia.titulo = request.POST["titulo"]
-        noticia.imagen_cabecera = request.FILES["imagen_cabecera"]
+        if request.FILES:
+            noticia.imagen_cabecera = request.FILES["imagen_cabecera"]
         noticia.resumen = request.POST["resumen"]
         noticia.cuerpo = request.POST["cuerpo"]
         noticia.save()

@@ -35,19 +35,19 @@ urlpatterns = [
     path('InfoPersonal/',login_required (views.InformacionPersonal), name="InfoPersonal"),
     path('Administracion/',login_required (views.Administracion), name="Administracion"),
     path('Tramites/',login_required (views.Tramites), name="Tramites"),
+    path('CambiarEstado/<int:id>',login_required (views.CambiarEstado), name="CambiarEstado"),
     path('EliminarTramite/<int:id>/',login_required (views.EliminarTramite), name="EliminarTramite"),
-     path('EliminarTramiteUsuario/<int:id>/',login_required (views.EliminarTramiteUsuario), name="EliminarTramiteUsuario"),
+    path('EliminarTramiteUsuario/<int:id>/',login_required (views.EliminarTramiteUsuario), name="EliminarTramiteUsuario"),
     path('Usuarios/',login_required (views.Usuarios), name="Usuarios"),
     path('InformacionUsuario/<int:id>/',login_required (views.InformacionUsuario), name="InformacionUsuario"),
     path('EliminarUsuario/<int:id>/',login_required (views.EliminarUsuario), name="EliminarUsuario"),
     path('CambiarRol/<int:id>/',login_required (views.CambiarRol), name="CambiarRol"),
     path('NoticiasUsuario/', views.NoticiasUsuario, name="NoticiasUsuario"),
     path('VisualizarNoticiasAdmin/<int:id>/', views.VisualizarNoticiasAdmin, name="VisualizarNoticiasAdmin"),
+    path('VisualizarTramiteUsuario/<int:id>/', views.VisualizarTramiteUsuario, name="VisualizarTramiteUsuario"),
     path('VisualizarNoticiasUsuario/<int:id>/', views.VisualizarNoticiasUsuario, name="VisualizarNoticiasUsuario"),
     path('InstalarModulosPDF/',login_required (views.InstalarModulosPDF), name="InstalarModulosPDF"),
     path('Configuracion/',login_required (views.Configuracion), name="Configuracion"),
-    
-    
     # Grupos
     path('Grupos/',login_required (views.Grupos), name="Grupos"),
     path('CrearGrupo/', login_required(views.CrearGrupo), name="CrearGrupo"),
