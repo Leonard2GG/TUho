@@ -29,17 +29,17 @@ const validate_space_trim = () => {
 const c = (e)=>{
   let validador = /^\w+([.-_+]?\w+)*@\w+([.-]?\w+)*(\.\w{2,10})+$/
   let mensaje = ""
-  if(nombre.value == ""){
+  if(nombre.value == "" || Number.isInteger(parseFloat(nombre.value))){
     nombre.style = "border:solid 2px red;"
-    mensaje += `Campo 'Nombre' en blanco <br>`
+    mensaje += `Campo 'Nombre' en blanco o esta incorrecto <br>`
     e.preventDefault()
   }
   else{
     nombre.style = "border:solid 2px green;"
   }
-  if(apellidos.value == ""){
+  if(apellidos.value == "" || Number.isInteger(parseFloat(apellidos.value))){
     apellidos.style = "border:solid 2px red;"
-    mensaje += `Campo 'Apellidos' en blanco <br>`
+    mensaje += `Campo 'Apellidos' en blanco o esta incorrecto <br>`
     e.preventDefault()
   }
   else{

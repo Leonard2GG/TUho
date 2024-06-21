@@ -17,7 +17,8 @@ class CrearNoticiasForm(ModelForm):
             'titulo' : forms.TextInput(attrs={'type':"text",'name':"titulo", 'class':"input", 'required':'true' ,'id': 'inputTitulo'}),
             'imagen_cabecera': forms.FileInput(attrs={'type':"file",'name':"file", 'class':"input", 'id': 'inputImagen'}),
             'resumen': forms.TextInput(attrs={'type':"text",'name':"resumen", 'class':"input", 'required':'true' ,'id': 'inputResumen'}),
-            'cuerpo' : CKEditorWidget(),
+            'cuerpo' : forms.Textarea(attrs={'name':"cuerpo", 'class':"input", 'required':'true', 'id': 'inputText'}),
+            #'cuerpo' : CKEditorWidget(),
         }
 
         

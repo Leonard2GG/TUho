@@ -18,7 +18,8 @@ class Noticias(models.Model):
     titulo = models.CharField(max_length=255)
     imagen_cabecera = models.ImageField(upload_to=f"Noticias/{datetime.now().date().strftime('%d-%m-%Y')}/", blank=True, null=True, validators=[validate_file_extension])
     resumen = models.CharField(max_length=250, null=True, blank=True)
-    cuerpo = RichTextField()
+    cuerpo = models.TextField()
+    #cuerpo = RichTextField()
     on_create = models.DateField(auto_now_add=True)
     on_modified = models.DateField(auto_now=True)
 
