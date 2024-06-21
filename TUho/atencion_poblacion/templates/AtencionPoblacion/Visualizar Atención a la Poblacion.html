@@ -96,12 +96,14 @@
             <span>{{ form.asunto }}</span>
             </div>
           </div>
+          {% if form.adjunto %}
           <div class="col-lg-6 col-md-12 col-sm-12 pb-2 pt-1">
             <div class="data">
             <label> Archivo Adjunto:</label>
             <span><a href="{{ form.adjunto.url }}">{{ form.adjunto }}</a></span>
             </div>
           </div>
+          {% endif %}
           <div class="col-lg-12 col-md-12 col-sm-12 pb-2 pt-1">
             <div class="data">
             <label>Mensaje:</label>

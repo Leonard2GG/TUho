@@ -26,6 +26,7 @@
                     <tr>
                         <th scope="col" style="color: white; text-align: start;">#</th>
                         <th scope="col" style="color: white; text-align: start;">Carnet</th>
+                        <th scope="col" style="color: white; text-align: start;">Fecha</th>
                         <th scope="col" style="color: white; text-align: start;">Tipo de Trámite</th>
                         <th scope="col" style="color: white; text-align: start;">Estado del Trámite</th>
                         <th scope="col" style="color: white; text-align: start;">Eliminar</th>
@@ -37,6 +38,7 @@
                     <tr>
                         <td style="text-align: start;">{{ forloop.counter }}</td>
                         <td style="text-align: start;">{{ i.carnet }}</td>
+                        <td style="text-align: center;">{{ i.on_create|date:"d-m-Y" }}</td>
                         <td style="text-align: start;">Atención a la Población</td>
                         <td style="text-align: center;"><a class="estado" href="{% url "CambiarEstado" i.id %}">{{ i.estado }}</a></td>
                         <td style="text-align: center; font-size: 1.2rem;">
