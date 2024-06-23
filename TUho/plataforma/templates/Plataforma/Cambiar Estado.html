@@ -40,10 +40,15 @@
                     <input type="hidden" name="role">
                     <div class="input selector">
                     </div>
-                    <label for="">Rol de Usuario</label>
-                    <span>Rol de Usuario</span>
+                    <label for="">Estado de trámite</label>
+                    <span>Estado de trámite</span>
                   </div>
-                    {{ form.estado }}
+                  <div class="select-options" name="role">
+                    {% for estado in estados %}
+                    <div aria-valuetext="{{estado}}" value="{{estado}}" class="element">{{estado}}</div>
+                    {% endfor %}
+                  </div>
+                
                   <div class="btn">
                     <a href="{% url 'Tramites' %}" class="btn2">Cancelar</a>
                     <input type="submit" value="Aceptar" class="btn2">
@@ -56,7 +61,8 @@
 
 <!-- Conatiner JS -->
 {% block js %}
-<script src="{% static 'Plataforma/js/FormularioSelectRol.js' %}"></script>
+<script src="{% static 'AtencionPoblacion/js/FormularioSelectEstado.js' %}"></script>
+
 
 {% endblock %}
 <!-- End Conatiner JS -->

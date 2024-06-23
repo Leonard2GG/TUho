@@ -3,7 +3,7 @@ from ckeditor.fields import RichTextField
 from datetime import datetime
 from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
-
+from model_utils.managers import InheritanceManager
 
 def validate_file_extension(value):
     import os
@@ -38,4 +38,10 @@ class Email(models.Model):
 
     def __str__(self):
         return self.address
+    
+class TramiteGeneral(models.Model):
+    objects = InheritanceManager()
+    nombre_tramite = models.CharField(max_length=250)
+    
+    
     

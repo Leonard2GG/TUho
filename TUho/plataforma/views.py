@@ -7,14 +7,35 @@ from usuarios.forms import InformacionPersonalForm
 from atencion_poblacion.models import AtencionPoblacion
 from atencion_poblacion.forms import CambiarEstadoForm
 from .forms import CrearNoticiasForm, EmailForm
-from .models import Noticias, Email
+from .models import Noticias, Email, TramiteGeneral
 from django.contrib.auth.models import Group, Permission
 from django.db.models import Count
 from django.http import HttpRequest, HttpResponseRedirect
 from django.utils.decorators import method_decorator
 from .decorators import admin_required, pure_admin_required
 from django.core.paginator import Paginator
+from django.db.models import Q
+from atencion_poblacion.choices import estado_choice
 
+
+def count_tramites_by_month():
+    data = {
+        "1":0,
+        "2":0,
+        "3":0,
+        "4":0,
+        "5":0,
+        "6":0,
+        "7":0,
+        "8":0,
+        "9":0,
+        "10":0,
+        "11":0,
+        "12":0,
+    }
+    
+    for i in data.keys():
+        pass
 
 # Create your views here.
 
@@ -27,9 +48,11 @@ def Inicio(request):
 def MisTramites(request:HttpRequest) -> HttpResponse:
     usuario = request.user
     context = {
-        'APoblacion': AtencionPoblacion.objects.filter(usuario=usuario),
+        'Tramites': TramiteGeneral.objects.select_subclasses().filter(
+            Q(atencionpoblacion__usuario=usuario))
     }
-    return render(request,"plataforma/Mis Trámites.html", context)
+    # Para filtrar por otro modelo seria asi | Q(empleado__usuario=usuario) | Q(cliente__usuario=usuario)
+    return render(request, "plataforma/Mis Trámites.html", context)
 
 @login_required
 def VisualizarTramiteUsuario(request,id):
@@ -48,13 +71,14 @@ def InformacionPersonal(request):
 @login_required
 @admin_required
 def Administracion(request:HttpRequest):
-    tramites_count = AtencionPoblacion.objects.all().count()
+    tramites_count = TramiteGeneral.objects.all().count()
     usuarios_count =  Usuario.objects.all().count()
-    completado = AtencionPoblacion.objects.filter(estado = 'Completado').count()
-    en_espera = AtencionPoblacion.objects.filter(estado = 'En espera').count()
+    completado = TramiteGeneral.objects.select_subclasses().filter(Q(atencionpoblacion__estado ="Completado")).count()
+    en_espera = TramiteGeneral.objects.select_subclasses().filter(Q(atencionpoblacion__estado ="En espera")).count()
+     # Para filtrar por otro modelo seria asi | Q(empleado__usuario=usuario) | Q(cliente__usuario=usuario)
     context = {
         'usuarios': Usuario.objects.all(),
-        'APoblacion' : AtencionPoblacion.objects.all(),
+        'Tramites': TramiteGeneral.objects.select_subclasses(),
         'tramites_count':tramites_count,
         'usuarios_count':usuarios_count,
         'completado': completado,
@@ -73,7 +97,7 @@ def Administracion(request:HttpRequest):
 @admin_required
 def Tramites(request):
     context = {
-        'APoblacion': AtencionPoblacion.objects.all(),
+        'Tramites': TramiteGeneral.objects.select_subclasses(),     
     }
 
     return render (request,"plataforma/Tramites.html",context)
@@ -81,23 +105,24 @@ def Tramites(request):
 def CambiarEstado(request, id):
     aPoblacion = AtencionPoblacion.objects.get(id=id)
     if request.POST:
-        aPoblacion.estado = request.POST["estado"]
+        aPoblacion.estado = request.POST["role"]
         aPoblacion.save()
         return redirect("Tramites")
     form = CambiarEstadoForm(instance=aPoblacion)
-    return render(request,"plataforma/Cambiar Estado.html",{"form":form})
+    estados = [e[0] for e in estado_choice]
+    return render(request,"plataforma/Cambiar Estado.html",{"form":form, "estados":estados})
 
 @login_required
 @admin_required
-def EliminarTramite(request,id):
-    aPoblacion = AtencionPoblacion.objects.get(id=id)
-    aPoblacion.delete()
+def EliminarTramite(request,tipo_tramite,id):
+    tramite = TramiteGeneral.objects.select_subclasses().filter(nombre_tramite=tipo_tramite, pk=id)
+    tramite[0].delete()
     return redirect("Tramites")
 
 @login_required
-def EliminarTramiteUsuario(request,id):
-    aPoblacion = AtencionPoblacion.objects.get(id=id)
-    aPoblacion.delete()
+def EliminarTramiteUsuario(request,tipo_tramite,id):
+    tramite = TramiteGeneral.objects.select_subclasses().filter(nombre_tramite=tipo_tramite, pk=id)
+    tramite[0].delete()
     return redirect("MisTramites")
 
 

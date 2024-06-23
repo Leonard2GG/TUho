@@ -34,7 +34,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {% for i in APoblacion %}
+                    {% for i in Tramites %}
                     <tr>
                         <td style="text-align: start;">{{ forloop.counter }}</td>
                         <td style="text-align: start;">{{ i.carnet }}</td>
@@ -42,8 +42,11 @@
                         <td style="text-align: start;">Atención a la Población</td>
                         <td style="text-align: center;"><a class="estado" href="{% url "CambiarEstado" i.id %}">{{ i.estado }}</a></td>
                         <td style="text-align: center; font-size: 1.2rem;">
-                        <a class="iconos p-2" href="{% url "VisualizarTramiteUsuario" i.id %}"><i class="bx bx-info-circle"></i></a>
-                        <a class="iconos p-2" data-bs-toggle="modal" data-bs-target="#Tramite{{ i.id }}"><i class="bx bx-trash"></i></a>
+                            <!-- En cada Trámite realizar esat validación respectivamente -->
+                             {% if i.nombre_tramite == "Atención a la población" %}
+                             <a class="iconos p-2" href="{% url "VisualizarTramiteUsuario" i.id %}"><i class="bx bx-info-circle"></i></a>
+                                <a class="iconos p-2" data-bs-toggle="modal" data-bs-target="#Tramite{{ i.id }}"><i class="bx bx-trash"></i></a>
+                            {% endif %}
                         </td>
                     </tr>
                     <!-- Modal -->
@@ -60,7 +63,7 @@
                             </div>
                             <div class="modal-footer">
                             <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cancelar</button>
-                            <a href="{% url 'EliminarTramiteUsuario' i.id  %}" class="btn btn-primary">Aceptar</a>
+                            <a href="{% url 'EliminarTramiteUsuario'  i.nombre_tramite i.id  %}" class="btn btn-primary">Aceptar</a>
                             </div>
                         </div>
                         </div>

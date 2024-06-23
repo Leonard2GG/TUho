@@ -1,9 +1,11 @@
+from typing import Any
 from django.db import models
+from plataforma.models import TramiteGeneral
 from usuarios.models import Usuario
 from datetime import datetime
 from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
-
+import uuid
 from .choices import consulta_choice, municipality_choice, estado_choice
 
 def validate_file_extension(value):
@@ -14,9 +16,9 @@ def validate_file_extension(value):
         raise ValidationError(_('Archivo no soportado'))
 
 # Create your models here.
-class AtencionPoblacion(models.Model):
-    nombre = models.CharField(max_length=250);
-    apellidos = models.CharField(max_length=250);
+class AtencionPoblacion(TramiteGeneral):
+    nombre = models.CharField(max_length=250)
+    apellidos = models.CharField(max_length=250)
     email = models.EmailField();
     carnet = models.CharField(max_length=11);
     telefono = models.CharField(max_length = 8);
@@ -26,13 +28,18 @@ class AtencionPoblacion(models.Model):
     adjunto = models.FileField(upload_to=f"AtencionPoblacion/{datetime.now().date().strftime('%d-%m-%Y')}/", blank=True, null=True, validators=[validate_file_extension])
     asunto = models.CharField(max_length=250);
     mensaje = models.TextField()
+    usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE)
     on_create = models.DateField(auto_now_add=True)
     on_modified = models.DateField(auto_now=True)
-    usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE)
+    token = models.UUIDField(default=uuid.uuid4, max_length=8, editable=False, unique=True)
     estado = models.CharField(max_length=255, blank=False, null=False, choices=estado_choice, default="En espera")
 
+    def __init__(self, *args: Any, **kwargs: Any) -> None:
+        super().__init__(*args, **kwargs)
+        self.nombre_tramite = "Atención a la población"
+        
     def __str__(self) -> str:
-        return f"{self.nombre}{self.apellidos} - {self.asunto} - {self.on_create}"
+        return f"{self.nombre} - {self.apellidos} - {self.asunto} - {self.on_create}"
     
     class Meta:
         verbose_name="atención a la población"

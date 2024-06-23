@@ -1,14 +1,15 @@
+import uuid
 from django.http import HttpRequest
-from django.shortcuts import render,redirect
+from django.shortcuts import render, redirect
 from usuarios.models import Usuario
 from django.core.mail import send_mail, EmailMessage
 from .models import AtencionPoblacion
 from .forms import AtencionPoblacionForm
 from plataforma.decorators import pure_admin_required
-from plataforma.decorators import admin_required, pure_admin_required
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-
+@login_required
+@pure_admin_required
 
 # Create your views here.
 # Atencion a la Población
@@ -30,6 +31,8 @@ def AtencionPoblacionView(request:HttpRequest):
                 atencionP.adjunto = request.FILES['adjunto']
             atencionP.asunto = request.POST['asunto']
             atencionP.mensaje = request.POST['mensaje']
+            atencionP.token = str(uuid.uuid4())
+            
             #email
             admin_list = [i.email for i in Usuario.objects.filter(groups__name="Administración")]
             mail = EmailMessage(
@@ -44,13 +47,13 @@ def AtencionPoblacionView(request:HttpRequest):
             mail.send()
 
             atencionP.save()
-            return render (request, "AtencionPoblacion/Atención a la Poblacion.html",{'response':'correcto', 'message':'Se ha enviado su solicitud correctamente', 'form':form})
+            return render(request, "AtencionPoblacion/Atención a la Poblacion.html", {'response': 'correcto', 'message': 'Se ha enviado su solicitud correctamente', 'form': form})
         except Exception as e:
-            form_persist = AtencionPoblacionForm(request.POST) 
+            form_persist = AtencionPoblacionForm(request.POST)
             messages.error(request, "Algo salió mal con el envio del correo, por favor intentelo de nuevo")
             print(e)
-            return render (request,"AtencionPoblacion/Atención a la Poblacion.html",{'form': form_persist})
-    return render (request, "AtencionPoblacion/Atención a la Poblacion.html",{'form':form})
+            return render(request, "AtencionPoblacion/Atención a la Poblacion.html", {'form': form_persist})
+    return render(request, "AtencionPoblacion/Atención a la Poblacion.html", {'form': form})
 
 @login_required
 @pure_admin_required

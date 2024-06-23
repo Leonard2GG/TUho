@@ -93,22 +93,20 @@
                     <th scope="col" style="color: white; text-align: start;">Nombre</th>
                     <th scope="col" style="color: white; text-align: start;">Apellidos</th>
                     <th scope="col" style="color: white; text-align: start;">Carnet</th>
-                    <th scope="col" style="color: white; text-align: start;">Teléfono</th>
                     <th scope="col" style="color: white; text-align: start;">Fecha</th>
                     <th scope="col" style="color: white; text-align: start;">Tipo de Trámite</th>
                     <th scope="col" style="color: white; text-align: start;">Estado Trámite</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {% for i in APoblacion %}
+                  {% for i in Tramites %}
                     <tr>
                         <td style="text-align: start;">{{ forloop.counter }}</td>
                         <td style="text-align: start;">{{ i.nombre }} </td>
                         <td style="text-align: start;">{{ i.apellidos }}</td>
                         <td style="text-align: start;">{{ i.carnet }}</td>
-                        <td style="text-align: start;">{{ i.telefono }}</td>
                         <td style="text-align: center;">{{ i.on_create|date:"d-m-Y" }}</td>
-                        <td style="text-align: start;">Atención a la población</td>
+                        <td style="text-align: start;">{{i.nombre_tramite}}</td>
                         <td style="text-align: center;">{{ i.estado }}</td>
                     </tr>
                   {% endfor %}
@@ -192,25 +190,7 @@
           </div>
          </section>
         </section>
-        <section class="mb-2 row row-gap-1 ">
-          <section class="col-md-6 col-sm-12" id="graficaPieTrámites">
-             <div class="card">
-               <div class="p-2">
-               <div id="myChartPieModulo">
-               </div>
-             </div>
-           </div>
-          </section>
- 
-             <section class="col-md-6 col-sm-12" id="graficaBarTrámites">
-               <div class="card">
-                 <div class="p-2">
-                 <div id="myChartBarCompletados">
-                 </div>
-               </div>
-             </div>
-             </section>
-         </section>
+        
       </div>
   </main>
 </div>
@@ -243,5 +223,75 @@
   <script src="{% static 'Plataforma/libs/Highcharts/code/modules/offline-exporting.js' %}"></script>
   <script src="{% static 'Plataforma/libs/Highcharts/code/modules/export-data.js' %}"></script>
   <script src="{% static 'Plataforma/libs/Highcharts/newChart.js' %}"></script>
+  <script>
+
+    let listaMeses = [
+    {
+      name:'Enero',
+      color:'#0d6efd',
+      y:15
+    },
+    
+    ]
+
+    Highcharts.chart('myChartBar',{
+      chart:{
+        type:'column'
+      },
+      title:{
+        text:'Cantidad de Trámites'
+      },
+      exporting:{
+        buttons:{
+          contextButton:{
+            enabled:true,
+            menuItems:[{
+              name:'Descargar imagen PNG',
+              textKey:'downloadPNG',
+              onclick: function(){
+                this.exportChartLocal();
+              }
+            },{
+              name:'Descargar imagen JPEG',
+              textKey:'downloadJPEG',
+              onclick: function(){
+                this.exportChartLocal({
+                  type:'image/jpeg'
+                });
+            }
+          },{
+            name:'Descargar documento PDF',
+            textKey:'downloadPDF',
+            onclick: function(){
+              this.exportChartLocal({
+                type:'application/pdf'
+              });
+          }
+            }]
+          }
+        }
+      },
+    
+      xAxis:{
+        categories: ['Enero','Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre']
+      },
+      series:[{
+        data: listaMeses/* lista de datos */,
+          responsive:{
+            rules:[{
+              condition:{
+                maxWidth:500
+              },
+              chartOptions:{
+                legend:{
+                  enabled:false
+                }
+              }
+            }]
+          }
+      }]
+    })
+    
+  </script>
   {% endblock %}
   <!-- End Conatiner JS -->

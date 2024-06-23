@@ -24,7 +24,6 @@ const errorContainer = document.querySelector("#error-container")
             `
         }
         const validate_space_trim = () => {
-          nombre.value = nombre.value.trim();
           email.value = email.value.trim();
           carnet.value = carnet.value.trim();
           telefono.value = telefono.value.trim();
@@ -126,7 +125,6 @@ const c = (e)=>{
           errorContainer.innerHTML += createMessage(mensaje)
         }
         }
-nombre.addEventListener("input",validate_space_trim);
 email.addEventListener("input",validate_space_trim);
 carnet.addEventListener("input",validate_space_trim);
 telefono.addEventListener("input",validate_space_trim);
