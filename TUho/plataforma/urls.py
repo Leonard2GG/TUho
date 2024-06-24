@@ -20,30 +20,36 @@ from django.contrib.auth.decorators import login_required
 from rest_framework import routers
 from .api import NoticiaViewSet
 from usuarios.api import UsuarioViewSet
+from atencion_poblacion.api import AtencionPoblacionViewSet
 
 router = routers.DefaultRouter()
 router.register('api/Noticias', NoticiaViewSet,'Noticias')
 router.register('api/Usuarios', UsuarioViewSet,'Usuarios')
+router.register('api/AtencionPoblacion', AtencionPoblacionViewSet,'AtencionPoblacion')
 
 
 
 urlpatterns = [
     path('',(views.Inicio), name="Inicio"),
     path('MisTramites/',login_required (views.MisTramites), name="MisTramites"),
+    path('SolicitudTramite/',views.SolicitudTramite, name="SolicitudTramite"),
     path('InfoPersonal/',login_required (views.InformacionPersonal), name="InfoPersonal"),
     path('Administracion/',login_required (views.Administracion), name="Administracion"),
     path('Tramites/',login_required (views.Tramites), name="Tramites"),
-    path('EliminarTramite/<int:id>/',login_required (views.EliminarTramite), name="EliminarTramite"),
-     path('EliminarTramiteUsuario/<int:id>/',login_required (views.EliminarTramiteUsuario), name="EliminarTramiteUsuario"),
+    path('CambiarEstado/<int:id>',login_required (views.CambiarEstado), name="CambiarEstado"),
+    path('EliminarTramite/<str:tipo_tramite>/<int:id>/',login_required (views.EliminarTramite), name="EliminarTramite"),
+    path('EliminarTramiteUsuario/<str:tipo_tramite>/<int:id>/',login_required (views.EliminarTramiteUsuario), name="EliminarTramiteUsuario"),
     path('Usuarios/',login_required (views.Usuarios), name="Usuarios"),
     path('InformacionUsuario/<int:id>/',login_required (views.InformacionUsuario), name="InformacionUsuario"),
     path('EliminarUsuario/<int:id>/',login_required (views.EliminarUsuario), name="EliminarUsuario"),
     path('CambiarRol/<int:id>/',login_required (views.CambiarRol), name="CambiarRol"),
     path('NoticiasUsuario/', views.NoticiasUsuario, name="NoticiasUsuario"),
+    path('EditarEmail/', views.EditarEmail, name="EditarEmail"),
     path('VisualizarNoticiasAdmin/<int:id>/', views.VisualizarNoticiasAdmin, name="VisualizarNoticiasAdmin"),
+    path('VisualizarTramiteUsuario/<int:id>/', views.VisualizarTramiteUsuario, name="VisualizarTramiteUsuario"),
     path('VisualizarNoticiasUsuario/<int:id>/', views.VisualizarNoticiasUsuario, name="VisualizarNoticiasUsuario"),
     path('InstalarModulosPDF/',login_required (views.InstalarModulosPDF), name="InstalarModulosPDF"),
-    
+    path('Configuracion/',login_required (views.Configuracion), name="Configuracion"),
     # Grupos
     path('Grupos/',login_required (views.Grupos), name="Grupos"),
     path('CrearGrupo/', login_required(views.CrearGrupo), name="CrearGrupo"),

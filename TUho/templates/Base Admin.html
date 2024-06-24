@@ -29,12 +29,18 @@
     <div id="bdSidebar"
       class="d-flex flex-column flex-shrink-0 p-3  pt-0 pb-0 text-white offcanvas-md offcanvas-start responsivo"
       style="width: 250px">
-      <a href="#" class="navbar-brand">
+      <a href="{% url "Inicio" %}" class="navbar-brand">
         <img src="{% static 'img/Id UHo-03-white.png' %}" width="200" height="80px" alt="">
       </a>
       <hr>
       {% if "Administración" in grupos %}
       <ul class="mynav nav nav-pills flex-column mb-auto">
+        <li class="nav-item mb-1" aria-label="">
+          <a href="#" class="usuario" >
+            <i class="bi bi-person-circle mx-1" style="font-size:1.1rem;"></i>
+             Bienvenido, <strong>{{ user.username }}</strong>
+          </a>
+        </li>
         <li class="nav-item mb-1">
           <a href="{% url 'Administracion' %}" class="active">
             <i class="bx bxs-widget"></i>
@@ -49,7 +55,7 @@
           </a>
         </li>
         <li class="nav-item mb-1" aria-label="Notificaciones">
-          <a href="{% url 'Bandeja' %}" class="">
+          <a href="{% url 'BandejaUsuario' %}" class="">
             <i class="bx bx-bell"></i>
             Notificaciones
             <span class="notification-badge">{{notificaciones_count}}</span>
@@ -73,8 +79,8 @@
             Roles de Usuario
           </a>
         </li>
-        <li class="nav-item mb-1" aria-label="Configuración">
-          <a href="#" class="">
+        <li class="nav-item mb-1" aria-label="Configuracion">
+          <a href="{% url "Configuracion" %}" class="">
             <i class="bi bi-gear mx-1" style="font-size:1.1rem;"></i>
             Configuración
           </a>
@@ -100,6 +106,12 @@
       {% endif %}
       {% if "Administrador Trámites" in grupos %}
       <ul class="mynav nav nav-pills flex-column mb-auto">
+        <li class="nav-item mb-1" aria-label="">
+          <a href="#" class="usuario" >
+            <i class="bi bi-person-circle mx-1" style="font-size:1.1rem;"></i>
+             Bienvenido, <strong>{{ user.username }}</strong>
+          </a>
+        </li>
         <li class="nav-item mb-1">
           <a href="{% url 'Administracion' %}" class="active">
             <i class="bx bxs-widget"></i>

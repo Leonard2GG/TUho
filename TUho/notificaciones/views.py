@@ -14,3 +14,9 @@ def Bandeja(request:HttpRequest) -> HttpResponse:
     usuario = request.user
     notificaciones = Notificacion.objects.filter(para=usuario)
     return render(request,"Notificaciones/Bandeja.html", {'notificaciones': notificaciones})
+
+def BandejaUsuario(request:HttpRequest) -> HttpResponse:
+    print(request.user)
+    usuario = request.user
+    notificaciones = Notificacion.objects.filter(para=usuario)
+    return render(request,"Notificaciones/Bandeja Usuario.html", {'notificaciones': notificaciones})

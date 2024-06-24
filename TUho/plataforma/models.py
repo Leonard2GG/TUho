@@ -3,6 +3,7 @@ from ckeditor.fields import RichTextField
 from datetime import datetime
 from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
+from model_utils.managers import InheritanceManager
 
 def validate_file_extension(value):
     import os
@@ -17,7 +18,8 @@ class Noticias(models.Model):
     titulo = models.CharField(max_length=255)
     imagen_cabecera = models.ImageField(upload_to=f"Noticias/{datetime.now().date().strftime('%d-%m-%Y')}/", blank=True, null=True, validators=[validate_file_extension])
     resumen = models.CharField(max_length=250, null=True, blank=True)
-    cuerpo = RichTextField()
+    cuerpo = models.TextField()
+    #cuerpo = RichTextField()
     on_create = models.DateField(auto_now_add=True)
     on_modified = models.DateField(auto_now=True)
 
@@ -27,8 +29,25 @@ class Noticias(models.Model):
         verbose_name="noticia"
         verbose_name_plural="noticias"
         
-class ConfiguracionGeneral(models.Model):
-    correo = models.EmailField()
-    contraseña_correo = models.CharField(max_length=50)
+class Email(models.Model):
+    address = models.EmailField(unique=True)
+    smtp_server = models.CharField(max_length=255)
+    smtp_port = models.CharField(max_length=3)
+    smtp_username = models.CharField(max_length=255)
+    smtp_password = models.CharField(max_length=255)
+
+    def __str__(self):
+        return self.address
     
+class TramiteGeneral(models.Model):
+    objects = InheritanceManager()
+    nombre_tramite = models.CharField(max_length=250)
+    on_create = models.DateField(auto_now_add=True)
+    on_modified = models.DateField(auto_now=True)
     
+    class META:
+        abstract = True
+    
+class EstadosTramites(models.Model):
+    nombre = models.CharField(max_length=255)
+    is_active = models.BooleanField(default=True)

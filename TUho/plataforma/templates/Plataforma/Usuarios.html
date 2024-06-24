@@ -68,8 +68,28 @@
                         </td>
                         <td style="text-align: center; font-size: 1.2rem;">
                             <a class="iconos p-2" href="{% url 'InformacionUsuario' usuario.id %}"><i class="bx bx-info-circle"></i></a>
-                            <a class="iconos p-2"href="{% url 'EliminarUsuario' usuario.id %}"><i class="bx bx-trash"></i></a></td>
-                        </tr>
+                            <a class="iconos p-2" data-bs-toggle="modal" data-bs-target="#Usuario{{ usuario.id }}"><i class="bx bx-trash"></i></a>
+                        </td>
+                    </tr>
+                    <!-- Modal -->
+                    <div class="modal fade" id="Usuario{{ usuario.id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel" style="color:black"><i class="bi bi-exclamation-triangle"
+                                style="color:black"></i> Advertencia</h5>
+                            <button type="button" class="btn-close cerrar" data-bs-dismiss="modal" aria-label="Close" style="box-shadow: none"></button>
+                            </div>
+                            <div class="modal-body" style="color:black">
+                            ¿Desea eliminar este usuario?
+                            </div>
+                            <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cancelar</button>
+                            <a href="{% url 'EliminarUsuario' usuario.id %}" class="btn btn-primary">Aceptar</a>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
                         {% endfor %}
                     </tbody>
                 </table>
