@@ -29,7 +29,7 @@ selectInput.addEventListener("click", () => {
     if (!selection){
         selectInput.classList.toggle("focus")
         if ( Array.from(selectInput.classList).indexOf("focus") != -1 ){
-            selectInput.children[1].innerText = "Selecciona un Esatdo de Trámite"
+            selectInput.children[1].innerText = "Selecciona un Estado de Trámite"
         } else {
             selectInput.children[1].innerText = ""
         }
