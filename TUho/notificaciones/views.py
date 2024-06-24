@@ -18,3 +18,9 @@ def Bandeja(request:HttpRequest) -> HttpResponse:
     page_number = request.GET.get("page")
     page_obj = paginator.get_page(page_number)
     return render(request,"Notificaciones/Bandeja.html", {'page_obj':page_obj})
+
+def BandejaUsuario(request:HttpRequest) -> HttpResponse:
+    print(request.user)
+    usuario = request.user
+    notificaciones = Notificacion.objects.filter(para=usuario)
+    return render(request,"Notificaciones/Bandeja Usuario.html", {'notificaciones': notificaciones})

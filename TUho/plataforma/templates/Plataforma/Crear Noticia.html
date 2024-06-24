@@ -27,7 +27,7 @@
             <form action="." method="POST" enctype="multipart/form-data">
                 {% csrf_token %}
                 <h3 class="title">Nueva Noticia</h3>
-                <div class="input-container">
+                <div class="input-container {% if form.titulo.value %}focus{% endif %}">
                     {{ form.titulo }}
                     <label for="">Título*</label>
                     <span>Título</span>
@@ -37,12 +37,12 @@
                     <label for="">Imagen</label>
                     <span>Imagen</span>
                 </div>
-                <div class="input-container">
+                <div class="input-container {% if form.resumen.value %}focus{% endif %}">
                     {{ form.resumen }}
                     <label for="">Resumen*</label>
                     <span>Resumen</span>
                 </div>
-                <div class="input-container textarea">
+                <div class="input-container textarea {% if form.cuerpo.value %}focus{% endif %}">
                     {{ form.cuerpo }}
                     <label for="">Contenido*</label>
                     <span>Contenido</span>

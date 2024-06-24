@@ -5,15 +5,57 @@ from django.core.mail import send_mail
 from usuarios.models import Usuario
 from usuarios.forms import InformacionPersonalForm
 from atencion_poblacion.models import AtencionPoblacion
-from .forms import CrearNoticiasForm, ConfiguracionEmail
-from .models import Noticias, ConfiguracionGeneral
+from atencion_poblacion.forms import CambiarEstadoForm
+from .forms import CrearNoticiasForm, EmailForm
+from .models import Noticias, Email, TramiteGeneral
 from django.contrib.auth.models import Group, Permission
 from django.db.models import Count
 from django.http import HttpRequest, HttpResponseRedirect
 from django.utils.decorators import method_decorator
 from .decorators import admin_required, pure_admin_required
 from django.core.paginator import Paginator
+from django.db.models import Q
+from atencion_poblacion.choices import estado_choice
 
+
+def estado(tramite) -> int:
+    match tramite.estado:
+        case "Completado":
+            return 1
+        case "En espera":
+            return 2
+        case "Aceptado":
+            return 3
+        case "Procesando":
+            return 4
+        case "Listo para recoger":
+            return 5
+        case "Entregado":
+            return 6
+        case _:
+            return -1
+
+def count_tramites_by_month():
+    data = {
+        "1":0,
+        "2":0,
+        "3":0,
+        "4":0,
+        "5":0,
+        "6":0,
+        "7":0,
+        "8":0,
+        "9":0,
+        "10":0,
+        "11":0,
+        "12":0,
+    }
+    for i in data.keys():
+        tramites_by_month = TramiteGeneral.objects.filter(
+            on_create__month=int(i), 
+        ).count()
+        data[i] = tramites_by_month
+    return data
 
 # Create your views here.
 
@@ -21,13 +63,46 @@ from django.core.paginator import Paginator
 def Inicio(request):
     return render(request,"plataforma/Inicio.html")
 
+def SolicitudTramite(request):
+    query = []
+    if request.POST:
+        query = []
+        consulta_gral = TramiteGeneral.objects.select_subclasses()
+        for q in consulta_gral:
+            if str(q.token) == request.POST['token']:
+                query.append(q)
+    
+    context = {
+        'Tramites': query,
+    }
+    return render(request,"plataforma/Solicitud de Tramites.html",context)
+
 # Mis Tramites
 @login_required
-def MisTramites(request):
+def MisTramites(request:HttpRequest) -> HttpResponse:
+    usuario = request.user
+    query = TramiteGeneral.objects.select_subclasses().filter(
+            Q(atencionpoblacion__usuario=usuario))
+    if request.POST:
+        query = []
+        consulta_gral = TramiteGeneral.objects.select_subclasses()
+        for q in consulta_gral:
+            if str(q.token) == request.POST['token']:
+                query.append(q)
+    
     context = {
-        'APoblacion': AtencionPoblacion.objects.all(),
+        'Tramites': query,
     }
-    return render(request,"plataforma/Mis Trámites.html", context)
+    # Para filtrar por otro modelo seria asi | Q(empleado__usuario=usuario) | Q(cliente__usuario=usuario)
+    return render(request, "plataforma/Mis Trámites.html", context)
+
+@login_required
+def VisualizarTramiteUsuario(request,id):
+    aPoblacion = AtencionPoblacion.objects.get(id=id)
+    context = {
+        "form":aPoblacion
+    }
+    return render(request,'AtencionPoblacion/Visualizar Atención a la Poblacion Usuario.html',context)
 
 # Información Personal
 @login_required
@@ -38,10 +113,47 @@ def InformacionPersonal(request):
 @login_required
 @admin_required
 def Administracion(request:HttpRequest):
+    tramites_count = TramiteGeneral.objects.all().count()
+    usuarios_count =  Usuario.objects.all().count()
+    #completado = TramiteGeneral.objects.select_subclasses().filter(Q(atencionpoblacion__estado ="Completado")).count()
+    lista_tramites = TramiteGeneral.objects.select_subclasses()
+    estado_tramite = {
+        "En_espera": 0,
+        "Aceptado": 0,
+        "Procesando": 0,
+        "Listo_para_recoger": 0,
+        "Entregado": 0,
+        "Completado": 0,
+    }
+    for e in lista_tramites:
+        estado_e = estado(e)
+        match estado_e:
+            case 1:
+                estado_tramite["Completado"] += 1
+            case 2:
+                estado_tramite["En_espera"] += 1
+            case 3:
+                estado_tramite["Aceptado"] += 1
+            case 4:
+                estado_tramite["Procesando"] += 1
+            case 5:
+                estado_tramite["Listo_para_recoger"] += 1
+            case 6:
+                estado_tramite["Entregado"] += 1
+            case _:
+                pass
+    #en_espera = TramiteGeneral.objects.select_subclasses().filter(Q(atencionpoblacion__estado ="En espera")).count()
+     # Para filtrar por otro modelo seria asi | Q(empleado__usuario=usuario) | Q(cliente__usuario=usuario)
     context = {
         'usuarios': Usuario.objects.all(),
-        'APoblacion': AtencionPoblacion.objects.all(),
-    }
+        'Tramites': TramiteGeneral.objects.select_subclasses(),
+        'tramites_count':tramites_count,
+        'usuarios_count':usuarios_count,
+        'completado': estado_tramite["Completado"],
+        'en_espera': estado_tramite["En_espera"],
+        'tramites_by_state': estado_tramite,
+        'tramites_by_month': count_tramites_by_month()
+    }    
     if request.user.groups.filter(name='Administración').exists():
         return render (request,"plataforma/Sitio Administrativo.html", context)
     elif request.user.groups.filter(name='Administrador Trámites').exists():
@@ -52,23 +164,40 @@ def Administracion(request:HttpRequest):
 @login_required
 @admin_required
 def Tramites(request):
+    query = TramiteGeneral.objects.select_subclasses()
+    if request.POST:
+        query = []
+        consulta_gral = TramiteGeneral.objects.select_subclasses()
+        for q in consulta_gral:
+            if str(q.token) == request.POST['token']:
+                query.append(q)
     context = {
-        'APoblacion': AtencionPoblacion.objects.all(),
+        'Tramites': query,     
     }
 
     return render (request,"plataforma/Tramites.html",context)
+ 
+def CambiarEstado(request, id):
+    aPoblacion = AtencionPoblacion.objects.get(id=id)
+    if request.POST:
+        aPoblacion.estado = request.POST["role"]
+        aPoblacion.save()
+        return redirect("Tramites")
+    form = CambiarEstadoForm(instance=aPoblacion)
+    estados = [e[0] for e in estado_choice]
+    return render(request,"plataforma/Cambiar Estado.html",{"form":form, "estados":estados})
 
 @login_required
 @admin_required
-def EliminarTramite(request,id):
-    aPoblacion = AtencionPoblacion.objects.get(id=id)
-    aPoblacion.delete()
+def EliminarTramite(request,tipo_tramite,id):
+    tramite = TramiteGeneral.objects.select_subclasses().filter(nombre_tramite=tipo_tramite, pk=id)
+    tramite[0].delete()
     return redirect("Tramites")
 
 @login_required
-def EliminarTramiteUsuario(request,id):
-    aPoblacion = AtencionPoblacion.objects.get(id=id)
-    aPoblacion.delete()
+def EliminarTramiteUsuario(request,tipo_tramite,id):
+    tramite = TramiteGeneral.objects.select_subclasses().filter(nombre_tramite=tipo_tramite, pk=id)
+    tramite[0].delete()
     return redirect("MisTramites")
 
 
@@ -171,7 +300,8 @@ def CrearNoticia(request):
     if request.POST:
         noticia = Noticias()
         noticia.titulo = request.POST["titulo"]
-        noticia.imagen_cabecera = request.FILES["imagen_cabecera"]
+        if request.FILES:
+            noticia.imagen_cabecera = request.FILES["imagen_cabecera"]
         noticia.resumen = request.POST["resumen"]
         noticia.cuerpo = request.POST["cuerpo"]
         noticia.save()
@@ -185,7 +315,8 @@ def EditarNoticia(request,id):
     noticia = Noticias.objects.get(id=id)
     if request.POST:
         noticia.titulo = request.POST["titulo"]
-        noticia.imagen_cabecera = request.FILES["imagen_cabecera"]
+        if request.FILES:
+            noticia.imagen_cabecera = request.FILES["imagen_cabecera"]
         noticia.resumen = request.POST["resumen"]
         noticia.cuerpo = request.POST["cuerpo"]
         noticia.save()
@@ -270,16 +401,23 @@ def EliminarGrupo(request, id):
     grupo.delete()
     return redirect("Grupos")
 
-def ConfiguracionCorreo(request):
-    if request.POST():
-        conf_global = ConfiguracionGeneral.objects.all().first()
-        conf_global.correo = request.POST["correo"]
-        conf_global.contraseña_correo = request.POST["contraseña_correo"]
-        conf_global.save()
-        settings.configure(
-                EMAIL_HOST_USER = conf_global.correo,
-                EMAIL_HOST_PASSWORD = conf_global.contraseña_correo,  
-            ) 
-        return redirect("Administracion")
-    form = ConfiguracionEmail()
-    return render(request, "Cambio de Email_settings.html", {"form":form})
+def Configuracion(request):
+    email = Email.objects.get(id=1)
+    context = {
+        "email": email
+    }
+    return render(request,"plataforma/Configuracion.html",context)
+
+def EditarEmail(request:HttpRequest):
+    email = Email.objects.get(id=1)
+    if request.POST:
+        email.address = request.POST["address"]
+        email.smtp_server = request.POST["smtp_server"]
+        email.smtp_port = request.POST["smtp_port"]
+        email.smtp_username = request.POST["smtp_username"]
+        email.smtp_password = request.POST["smtp_password"]
+        email.save()
+        return redirect("Configuracion")
+    form = EmailForm(instance=email)
+    return render (request, "plataforma/Editar Email.html",{"form":form})
+    

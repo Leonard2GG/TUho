@@ -23,15 +23,9 @@
             <!-- small box -->
             <div class="small-box bg-box-one">
               <div class="inner">
-                {% if not i in APoblacion %}
-                <h3>0</h3>
-                {% else %}
-                {% for i in APoblacion %}
-                {% if forloop.last %}
-                <h3>{{ forloop.counter }}</h3>
-                {% endif %}
-                {% endfor %}
-                {% endif %}
+                
+                <h3>{{ tramites_count }}</h3>
+    
                 <p>Total de Trámites</p>
               </div>
               <div class="icon">
@@ -44,7 +38,7 @@
             <!-- small box -->
             <div class="small-box bg-box-one">
               <div class="inner">
-                <h3>0</h3>
+                <h3>{{ completado }}</h3>
 
                 <p>Trámites Completados</p>
               </div>
@@ -58,11 +52,9 @@
             <!-- small box -->
             <div class="small-box bg-box-one">
               <div class="inner">
-                {% for usuario in usuarios %}
-                {% if forloop.last %}
-                <h3>{{ forloop.counter }}</h3>
-                {% endif %}
-                {% endfor %}
+                
+                <h3>{{ usuarios_count }}</h3>
+                
                 <p>Cantidad de Usuarios</p>
               </div>
               <div class="icon">
@@ -75,9 +67,9 @@
             <!-- small box -->
             <div class="small-box bg-box-one">
               <div class="inner">
-                <h3>3</h3>
+                <h3>{{ en_espera }}</h3>
 
-                <p>Nuevos Trámites</p>
+                <p>En espera</p>
               </div>
               <div class="icon">
                 <i class="bx bxs-pie-chart-alt-2"></i>
@@ -101,23 +93,21 @@
                     <th scope="col" style="color: white; text-align: start;">Nombre</th>
                     <th scope="col" style="color: white; text-align: start;">Apellidos</th>
                     <th scope="col" style="color: white; text-align: start;">Carnet</th>
-                    <th scope="col" style="color: white; text-align: start;">Teléfono</th>
                     <th scope="col" style="color: white; text-align: start;">Fecha</th>
                     <th scope="col" style="color: white; text-align: start;">Tipo de Trámite</th>
                     <th scope="col" style="color: white; text-align: start;">Estado Trámite</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {% for i in APoblacion %}
+                  {% for i in Tramites %}
                     <tr>
                         <td style="text-align: start;">{{ forloop.counter }}</td>
                         <td style="text-align: start;">{{ i.nombre }} </td>
                         <td style="text-align: start;">{{ i.apellidos }}</td>
                         <td style="text-align: start;">{{ i.carnet }}</td>
-                        <td style="text-align: start;">{{ i.telefono }}</td>
                         <td style="text-align: center;">{{ i.on_create|date:"d-m-Y" }}</td>
-                        <td style="text-align: start;">Certificacion del titulo</td>
-                        <td style="text-align: center;">En espera</td>
+                        <td style="text-align: start;">{{i.nombre_tramite}}</td>
+                        <td style="text-align: center;">{{ i.estado }}</td>
                     </tr>
                   {% endfor %}
                   
@@ -200,25 +190,7 @@
           </div>
          </section>
         </section>
-        <section class="mb-2 row row-gap-1 ">
-          <section class="col-md-6 col-sm-12" id="graficaPieTrámites">
-             <div class="card">
-               <div class="p-2">
-               <div id="myChartPieModulo">
-               </div>
-             </div>
-           </div>
-          </section>
- 
-             <section class="col-md-6 col-sm-12" id="graficaBarTrámites">
-               <div class="card">
-                 <div class="p-2">
-                 <div id="myChartBarCompletados">
-                 </div>
-               </div>
-             </div>
-             </section>
-         </section>
+        
       </div>
   </main>
 </div>
@@ -251,5 +223,192 @@
   <script src="{% static 'Plataforma/libs/Highcharts/code/modules/offline-exporting.js' %}"></script>
   <script src="{% static 'Plataforma/libs/Highcharts/code/modules/export-data.js' %}"></script>
   <script src="{% static 'Plataforma/libs/Highcharts/newChart.js' %}"></script>
+  <script>
+
+    let tramitesByEstadosData = [
+    {% if tramites_by_state.En_espera %} 
+    {
+      name:'En espera',
+      y: {{tramites_by_state.En_espera}},
+    },
+    {% endif %}
+    {% if tramites_by_state.Aceptado %} 
+    {
+      name:'Aceptado',
+      y:{{tramites_by_state.Aceptado}}
+    },
+    {% endif %}
+    {% if tramites_by_state.Procesando %}
+    {
+      name:'Procesando',
+      y:{{tramites_by_state.Procesando}}
+    },
+    {% endif %}
+    {% if tramites_by_state.Listo_para_recoger %}
+    {
+      name:'Listo para recoger',
+      y:{{tramites_by_state.Listo_para_recoger}}
+    },
+    {% endif %}
+    {% if tramites_by_state.Entregado %}
+    {
+      name:'Entregado',
+      y:{{tramites_by_state.Entregado}}
+    },
+    {% endif %}
+    {% if tramites_by_state.Completado %}
+    {
+      name:'Completado',
+      y:{{tramites_by_state.Completado}}
+    }
+    {% endif %}
+    ]
+    let listaMeses = ['Enero','Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre']
+    let tramitesByMonthData = [
+    {% for k,v in tramites_by_month.items %}
+    {
+      name:listaMeses[{{k}}-1],
+      color:'#0d6efd',
+      y:{{v}}
+    },
+    {% endfor %} 
+    ]
+
+    Highcharts.chart('myChartBar',{
+      chart:{
+        type:'column'
+      },
+      title:{
+        text:'Cantidad de Trámites'
+      },
+      exporting:{
+        buttons:{
+          contextButton:{
+            enabled:true,
+            menuItems:[{
+              name:'Descargar imagen PNG',
+              textKey:'downloadPNG',
+              onclick: function(){
+                this.exportChartLocal();
+              }
+            },{
+              name:'Descargar imagen JPEG',
+              textKey:'downloadJPEG',
+              onclick: function(){
+                this.exportChartLocal({
+                  type:'image/jpeg'
+                });
+            }
+          },{
+            name:'Descargar documento PDF',
+            textKey:'downloadPDF',
+            onclick: function(){
+              this.exportChartLocal({
+                type:'application/pdf'
+              });
+          }
+            }]
+          }
+        }
+      },
+    
+      xAxis:{
+        categories: ['Enero','Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre']
+      },
+      tooltip:{
+        pointFormat:'Cantidad:<b>{point.y}</b>'
+      },
+      series:[{
+        name: "Trámites Mensuales",
+        data: tramitesByMonthData/* lista de datos */,
+          responsive:{
+            rules:[{
+              condition:{
+                maxWidth:500
+              },
+              chartOptions:{
+                legend:{
+                  enabled:false
+                }
+              }
+            }]
+          }
+      }]
+    })
+
+    Highcharts.chart('myChartPie',{
+      chart:{
+        type:'pie'
+      },
+      title:{
+        text:'Estado de los Trámites'
+      },
+      exporting:{
+        buttons:{
+          contextButton:{
+            enabled:true,
+            menuItems:[{
+              name:'Descargar imagen PNG',
+              textKey:'downloadPNG',
+              onclick: function(){
+                this.exportChartLocal();
+              }
+            },{
+              name:'Descargar imagen JPEG',
+              textKey:'downloadJPEG',
+              onclick: function(){
+                this.exportChartLocal({
+                  type:'image/jpeg'
+                });
+            }
+          },{
+            name:'Descargar documento PDF',
+            textKey:'downloadPDF',
+            onclick: function(){
+              this.exportChartLocal({
+                type:'application/pdf'
+              });
+          }
+            }]
+          }
+        }
+      },
+    
+      xAxis:{
+        categories: ['En espera','Aceptado','Procesando','Listo para recoger', 'Entregado', 'Completado']
+      },
+      tooltip:{
+        pointFormat:'Cantidad:<b>{point.y}</b>'
+      },
+      plotOptions:{
+        allowPointSelect:true,
+        cursor:'pointer',
+        dataLabels:{
+          eneabled:true,
+          format:'{series.name}:<b>{point.percentage: .2f}</b>%'
+        }
+      },
+      series: [{
+        name:'Estado de los trámites',
+        colorByPoint:true,
+        data:tramitesByEstadosData,
+          responsive:{
+            rules:[{
+              condition:{
+                maxWidth:500
+              },
+              chartOptions:{
+                legend:{
+                  layout:'horizontal',
+                  align:'center',
+                  verticalAlign:'bottom'
+                }
+              }
+            }]
+          }
+      }]
+    })
+    
+  </script>
   {% endblock %}
   <!-- End Conatiner JS -->

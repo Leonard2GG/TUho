@@ -11,6 +11,7 @@ from usuarios.models import Usuario
 from django.contrib import messages
 from django.contrib.auth import views as auth_views
 from .forms import CustomPasswordResetForm, ChangePasswordForm
+from plataforma.custom_mail import custom_send_mail
 
 # Create your views here.
 
@@ -90,6 +91,7 @@ def Registrar(request:HttpRequest):
             subject= subject,
             message=message,
             from_email="smtp.gmail.com",
+            connection= custom_send_mail(), 
             )
             usuario.save()
             usuario.groups.add(Group.objects.get(name="Usuario"))

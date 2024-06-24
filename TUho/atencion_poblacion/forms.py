@@ -26,3 +26,15 @@ class AtencionPoblacionForm(ModelForm):
         }
 
 
+class CambiarEstadoForm(forms.ModelForm):
+    def __init__(self,*args,**kwargs):
+        super().__init__(*args,**kwargs)
+        
+    class Meta:
+        model = AtencionPoblacion
+        fields = {
+            'estado'
+        }
+        widgets = {
+            'estado' : forms.Select(attrs={'class':"form-control", 'id': 'selectEstado'}),   
+        }

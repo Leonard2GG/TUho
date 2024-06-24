@@ -14,14 +14,23 @@
 
 {% block content %}
 <main class="content-inside px-3 py-2">
+    <section>
+        <div class="card-tools">
+            <form action="." method="POST">
+                {% csrf_token %}
+                <div class="input-group input-group-sm">
+                    <input type="text" class="form-control" name="token" placeholder="Buscar mis trámites por ticket...">
+                <div class="input-group-append">
+                    <button class="btn btn-primary" type="submit">
+                    <i class="bx bx-search"></i>
+                    </button>
+                </div>
+                </div>
+            </form>
+          </div>
+</section>
     <div class="row">
-        <nav class="pt-2">
-            <div class="nav nav-tabs mb-3" id="nav-tab" role="tablist">
-                <button class="nav-link active text-primary" style="color:black;" id="nav-AtencionP-tab" data-bs-toggle="tab" data-bs-target="#nav-AtencioP" type="button" role="tab" aria-controls="nav-AtencioP" aria-selected="true"><i class=""></i><b>Atención a la Población</b></button>
-            </div>
-        </nav>
-    <section class="tab-content" id="nav-tabContent" >
-     <div class="tab-pane fade show active" id="nav-AtencioP" role="tabpanel" aria-labelledby="nav-AtencioP-tab"> 
+    <section class="tab-content" id="nav-tabContent" > 
         <div class="card">
             <div class="p-2">
             <table id="Tramites" class="display table table-striped table-hover table-primary"
@@ -38,18 +47,40 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {% for i in APoblacion %}
+                    {% for i in Tramites %}
                     <tr>
                         <td style="text-align: start;">{{ forloop.counter }}</td>
                         <td style="text-align: start;">{{ i.nombre }} </td>
                         <td style="text-align: start;">{{ i.apellidos }}</td>
                         <td style="text-align: center;">{{ i.on_create|date:"d-m-Y" }}</td>
-                        <td style="text-align: start;">Atención a la Población</td>
-                        <td style="text-align: center;">En espera</td>
+                        <td style="text-align: start;">{{ i.nombre_tramite }}</td>
+                        <td style="text-align: center;"><a class="cambiar-estado" href="{% url "CambiarEstado" i.id %}">{{ i.estado }}</a></td>
                         <td style="text-align: center; font-size: 1.2rem;">
-                            <a class="iconos p-2" href="{% url "VisualizarAtencionPoblacion" i.id %}"><i class="bx bx-info-circle"></i></a>
-                            <a class="iconos p-2" href="{% url 'EliminarTramite' i.id %}"><i class="bx bx-trash"></i></a></td>
+                            {% if i.nombre_tramite == "Atención a la población" %}
+                                <a class="iconos p-2" href="{% url "VisualizarAtencionPoblacion" i.id %}"><i class="bx bx-info-circle"></i></a>
+                                <a class="iconos p-2" data-bs-toggle="modal" data-bs-target="#Tramite{{ i.id }}"><i class="bx bx-trash"></i></a>
+                            {% endif %}
+                        </td>
                     </tr>
+                    <!-- Modal -->
+                    <div class="modal fade" id="Tramite{{ i.id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel" style="color:black"><i class="bi bi-exclamation-triangle"
+                                style="color:black"></i> Advertencia</h5>
+                            <button type="button" class="btn-close cerrar" data-bs-dismiss="modal" aria-label="Close" style="box-shadow: none"></button>
+                            </div>
+                            <div class="modal-body" style="color:black">
+                            ¿Desea eliminar este trámite?
+                            </div>
+                            <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cancelar</button>
+                            <a href="{% url 'EliminarTramite' i.nombre_tramite i.id  %}" class="btn btn-primary">Aceptar</a>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
                     {% endfor %}
                 </tbody>
             </table>

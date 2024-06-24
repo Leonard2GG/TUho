@@ -8,11 +8,12 @@ html,body{
 }
 
 .navbar-brand{
-    pointer-events: none;
     height: 60px;
 }
 
-
+.usuario{
+    pointer-events: none;
+}
 .col {
     min-height: calc(100vh - 2rem) !important;
     

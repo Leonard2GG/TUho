@@ -1,5 +1,6 @@
 var titulo = document.getElementById("inputTitulo")
 var resumen = document.getElementById("inputResumen")
+var contenido = document.getElementById("inputText")
 var boton =  document.getElementById("boton");
 
 const errorContainer = document.querySelector("#error-container")
@@ -29,6 +30,13 @@ const errorContainer = document.querySelector("#error-container")
                 e.preventDefault()
             }else{
                 resumen.style = "border:solid 2px green;"
+            }
+            if(contenido.value == ""){
+                contenido.style = "border:solid 2px red;"
+                mensaje += `Campo 'Contenido' en blanco <br>`
+                e.preventDefault()
+            }else{
+                contenido.style = "border:solid 2px green;"
             }
             if (mensaje) {
                 errorContainer.innerHTML += createMessage(mensaje)

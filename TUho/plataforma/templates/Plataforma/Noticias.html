@@ -37,10 +37,29 @@
             <hr>
             <div class=" d-flex justify-content-end mx-2 gap-1 pb-1">
                     <a href="{% url 'EditarNoticia' noticia.id %}" class="btn btn-primary btn-sm"><i class="bx bx-edit"></i></a>
-                    <a href="{% url 'EliminarNoticia' noticia.id %}" class="btn btn-primary btn-sm"><i class="bx bx-trash"></i></a>
+                    <a class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#Noticia{{ noticia.id }}"><i class="bx bx-trash"></i></a>
             </div>
         </div>
     </section>
+    <!-- Modal -->
+    <div class="modal fade" id="Noticia{{ noticia.id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel" style="color:black"><i class="bi bi-exclamation-triangle"
+                style="color:black"></i> Advertencia</h5>
+            <button type="button" class="btn-close cerrar" data-bs-dismiss="modal" aria-label="Close" style="box-shadow: none"></button>
+            </div>
+            <div class="modal-body" style="color:black">
+            ¿Desea eliminar esta noticia?
+            </div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-primary " data-bs-dismiss="modal">Cancelar</button>
+            <a href="{% url 'EliminarNoticia' noticia.id %}" class="btn btn-primary">Aceptar</a>
+            </div>
+        </div>
+        </div>
+    </div>
     {% endfor %}
     <div class="pagination d-flex justify-content-center align-content-center">
         <span class="step-links">
@@ -65,7 +84,7 @@
             No hay noticias hechas recientemente
         </p>
         <div class="d-flex justify-content-center mb-2 mt-1 ">
-            <a href="{% url 'CrearNoticia' %}" class="btn btn-primary">Crear Noticia</a>
+            <a href="{% url 'CrearNoticia' %}" class="btn btn-primary btn-sm">Crear Noticia</a>
         </div>
     </section>
     {% endif %}

@@ -24,7 +24,6 @@ const errorContainer = document.querySelector("#error-container")
             `
         }
         const validate_space_trim = () => {
-          nombre.value = nombre.value.trim();
           email.value = email.value.trim();
           carnet.value = carnet.value.trim();
           telefono.value = telefono.value.trim();
@@ -33,17 +32,17 @@ const errorContainer = document.querySelector("#error-container")
 const c = (e)=>{
         let validador = /^\w+([.-_+]?\w+)*@\w+([.-]?\w+)*(\.\w{2,10})+$/
         let mensaje = ""
-        if(nombre.value == ""){
+        if(nombre.value == "" || Number.isInteger(parseFloat(nombre.value))){
           nombre.style = "border:solid 2px red;"
-          mensaje += `Campo 'Nombre' en blanco <br>`
+          mensaje += `Campo 'Nombre' en blanco o esta incorrecto <br>`
           e.preventDefault()
         }
         else{
           nombre.style = "border:solid 2px green;"
         }
-        if(apellidos.value == ""){
+        if(apellidos.value == "" || Number.isInteger(parseFloat(apellidos.value))){
           apellidos.style = "border:solid 2px red;"
-          mensaje += `Campo 'Apellidos' en blanco <br>`
+          mensaje += `Campo 'Apellidos' en blanco o esta incorrecto <br>`
           e.preventDefault()
         }
         else{
@@ -106,27 +105,30 @@ const c = (e)=>{
         else{
           text.style = "border:solid 2px green;"
         }
-        if(municipality.value == ""){
-          document.querySelector("#municipality-select-widget").classList.toggle("error")
+        if(municipality.value.trim() == "" || municipality.value == "None" || municipality.value == "Null"){
+          document.querySelector("#municipality-select-widget").classList.add("error")
+          document.querySelector("#municipality-select-widget").classList.remove("correcto")
           mensaje += `Campo 'Municipio' en blanco <br>`
           e.preventDefault()
         }
         else{
-          municipality.style = "border:solid 2px green;"
+          document.querySelector("#municipality-select-widget").classList.remove("error")
+          document.querySelector("#municipality-select-widget").classList.add("correcto")
         }
-        if(consulta.value == ""){
-          document.querySelector("#consulta-select-widget").classList.toggle("error")
-          consulta += `Campo 'Consulta' en blanco <br>`
+        if(consulta.value == "" || consulta.value == "None" || consulta.value == "Null"){
+          document.querySelector("#consulta-select-widget").classList.add("error")
+          document.querySelector("#consulta-select-widget").classList.remove("correcto")
+          mensaje += `Campo 'Consulta' en blanco <br>`
           e.preventDefault()
         }
         else{
-          consulta.style = "border:solid 2px green;"
+          document.querySelector("#consulta-select-widget").classList.remove("error")
+          document.querySelector("#consulta-select-widget").classList.add("correcto")
         }
         if (mensaje) {
           errorContainer.innerHTML += createMessage(mensaje)
         }
         }
-nombre.addEventListener("input",validate_space_trim);
 email.addEventListener("input",validate_space_trim);
 carnet.addEventListener("input",validate_space_trim);
 telefono.addEventListener("input",validate_space_trim);
