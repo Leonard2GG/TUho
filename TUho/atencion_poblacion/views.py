@@ -9,6 +9,8 @@ from plataforma.decorators import pure_admin_required
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from plataforma.custom_mail import custom_send_mail
+from notificaciones.models import Notificacion
+from datetime import datetime
 
 # Create your views here.
 # Atencion a la Población
@@ -61,6 +63,14 @@ def AtencionPoblacionView(request:HttpRequest):
             mail.send()
 
             atencionP.save()
+            if request.user.is_authenticated:
+                Notificacion(
+                    tipo="Info",
+                    asunto="Trámite creado",
+                    cuerpo=f"Ha creado un trámite con Ticket: {atencionP.token}",
+                    para=request.user,
+                    creado=datetime.now()
+                    ).save()
             return render(request, "AtencionPoblacion/Atención a la Poblacion.html", {'response': 'correcto', 'message': 'Se ha enviado su solicitud correctamente', 'form': form})
         except Exception as e:
             form_persist = AtencionPoblacionForm(request.POST)

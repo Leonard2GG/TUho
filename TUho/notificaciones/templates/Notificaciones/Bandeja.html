@@ -52,14 +52,22 @@
                 <i class="bx bx-sync"></i>
               </button>
               <div class="float-right">
-                1-50/200
+                {{ page_obj.number }}/{{ page_obj.paginator.num_pages }}
                 <div class="btn-group">
-                  <button type="button" class="btn btn-default btn-sm">
-                    <i class="bx bx-chevron-left"></i>
-                  </button>
-                  <button type="button" class="btn btn-default btn-sm">
-                    <i class="bx bx-chevron-right"></i>
-                  </button>
+                  {% if page_obj.has_previous  %}
+                  <a href="?page= {{ page_obj.previous_page_number }}">   
+                    <button type="button" class="btn btn-default btn-sm">
+                      <i class="bx bx-chevron-left"></i>
+                    </button>
+                  </a>
+                  {% endif %}
+                  {% if page_obj.has_next %}
+                    <a href="?page={{ page_obj.next_page_number }}">
+                      <button type="button" class="btn btn-default btn-sm">
+                        <i class="bx bx-chevron-right"></i>
+                      </button>
+                    </a>
+                  {% endif %}
                 </div>
                 <!-- /.btn-group -->
               </div>
@@ -68,8 +76,8 @@
             <div class="table-responsive mailbox-messages">
               <table class="table table-hover table-striped" style="margin-bottom: 0;">
                 <tbody>
-                  {% if notificaciones %}
-                  {% for n in notificaciones %}
+                  {% if page_obj.paginator.count > 0 %}
+                  {% for n in page_obj %}
                 <tr>
                   <td>
                     <div class="icheck-primary">
@@ -120,14 +128,22 @@
                 <i class="bx bx-sync"></i>
               </button>
               <div class="float-right">
-                1-50/200
+                {{ page_obj.number }}/{{ page_obj.paginator.num_pages }}
                 <div class="btn-group">
-                  <button type="button" class="btn btn-default btn-sm">
-                    <i class="bx bx-chevron-left"></i>
-                  </button>
-                  <button type="button" class="btn btn-default btn-sm">
-                    <i class="bx bx-chevron-right"></i>
-                  </button>
+                  {% if page_obj.has_previous  %}
+                  <a href="?page= {{ page_obj.previous_page_number }}">   
+                    <button type="button" class="btn btn-default btn-sm">
+                      <i class="bx bx-chevron-left"></i>
+                    </button>
+                  </a>
+                  {% endif %}
+                  {% if page_obj.has_next %}
+                    <a href="?page={{ page_obj.next_page_number }}">
+                      <button type="button" class="btn btn-default btn-sm">
+                        <i class="bx bx-chevron-right"></i>
+                      </button>
+                    </a>
+                  {% endif %}
                 </div>
                 <!-- /.btn-group -->
               </div>

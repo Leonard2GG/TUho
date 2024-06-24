@@ -16,6 +16,8 @@ from .decorators import admin_required, pure_admin_required
 from django.core.paginator import Paginator
 from django.db.models import Q
 from atencion_poblacion.choices import estado_choice
+from notificaciones.models import Notificacion
+from datetime import datetime
 
 
 def estado(tramite) -> int:
@@ -179,9 +181,20 @@ def Tramites(request):
  
 def CambiarEstado(request, id):
     aPoblacion = AtencionPoblacion.objects.get(id=id)
+    
     if request.POST:
+        usuario = aPoblacion.usuario
+        
         aPoblacion.estado = request.POST["role"]
         aPoblacion.save()
+        if usuario:
+            Notificacion(
+                tipo="Info",
+                asunto="Cambio de Estado",
+                cuerpo=f"El trámite con Ticket: {aPoblacion.token} ha cambiado su estado a {aPoblacion.estado}",
+                para=usuario,
+                creado=datetime.now()
+                ).save()
         return redirect("Tramites")
     form = CambiarEstadoForm(instance=aPoblacion)
     estados = [e[0] for e in estado_choice]

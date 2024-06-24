@@ -14,13 +14,16 @@ def Bandeja(request:HttpRequest) -> HttpResponse:
     print(request.user)
     usuario = request.user
     notificaciones = Notificacion.objects.filter(para=usuario)
-    paginator = Paginator(notificaciones,5)
+    paginator = Paginator(notificaciones,10)
     page_number = request.GET.get("page")
     page_obj = paginator.get_page(page_number)
     return render(request,"Notificaciones/Bandeja.html", {'page_obj':page_obj})
 
-def BandejaUsuario(request:HttpRequest) -> HttpResponse:
+def BandejaAdmin(request:HttpRequest) -> HttpResponse:
     print(request.user)
     usuario = request.user
     notificaciones = Notificacion.objects.filter(para=usuario)
-    return render(request,"Notificaciones/Bandeja Usuario.html", {'notificaciones': notificaciones})
+    paginator = Paginator(notificaciones,10)
+    page_number = request.GET.get("page")
+    page_obj = paginator.get_page(page_number)
+    return render(request,"Notificaciones/Bandeja Admin.html", {'page_obj':page_obj})
