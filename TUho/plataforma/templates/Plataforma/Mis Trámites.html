@@ -14,17 +14,80 @@
 {% block content %}
 <main class="content-inside px-3 py-2 mx-2">
     <section>
-            
-            <div class="card-tools">
+        <div class="card-tools">
+            <form action="." method="POST">
+                {% csrf_token %}
                 <div class="input-group input-group-sm">
-                  <input type="text" class="form-control" placeholder="Buscar mis trámites...">
-                  <div class="input-group-append">
-                    <div class="btn btn-primary">
-                      <i class="bx bx-search"></i>
-                    </div>
-                  </div>
+                    <input type="text" class="form-control" name="token" placeholder="Buscar mis trámites por ticket...">
+                <div class="input-group-append">
+                    <button class="btn btn-primary" type="submit">
+                    <i class="bx bx-search"></i>
+                    </button>
                 </div>
-              </div>
+                </div>
+            </form>
+          </div>
+</section>
+    <section>
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title">
+                    Mis Trámites
+                </h5>
+            </div>
+            <div class="p-2">
+            <table id="Tramites" class="display table table-striped table-hover table-primary" style="width:100%">
+                <thead class="encabezado">
+                    <tr>
+                        <th scope="col" style="color: white; text-align: start;">#</th>
+                        <th scope="col" style="color: white; text-align: start;">Carnet</th>
+                        <th scope="col" style="color: white; text-align: start;">Fecha</th>
+                        <th scope="col" style="color: white; text-align: start;">Tipo de Trámite</th>
+                        <th scope="col" style="color: white; text-align: start;">Estado del Trámite</th>
+                        <th scope="col" style="color: white; text-align: start;">Eliminar</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for i in Tramites %}
+                    <tr>
+                        <td style="text-align: start;">{{ forloop.counter }}</td>
+                        <td style="text-align: start;">{{ i.carnet }}</td>
+                        <td style="text-align: center;">{{ i.on_create|date:"d-m-Y" }}</td>
+                        <td style="text-align: start;">Atención a la Población</td>
+                        <td style="text-align: center;"><a class="estado" href="{% url "CambiarEstado" i.id %}">{{ i.estado }}</a></td>
+                        <td style="text-align: center; font-size: 1.2rem;">
+                            <!-- En cada Trámite realizar esat validación respectivamente -->
+                             {% if i.nombre_tramite == "Atención a la población" %}
+                             <a class="iconos p-2" href="{% url "VisualizarTramiteUsuario" i.id %}"><i class="bx bx-info-circle"></i></a>
+                                <a class="iconos p-2" data-bs-toggle="modal" data-bs-target="#Tramite{{ i.id }}"><i class="bx bx-trash"></i></a>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    <!-- Modal -->
+                    <div class="modal fade" id="Tramite{{ i.id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel" style="color:black"><i class="bi bi-exclamation-triangle"
+                                style="color:black"></i> Advertencia</h5>
+                            <button type="button" class="btn-close cerrar" data-bs-dismiss="modal" aria-label="Close" style="box-shadow: none"></button>
+                            </div>
+                            <div class="modal-body" style="color:black">
+                            ¿Desea eliminar este trámite?
+                            </div>
+                            <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cancelar</button>
+                            <a href="{% url 'EliminarTramiteUsuario'  i.nombre_tramite i.id  %}" class="btn btn-primary">Aceptar</a>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </tbody>
+            </table>
+            </div>
+        </div>
     </section>
 </main>
 {% endblock %}

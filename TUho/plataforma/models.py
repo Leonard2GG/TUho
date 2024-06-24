@@ -48,5 +48,6 @@ class TramiteGeneral(models.Model):
     class META:
         abstract = True
     
-    
-    
+class EstadosTramites(models.Model):
+    nombre = models.CharField(max_length=255)
+    is_active = models.BooleanField(default=True)

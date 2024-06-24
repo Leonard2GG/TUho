@@ -17,7 +17,7 @@ def AtencionPoblacionView(request:HttpRequest):
     if request.POST:
         try:
             atencionP = AtencionPoblacion()
-            if request.user:
+            if request.user.is_authenticated:
                 atencionP.usuario = request.user
             atencionP.nombre = request.POST["nombre"]
             atencionP.apellidos = request.POST["apellidos"]
@@ -35,17 +35,29 @@ def AtencionPoblacionView(request:HttpRequest):
             
             #email
             admin_list = [i.email for i in Usuario.objects.filter(groups__name="Administración")]
+            if atencionP.usuario == "" or atencionP.usuario == None:
+                message = f"Email: { atencionP.email}\nNombre del solicitante: { atencionP.nombre}\nApellidos del solicitante: { atencionP.apellidos}\nCarnet: { atencionP.carnet}\nTeléfono: { atencionP.telefono}\nDirección: { atencionP.direccion}\nMunicipio: {atencionP.municipality}\nTipo de consulta: {atencionP.consulta}\nAsunto: {atencionP.asunto}\nMensaje: {atencionP.mensaje}"
+            else:
+                message = f"Email: { atencionP.email}\nNombre del usuario: { atencionP.usuario}\nNombre del solicitante: { atencionP.nombre}\nApellidos del solicitante: { atencionP.apellidos}\nCarnet: { atencionP.carnet}\nTeléfono: { atencionP.telefono}\nDirección: { atencionP.direccion}\nMunicipio: {atencionP.municipality}\nTipo de consulta: {atencionP.consulta}\nAsunto: {atencionP.asunto}\nMensaje: {atencionP.mensaje}"
             
             mail = EmailMessage(
                 atencionP.asunto, 
-                f"Email: { atencionP.email}\nNombre del usuario: { atencionP.usuario}\nNombre del solicitante: { atencionP.nombre}\nApellidos del solicitante: { atencionP.apellidos}\nCarnet: { atencionP.carnet}\nTeléfono: { atencionP.telefono}\nDirección: { atencionP.direccion}\nMunicipio: {atencionP.municipality}\nTipo de consulta: {atencionP.consulta}\nAsunto: {atencionP.asunto}\nMensaje: {atencionP.mensaje}",
+                message,
                 "smtp.gmail.com",
                 admin_list,
                 connection=custom_send_mail(),
             )
             if request.FILES:
                 mail.attach(atencionP.adjunto.name, atencionP.adjunto.read(), request.FILES['adjunto'].content_type)
-
+            
+            mail_usuario = EmailMessage(
+                atencionP.asunto, 
+                f"Tramite a nombre de: {atencionP.nombre} {atencionP.apellidos}\nEn fecha: {atencionP.on_create}\nTipo: {atencionP.consulta}\nToken: {atencionP.token}",
+                "smtp.gmail.com",
+                [atencionP.email],
+                connection=custom_send_mail(),
+            )
+            mail_usuario.send()
             mail.send()
 
             atencionP.save()

@@ -32,6 +32,7 @@ router.register('api/AtencionPoblacion', AtencionPoblacionViewSet,'AtencionPobla
 urlpatterns = [
     path('',(views.Inicio), name="Inicio"),
     path('MisTramites/',login_required (views.MisTramites), name="MisTramites"),
+    path('SolicitudTramite/',views.SolicitudTramite, name="SolicitudTramite"),
     path('InfoPersonal/',login_required (views.InformacionPersonal), name="InfoPersonal"),
     path('Administracion/',login_required (views.Administracion), name="Administracion"),
     path('Tramites/',login_required (views.Tramites), name="Tramites"),

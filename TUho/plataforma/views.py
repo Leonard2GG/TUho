@@ -63,13 +63,35 @@ def count_tramites_by_month():
 def Inicio(request):
     return render(request,"plataforma/Inicio.html")
 
+def SolicitudTramite(request):
+    query = []
+    if request.POST:
+        query = []
+        consulta_gral = TramiteGeneral.objects.select_subclasses()
+        for q in consulta_gral:
+            if str(q.token) == request.POST['token']:
+                query.append(q)
+    
+    context = {
+        'Tramites': query,
+    }
+    return render(request,"plataforma/Solicitud de Tramites.html",context)
+
 # Mis Tramites
 @login_required
 def MisTramites(request:HttpRequest) -> HttpResponse:
     usuario = request.user
-    context = {
-        'Tramites': TramiteGeneral.objects.select_subclasses().filter(
+    query = TramiteGeneral.objects.select_subclasses().filter(
             Q(atencionpoblacion__usuario=usuario))
+    if request.POST:
+        query = []
+        consulta_gral = TramiteGeneral.objects.select_subclasses()
+        for q in consulta_gral:
+            if str(q.token) == request.POST['token']:
+                query.append(q)
+    
+    context = {
+        'Tramites': query,
     }
     # Para filtrar por otro modelo seria asi | Q(empleado__usuario=usuario) | Q(cliente__usuario=usuario)
     return render(request, "plataforma/Mis Trámites.html", context)
@@ -142,8 +164,15 @@ def Administracion(request:HttpRequest):
 @login_required
 @admin_required
 def Tramites(request):
+    query = TramiteGeneral.objects.select_subclasses()
+    if request.POST:
+        query = []
+        consulta_gral = TramiteGeneral.objects.select_subclasses()
+        for q in consulta_gral:
+            if str(q.token) == request.POST['token']:
+                query.append(q)
     context = {
-        'Tramites': TramiteGeneral.objects.select_subclasses(),     
+        'Tramites': query,     
     }
 
     return render (request,"plataforma/Tramites.html",context)
