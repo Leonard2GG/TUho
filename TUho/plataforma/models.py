@@ -42,6 +42,11 @@ class Email(models.Model):
 class TramiteGeneral(models.Model):
     objects = InheritanceManager()
     nombre_tramite = models.CharField(max_length=250)
+    on_create = models.DateField(auto_now_add=True)
+    on_modified = models.DateField(auto_now=True)
+    
+    class META:
+        abstract = True
     
     
     

@@ -105,21 +105,25 @@ const c = (e)=>{
         else{
           text.style = "border:solid 2px green;"
         }
-        if(municipality.value == ""){
-          document.querySelector("#municipality-select-widget").classList.toggle("error")
+        if(municipality.value.trim() == "" || municipality.value == "None" || municipality.value == "Null"){
+          document.querySelector("#municipality-select-widget").classList.add("error")
+          document.querySelector("#municipality-select-widget").classList.remove("correcto")
           mensaje += `Campo 'Municipio' en blanco <br>`
           e.preventDefault()
         }
         else{
-          municipality.style = "border:solid 2px green;"
+          document.querySelector("#municipality-select-widget").classList.remove("error")
+          document.querySelector("#municipality-select-widget").classList.add("correcto")
         }
-        if(consulta.value == ""){
-          document.querySelector("#consulta-select-widget").classList.toggle("error")
-          consulta += `Campo 'Consulta' en blanco <br>`
+        if(consulta.value == "" || consulta.value == "None" || consulta.value == "Null"){
+          document.querySelector("#consulta-select-widget").classList.add("error")
+          document.querySelector("#consulta-select-widget").classList.remove("correcto")
+          mensaje += `Campo 'Consulta' en blanco <br>`
           e.preventDefault()
         }
         else{
-          consulta.style = "border:solid 2px green;"
+          document.querySelector("#consulta-select-widget").classList.remove("error")
+          document.querySelector("#consulta-select-widget").classList.add("correcto")
         }
         if (mensaje) {
           errorContainer.innerHTML += createMessage(mensaje)

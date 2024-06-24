@@ -18,6 +18,23 @@ from django.db.models import Q
 from atencion_poblacion.choices import estado_choice
 
 
+def estado(tramite) -> int:
+    match tramite.estado:
+        case "Completado":
+            return 1
+        case "En espera":
+            return 2
+        case "Aceptado":
+            return 3
+        case "Procesando":
+            return 4
+        case "Listo para recoger":
+            return 5
+        case "Entregado":
+            return 6
+        case _:
+            return -1
+
 def count_tramites_by_month():
     data = {
         "1":0,
@@ -33,9 +50,12 @@ def count_tramites_by_month():
         "11":0,
         "12":0,
     }
-    
     for i in data.keys():
-        pass
+        tramites_by_month = TramiteGeneral.objects.filter(
+            on_create__month=int(i), 
+        ).count()
+        data[i] = tramites_by_month
+    return data
 
 # Create your views here.
 
@@ -73,19 +93,45 @@ def InformacionPersonal(request):
 def Administracion(request:HttpRequest):
     tramites_count = TramiteGeneral.objects.all().count()
     usuarios_count =  Usuario.objects.all().count()
-    completado = TramiteGeneral.objects.select_subclasses().filter(Q(atencionpoblacion__estado ="Completado")).count()
-    en_espera = TramiteGeneral.objects.select_subclasses().filter(Q(atencionpoblacion__estado ="En espera")).count()
+    #completado = TramiteGeneral.objects.select_subclasses().filter(Q(atencionpoblacion__estado ="Completado")).count()
+    lista_tramites = TramiteGeneral.objects.select_subclasses()
+    estado_tramite = {
+        "En_espera": 0,
+        "Aceptado": 0,
+        "Procesando": 0,
+        "Listo_para_recoger": 0,
+        "Entregado": 0,
+        "Completado": 0,
+    }
+    for e in lista_tramites:
+        estado_e = estado(e)
+        match estado_e:
+            case 1:
+                estado_tramite["Completado"] += 1
+            case 2:
+                estado_tramite["En_espera"] += 1
+            case 3:
+                estado_tramite["Aceptado"] += 1
+            case 4:
+                estado_tramite["Procesando"] += 1
+            case 5:
+                estado_tramite["Listo_para_recoger"] += 1
+            case 6:
+                estado_tramite["Entregado"] += 1
+            case _:
+                pass
+    #en_espera = TramiteGeneral.objects.select_subclasses().filter(Q(atencionpoblacion__estado ="En espera")).count()
      # Para filtrar por otro modelo seria asi | Q(empleado__usuario=usuario) | Q(cliente__usuario=usuario)
     context = {
         'usuarios': Usuario.objects.all(),
         'Tramites': TramiteGeneral.objects.select_subclasses(),
         'tramites_count':tramites_count,
         'usuarios_count':usuarios_count,
-        'completado': completado,
-        'en_espera': en_espera,
-    }
-    estados_count= AtencionPoblacion.objects.values('estado').annotate(total=Count('estado'))
-    estados_count = list(estados_count)      
+        'completado': estado_tramite["Completado"],
+        'en_espera': estado_tramite["En_espera"],
+        'tramites_by_state': estado_tramite,
+        'tramites_by_month': count_tramites_by_month()
+    }    
     if request.user.groups.filter(name='Administración').exists():
         return render (request,"plataforma/Sitio Administrativo.html", context)
     elif request.user.groups.filter(name='Administrador Trámites').exists():
@@ -327,21 +373,22 @@ def EliminarGrupo(request, id):
     return redirect("Grupos")
 
 def Configuracion(request):
+    email = Email.objects.get(id=1)
     context = {
-        "email": Email.objects.all()
+        "email": email
     }
     return render(request,"plataforma/Configuracion.html",context)
 
-def CrearEmail(request:HttpRequest):
+def EditarEmail(request:HttpRequest):
+    email = Email.objects.get(id=1)
     if request.POST:
-        email = Email.objects.all()
         email.address = request.POST["address"]
         email.smtp_server = request.POST["smtp_server"]
         email.smtp_port = request.POST["smtp_port"]
-        email.username = request.POST["username"]
-        email.password = request.POST["password"]
+        email.smtp_username = request.POST["smtp_username"]
+        email.smtp_password = request.POST["smtp_password"]
         email.save()
         return redirect("Configuracion")
-    form = EmailForm()
-    return render (request, "plataforma/Crear Email.html",{"form":form})
+    form = EmailForm(instance=email)
+    return render (request, "plataforma/Editar Email.html",{"form":form})
     

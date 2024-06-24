@@ -460,10 +460,12 @@ textarea.input{
     border-radius: 25px 25px 0 0;
 }
 
-
-
 .input.selector.error {
     border: solid 2px red;
+}
+
+.input.selector.correcto {
+    border: solid 2px green;
 }
 
 

@@ -43,6 +43,7 @@ urlpatterns = [
     path('EliminarUsuario/<int:id>/',login_required (views.EliminarUsuario), name="EliminarUsuario"),
     path('CambiarRol/<int:id>/',login_required (views.CambiarRol), name="CambiarRol"),
     path('NoticiasUsuario/', views.NoticiasUsuario, name="NoticiasUsuario"),
+    path('EditarEmail/', views.EditarEmail, name="EditarEmail"),
     path('VisualizarNoticiasAdmin/<int:id>/', views.VisualizarNoticiasAdmin, name="VisualizarNoticiasAdmin"),
     path('VisualizarTramiteUsuario/<int:id>/', views.VisualizarTramiteUsuario, name="VisualizarTramiteUsuario"),
     path('VisualizarNoticiasUsuario/<int:id>/', views.VisualizarNoticiasUsuario, name="VisualizarNoticiasUsuario"),

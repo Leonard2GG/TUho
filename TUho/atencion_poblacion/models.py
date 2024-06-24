@@ -29,8 +29,6 @@ class AtencionPoblacion(TramiteGeneral):
     asunto = models.CharField(max_length=250);
     mensaje = models.TextField()
     usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE)
-    on_create = models.DateField(auto_now_add=True)
-    on_modified = models.DateField(auto_now=True)
     token = models.UUIDField(default=uuid.uuid4, max_length=8, editable=False, unique=True)
     estado = models.CharField(max_length=255, blank=False, null=False, choices=estado_choice, default="En espera")
 

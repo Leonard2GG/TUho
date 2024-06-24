@@ -10,42 +10,38 @@
 
 {% block content %}
 <main class="content-inside px-3 py-2">
-    <section id="tablaTramites">
-        <div class="card">
-            <div class="card-header">
-                <h5 class="card-title">
-                    Grupos
-                </h5>
-            </div>
+    <section>
+        <div class="card ">
             <div class="p-2">
                 <div>
-                    
+                  <h5 class="card-title text-center" style="color: #005296;">Servidor de Correo</h5>
+                  <hr style=" margin: 0.25rem;"> 
                     <div class="data">
-                        <label style="color:black">Dirección:</label>
-                        <span style="color:black" >{{ email.address }}</span>
+                        <label>ADDRESS:</label>
+                        <span>{{ email.address }}</span>
                         </div>
                       <div class="data">
-                        <label style="color:black">SMTP_SERVER:</label>
-                        <span style="color:black" >{{ email.smtp_server }}</span>
+                        <label>SMTP_SERVER:</label>
+                        <span>{{ email.smtp_server }}</span>
                         </div>
                       <div class="data">
-                        <label style="color:black">SMTP_PORT:</label>
-                        <span style="color:black" >{{ email.smtp_port }}</span>
+                        <label>SMTP_PORT:</label>
+                        <span>{{ email.smtp_port }}</span>
                         </div>
-                      
                       <div class="data">
-                        <label style="color:black">Usuario:</label>
-                        <span style="color:black" >{{ email.username }}</span>
+                        <label>USER:</label>
+                        <span>{{ email.smtp_username }}</span>
                         </div>
-                      
                       <div class="data">
-                        <label style="color:black">Contraseña:</label>
-                        <span style="color:black" >{{ email.password }}</span>
+                        <label>PASSWORD:</label>
+                        <span>{{ email.smtp_password }}</span>
                         </div>
+                      </div> 
+                      <hr style=" margin: 0.25rem;"> 
+                      <div class="d-flex justify-content-end">
+                        <a href="{% url "EditarEmail" %}" class="btn btn-primary btn-sm">Editar Correo</a> 
                       </div>
-                    
-                </div>
-                
+                </div> 
             </div>
         </div>
     </section>

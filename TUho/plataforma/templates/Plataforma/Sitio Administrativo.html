@@ -69,7 +69,7 @@
               <div class="inner">
                 <h3>{{ en_espera }}</h3>
 
-                <p>Nuevos Trámites</p>
+                <p>En espera</p>
               </div>
               <div class="icon">
                 <i class="bx bxs-pie-chart-alt-2"></i>
@@ -225,13 +225,53 @@
   <script src="{% static 'Plataforma/libs/Highcharts/newChart.js' %}"></script>
   <script>
 
-    let listaMeses = [
+    let tramitesByEstadosData = [
+    {% if tramites_by_state.En_espera %} 
     {
-      name:'Enero',
-      color:'#0d6efd',
-      y:15
+      name:'En espera',
+      y: {{tramites_by_state.En_espera}},
     },
-    
+    {% endif %}
+    {% if tramites_by_state.Aceptado %} 
+    {
+      name:'Aceptado',
+      y:{{tramites_by_state.Aceptado}}
+    },
+    {% endif %}
+    {% if tramites_by_state.Procesando %}
+    {
+      name:'Procesando',
+      y:{{tramites_by_state.Procesando}}
+    },
+    {% endif %}
+    {% if tramites_by_state.Listo_para_recoger %}
+    {
+      name:'Listo para recoger',
+      y:{{tramites_by_state.Listo_para_recoger}}
+    },
+    {% endif %}
+    {% if tramites_by_state.Entregado %}
+    {
+      name:'Entregado',
+      y:{{tramites_by_state.Entregado}}
+    },
+    {% endif %}
+    {% if tramites_by_state.Completado %}
+    {
+      name:'Completado',
+      y:{{tramites_by_state.Completado}}
+    }
+    {% endif %}
+    ]
+    let listaMeses = ['Enero','Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre']
+    let tramitesByMonthData = [
+    {% for k,v in tramites_by_month.items %}
+    {
+      name:listaMeses[{{k}}-1],
+      color:'#0d6efd',
+      y:{{v}}
+    },
+    {% endfor %} 
     ]
 
     Highcharts.chart('myChartBar',{
@@ -275,8 +315,12 @@
       xAxis:{
         categories: ['Enero','Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre']
       },
+      tooltip:{
+        pointFormat:'Cantidad:<b>{point.y}</b>'
+      },
       series:[{
-        data: listaMeses/* lista de datos */,
+        name: "Trámites Mensuales",
+        data: tramitesByMonthData/* lista de datos */,
           responsive:{
             rules:[{
               condition:{
@@ -285,6 +329,79 @@
               chartOptions:{
                 legend:{
                   enabled:false
+                }
+              }
+            }]
+          }
+      }]
+    })
+
+    Highcharts.chart('myChartPie',{
+      chart:{
+        type:'pie'
+      },
+      title:{
+        text:'Estado de los Trámites'
+      },
+      exporting:{
+        buttons:{
+          contextButton:{
+            enabled:true,
+            menuItems:[{
+              name:'Descargar imagen PNG',
+              textKey:'downloadPNG',
+              onclick: function(){
+                this.exportChartLocal();
+              }
+            },{
+              name:'Descargar imagen JPEG',
+              textKey:'downloadJPEG',
+              onclick: function(){
+                this.exportChartLocal({
+                  type:'image/jpeg'
+                });
+            }
+          },{
+            name:'Descargar documento PDF',
+            textKey:'downloadPDF',
+            onclick: function(){
+              this.exportChartLocal({
+                type:'application/pdf'
+              });
+          }
+            }]
+          }
+        }
+      },
+    
+      xAxis:{
+        categories: ['En espera','Aceptado','Procesando','Listo para recoger', 'Entregado', 'Completado']
+      },
+      tooltip:{
+        pointFormat:'Cantidad:<b>{point.y}</b>'
+      },
+      plotOptions:{
+        allowPointSelect:true,
+        cursor:'pointer',
+        dataLabels:{
+          eneabled:true,
+          format:'{series.name}:<b>{point.percentage: .2f}</b>%'
+        }
+      },
+      series: [{
+        name:'Estado de los trámites',
+        colorByPoint:true,
+        data:tramitesByEstadosData,
+          responsive:{
+            rules:[{
+              condition:{
+                maxWidth:500
+              },
+              chartOptions:{
+                legend:{
+                  layout:'horizontal',
+                  align:'center',
+                  verticalAlign:'bottom'
                 }
               }
             }]

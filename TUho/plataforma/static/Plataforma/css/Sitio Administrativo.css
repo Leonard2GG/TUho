@@ -19,6 +19,7 @@
     flex: 1;
     max-width: 100vw;
     width: 100%;
+    margin-left: 5px;
 }
 
 .pdf{
@@ -165,6 +166,17 @@
 
 .bg-box-two{
     background: #4481eb;
+}
+
+.data label{
+    color: #222e58;
+    font-weight: bolder;
+}
+
+.data span{
+    color: black;
+    font-weight: 500;
+    background: #ececec;
 }
 
 

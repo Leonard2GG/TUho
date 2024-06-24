@@ -18,7 +18,11 @@
 input{
     box-shadow: none !important;
 }
+.card-tools{
+    padding: 10px 150px 10px 150px;
+    
 
+}
 .iconos {
     color:black;
     font-size: 1rem;

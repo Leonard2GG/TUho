@@ -8,8 +8,7 @@ from .forms import AtencionPoblacionForm
 from plataforma.decorators import pure_admin_required
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-@login_required
-@pure_admin_required
+from plataforma.custom_mail import custom_send_mail
 
 # Create your views here.
 # Atencion a la Población
@@ -18,7 +17,8 @@ def AtencionPoblacionView(request:HttpRequest):
     if request.POST:
         try:
             atencionP = AtencionPoblacion()
-            atencionP.usuario = request.user
+            if request.user:
+                atencionP.usuario = request.user
             atencionP.nombre = request.POST["nombre"]
             atencionP.apellidos = request.POST["apellidos"]
             atencionP.email = request.POST["email"]
@@ -35,11 +35,13 @@ def AtencionPoblacionView(request:HttpRequest):
             
             #email
             admin_list = [i.email for i in Usuario.objects.filter(groups__name="Administración")]
+            
             mail = EmailMessage(
                 atencionP.asunto, 
                 f"Email: { atencionP.email}\nNombre del usuario: { atencionP.usuario}\nNombre del solicitante: { atencionP.nombre}\nApellidos del solicitante: { atencionP.apellidos}\nCarnet: { atencionP.carnet}\nTeléfono: { atencionP.telefono}\nDirección: { atencionP.direccion}\nMunicipio: {atencionP.municipality}\nTipo de consulta: {atencionP.consulta}\nAsunto: {atencionP.asunto}\nMensaje: {atencionP.mensaje}",
                 "smtp.gmail.com",
-                admin_list
+                admin_list,
+                connection=custom_send_mail(),
             )
             if request.FILES:
                 mail.attach(atencionP.adjunto.name, atencionP.adjunto.read(), request.FILES['adjunto'].content_type)
