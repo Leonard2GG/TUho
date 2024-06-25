@@ -14,18 +14,20 @@
 {% block content %}
 <main class="content-inside px-3 py-2 mx-2">
     <section>
-            
-            <div class="card-tools">
+        <div class="card-tools">
+            <form action="." method="POST">
+                {% csrf_token %}
                 <div class="input-group input-group-sm">
-                  <input type="text" class="form-control" placeholder="Buscar mis trámites...">
-                  <div class="input-group-append">
-                    <div class="btn btn-primary">
-                      <i class="bx bx-search"></i>
-                    </div>
-                  </div>
+                    <input type="text" class="form-control" name="token" placeholder="Buscar mis trámites por ticket...">
+                <div class="input-group-append">
+                    <button class="btn btn-primary" type="submit">
+                    <i class="bx bx-search"></i>
+                    </button>
                 </div>
-              </div>
-    </section>
+                </div>
+            </form>
+          </div>
+</section>
   <section>
       <div class="card">
           <div class="p-2">
@@ -52,7 +54,7 @@
                       <td style="text-align: center; font-size: 1.2rem;">
                           <!-- En cada Trámite realizar esat validación respectivamente -->
                            {% if i.nombre_tramite == "Atención a la población" %}
-                           <a class="iconos p-2" href="{% url "VisualizarTramiteUsuario" i.id %}"><i class="bx bx-info-circle"></i></a>
+                           <a class="iconos p-2" href="{% url "VisualizarTramiteUsuarioAnonimo" i.id %}"><i class="bx bx-info-circle"></i></a>
                               <a class="iconos p-2" data-bs-toggle="modal" data-bs-target="#Tramite{{ i.id }}"><i class="bx bx-trash"></i></a>
                           {% endif %}
                       </td>
