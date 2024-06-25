@@ -106,6 +106,13 @@ def VisualizarTramiteUsuario(request,id):
     }
     return render(request,'AtencionPoblacion/Visualizar Atención a la Poblacion Usuario.html',context)
 
+def VisualizarTramiteUsuarioAnonimo(request,id):
+    aPoblacion = AtencionPoblacion.objects.get(id=id)
+    context = {
+        "form":aPoblacion
+    }
+    return render(request,'AtencionPoblacion/Visualizar Atención a la Poblacion Usuario Anonimo.html',context)
+
 # Información Personal
 @login_required
 def InformacionPersonal(request):
@@ -228,7 +235,6 @@ def Usuarios(request):
 def InformacionUsuario(request,id):
     usuario = Usuario.objects.get(id=id)
     if request.POST:
-        form = InformacionPersonal(request.POST,instance=usuario)
         usuario.first_name = request.POST['first_name']
         usuario.last_name = request.POST['last_name']
         usuario.carnet = request.POST['carnet']
