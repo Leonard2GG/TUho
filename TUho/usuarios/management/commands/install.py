@@ -1,6 +1,7 @@
 from typing import Any
 from django.core.management.base import BaseCommand
 from usuarios.models import Usuario
+from plataforma.models import Email
 
 from django.contrib.auth.models import Group
 
@@ -30,6 +31,14 @@ class Command(BaseCommand):
                 print("Admin creado con exito")
             except Exception as e:
                 print(e)
+                
+        email = Email()
+        email.address = "kiri05062001@gmail.com"
+        email.smtp_server = "smtp.gmail.com"
+        email.smtp_port = 465
+        email.smtp_username = "kiri05062001@gmail.com"
+        email.smtp_password = "ixdn szgh letz xwjd"
+        email.save()
         
         self.stdout.write("Completado")
 
