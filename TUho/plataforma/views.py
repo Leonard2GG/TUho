@@ -220,6 +220,11 @@ def EliminarTramiteUsuario(request,tipo_tramite,id):
     tramite[0].delete()
     return redirect("MisTramites")
 
+def EliminarTramiteUsuarioAnonimo(request,tipo_tramite,id):
+    tramite = TramiteGeneral.objects.select_subclasses().filter(nombre_tramite=tipo_tramite, pk=id)
+    tramite[0].delete()
+    return redirect("SolicitudTramite")
+
 
 # Usuarios
 @login_required

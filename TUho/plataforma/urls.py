@@ -39,6 +39,7 @@ urlpatterns = [
     path('CambiarEstado/<int:id>',login_required (views.CambiarEstado), name="CambiarEstado"),
     path('EliminarTramite/<str:tipo_tramite>/<int:id>/',login_required (views.EliminarTramite), name="EliminarTramite"),
     path('EliminarTramiteUsuario/<str:tipo_tramite>/<int:id>/',login_required (views.EliminarTramiteUsuario), name="EliminarTramiteUsuario"),
+    path('EliminarTramiteUsuarioAnonimo/<str:tipo_tramite>/<int:id>/',views.EliminarTramiteUsuarioAnonimo, name="EliminarTramiteUsuarioAnonimo"),
     path('Usuarios/',login_required (views.Usuarios), name="Usuarios"),
     path('InformacionUsuario/<int:id>/',login_required (views.InformacionUsuario), name="InformacionUsuario"),
     path('EliminarUsuario/<int:id>/',login_required (views.EliminarUsuario), name="EliminarUsuario"),
