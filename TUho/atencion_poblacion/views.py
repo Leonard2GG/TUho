@@ -16,7 +16,6 @@ from datetime import datetime
 # Atencion a la Población
 def AtencionPoblacionView(request:HttpRequest):
     form = AtencionPoblacionForm()
-    # formulario Atención a la población
     if request.POST:
         try:
             atencionP = AtencionPoblacion()
@@ -36,16 +35,13 @@ def AtencionPoblacionView(request:HttpRequest):
             atencionP.mensaje = request.POST['mensaje']
             atencionP.token = str(uuid.uuid4())
             
-            #Creacion y envio del email
+            #email
             admin_list = [i.email for i in Usuario.objects.filter(groups__name="Administración")]
             if atencionP.usuario == "" or atencionP.usuario == None:
-                #si el Usuario no existe
                 message = f"Email: { atencionP.email}\nNombre del solicitante: { atencionP.nombre}\nApellidos del solicitante: { atencionP.apellidos}\nCarnet: { atencionP.carnet}\nTeléfono: { atencionP.telefono}\nDirección: { atencionP.direccion}\nMunicipio: {atencionP.municipality}\nTipo de consulta: {atencionP.consulta}\nAsunto: {atencionP.asunto}\nMensaje: {atencionP.mensaje}"
             else:
-                #si el Usuario existe
                 message = f"Email: { atencionP.email}\nNombre del usuario: { atencionP.usuario}\nNombre del solicitante: { atencionP.nombre}\nApellidos del solicitante: { atencionP.apellidos}\nCarnet: { atencionP.carnet}\nTeléfono: { atencionP.telefono}\nDirección: { atencionP.direccion}\nMunicipio: {atencionP.municipality}\nTipo de consulta: {atencionP.consulta}\nAsunto: {atencionP.asunto}\nMensaje: {atencionP.mensaje}"
             
-            # Email al todos los admin
             mail = EmailMessage(
                 atencionP.asunto, 
                 message,
@@ -56,32 +52,17 @@ def AtencionPoblacionView(request:HttpRequest):
             if request.FILES:
                 mail.attach(atencionP.adjunto.name, atencionP.adjunto.read(), request.FILES['adjunto'].content_type)
             
-            fecha = datetime.now().strftime("%d-%m-%Y")
-             # Email al todos al Usuario
             mail_usuario = EmailMessage(
                 atencionP.asunto, 
-                f"Tramite a nombre de: {atencionP.nombre} {atencionP.apellidos}\nEn fecha: {fecha}\nTipo: {atencionP.consulta}\nToken: {atencionP.token}",
+                f"Tramite a nombre de: {atencionP.nombre} {atencionP.apellidos}\nEn fecha: {atencionP.on_create}\nTipo: {atencionP.consulta}\nToken: {atencionP.token}",
                 "smtp.gmail.com",
                 [atencionP.email],
                 connection=custom_send_mail(),
             )
-            
-            #envio del email
             mail_usuario.send()
             mail.send()
 
             atencionP.save()
-            
-            administradores = Usuario.objects.filter(groups__name="Administración")
-            for admin in administradores:
-                Notificacion(
-                        tipo="Info",
-                        asunto="Trámite creado",
-                        cuerpo=f"Se ha creado un trámite con Ticket: {atencionP.token}",
-                        para = admin,
-                        creado=datetime.now()
-                        ).save()
-            #Envio de notificacion al Usuario
             if request.user.is_authenticated:
                 Notificacion(
                     tipo="Info",
@@ -90,10 +71,7 @@ def AtencionPoblacionView(request:HttpRequest):
                     para=request.user,
                     creado=datetime.now()
                     ).save()
-                
             return render(request, "AtencionPoblacion/Atención a la Poblacion.html", {'response': 'correcto', 'message': 'Se ha enviado su solicitud correctamente', 'form': form})
-        
-        #mensajes de error
         except Exception as e:
             form_persist = AtencionPoblacionForm(request.POST)
             messages.error(request, "Algo salió mal con el envio del correo, por favor intentelo de nuevo")

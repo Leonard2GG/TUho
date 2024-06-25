@@ -28,8 +28,7 @@ def verify_group(usuario, group_name):
 
 # Login
 def Login(request:HttpRequest):
-    #si el usuario no esta autenticado lo redirige al login
-    if request.user.is_authenticated:  
+    if request.user.is_authenticated:
         return redirect("Inicio")
     if request.POST:
         form_persist = request.POST
@@ -42,7 +41,6 @@ def Login(request:HttpRequest):
         user = authenticate(request, username=user_to_auth.username, password=password)
         if user is not None:
             login(request, user)
-            #en dependencia del rol de usuario es lo que ve el susuario y a donde lo redirige
             usuario = Usuario.objects.get(id=user.id)
             if verify_group(usuario, "Administración"):
                 return redirect("Administracion")
@@ -61,10 +59,10 @@ def Registrar(request:HttpRequest):
         form_persist = request.POST
         if Usuario.objects.filter(username=request.POST['username']).exists():
             return render(request, "usuarios/Registrar.html", {'response': 'incorrecto', 'messages': ['Ya existe una cuenta con ese usuario.'], 'form': form_persist})
-        #si el usuario ya existe lanza un error
+
         if Usuario.objects.filter(email=request.POST['email']).exists():
             return render(request, "usuarios/Registrar.html", {'response': 'incorrecto', 'messages': ['Ya existe una cuenta con ese email.'], 'form': form_persist})
-        #si el email ya existe lanza un error
+
         usuario = Usuario()
         username = request.POST['username']
         email = request.POST['email']
@@ -73,14 +71,13 @@ def Registrar(request:HttpRequest):
 
         if password and password2 and password!= password2:
             return render(request, "usuarios/Registrar.html", {'response': 'incorrecto', 'messages': ['Las contraseñas deben coincidir'], 'form': form_persist})
-        #si el las contraseñas son distibtas lanza un error
 
         usuario.username = username
         usuario.email = email
         usuario.token_activacion = str(uuid.uuid4())
         usuario.is_active = False
         usuario.set_password(password)
-        #genera un token para la cuenta de usuario
+
         try:
             validation = password_validation.validate_password(password, usuario)
             from config import settings
@@ -96,14 +93,12 @@ def Registrar(request:HttpRequest):
             from_email="smtp.gmail.com",
             connection= custom_send_mail(), 
             )
-            #envia un correo
             usuario.save()
             usuario.groups.add(Group.objects.get(name="Usuario"))
             usuario.save()
             messages.success(request, "Su cuenta ha sido creada con éxito, verifique su email para validar su cuenta")
             return redirect("Login")
         except Exception as e:
-            #lanzar un mensaje de error en caso de que se presente un problema
             mensajes = []
             messages.error(request, "Algo salió mal con el envio del correo, por favor intentelo de nuevo")
             print(e)
