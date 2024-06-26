@@ -10,8 +10,6 @@
 
 <div class="content-wrapper" style="min-height: 1302.12px;">
   <!-- Content Header (Page header) -->
-  
-
   <!-- Main content -->
   <section class="content">
     <div class="row" style="padding: 20px 0 0 20px;">
@@ -21,34 +19,23 @@
           <div class="card-header">
             <h3 class="card-title">Notificaciones</h3>
 
-            <div class="card-tools">
-              <div class="input-group input-group-sm">
-                <input type="text" class="form-control" placeholder="Buscar...">
-                <div class="input-group-append">
-                  <div class="btn btn-primary">
-                    <i class="bx bx-search"></i>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <!-- /.card-tools -->
           </div>
           <!-- /.card-header -->
           <div class="card-body p-0">
             <div class="mailbox-controls">
               <!-- Check all button -->
-              <button type="button" class="btn btn-default btn-sm checkbox-toggle"><i class="bx bx-check-square"></i>
+              <button type="button" class="btn btn-default btn-sm checkbox-toggle check-btn"><i class="bx bx-check-square"></i>
               </button>
               <div class="btn-group">
-                <button type="button" class="btn btn-default btn-sm">
+                <button type="button" class="btn btn-default btn-sm delete-btn">
                   <i class="bx bx-trash"></i>
                 </button>
-                <button type="button" class="btn btn-default btn-sm">
+                <button type="button" class="btn btn-default btn-sm view-btn">
                   <i class="bx bx-show"></i>
                 </button>
               </div>
               <!-- /.btn-group -->
-              <button type="button" class="btn btn-default btn-sm">
+              <button type="button" class="btn btn-default btn-sm update-btn">
                 <i class="bx bx-sync"></i>
               </button>
               <div class="float-right">
@@ -76,12 +63,16 @@
             <div class="table-responsive mailbox-messages">
               <table class="table table-hover table-striped" style="margin-bottom: 0;">
                 <tbody>
+                  
+                  
                   {% if page_obj.paginator.count > 0 %}
+                  <form action="" id="delete-form" method="post">
+                    {% csrf_token %}
                   {% for n in page_obj %}
                 <tr>
                   <td>
                     <div class="icheck-primary">
-                      <input type="checkbox" value="{{n.id}}" id="check1">
+                      <input type="checkbox" name="selected-item" value="{{n.id}}" id="check1">
                       <label for="check1"></label>
                     </div>
                   </td>
@@ -98,6 +89,7 @@
                   <td class="mailbox-star"><a href="#"><i class="bx bx-show text-success"></i></a></td>
                 </tr>
                 {% endfor %}
+                </form>
                 {% else %}
                 <tr>
                   <td>Sin notificaciones pendientes</td>
@@ -113,18 +105,18 @@
           <div class="card-footer p-0">
             <div class="mailbox-controls">
               <!-- Check all button -->
-              <button type="button" class="btn btn-default btn-sm checkbox-toggle"><i class="bx bx-check-square"></i>
+              <button type="button" class="btn btn-default btn-sm checkbox-toggle check-btn"><i class="bx bx-check-square"></i>
               </button>
               <div class="btn-group">
-                <button type="button" class="btn btn-default btn-sm">
+                <button type="button" class="btn btn-default btn-sm delete-btn">
                   <i class="bx bx-trash"></i>
                 </button>
-                <button type="button" class="btn btn-default btn-sm">
+                <button type="button" class="btn btn-default btn-sm view-btn">
                   <i class="bx bx-show"></i>
                 </button>
               </div>
               <!-- /.btn-group -->
-              <button type="button" class="btn btn-default btn-sm">
+              <button type="button" class="btn btn-default btn-sm update-btn">
                 <i class="bx bx-sync"></i>
               </button>
               <div class="float-right">
@@ -160,4 +152,39 @@
   <!-- /.content -->
 </div>
   
+{% endblock %}
+
+{% block js %}
+<script>
+  let deleteForm = document.querySelector("#delete-form")
+  let deleteButtons = document.querySelectorAll(".delete-btn")
+  let updateButtons = document.querySelectorAll(".update-btn")
+  let viewButtons = document.querySelectorAll(".view-btn")
+  let checkButtons = document.querySelectorAll(".check-btn")
+  Array.from(deleteButtons).forEach(element => {
+    element.addEventListener('click', () => {
+      deleteForm.action="{% url "BorrarNotificaciones" %}?next={{ request.path }}"
+      deleteForm.submit()
+    })
+  });
+  Array.from(updateButtons).forEach(element => {
+    element.addEventListener('click', () => {
+      window.location.reload();
+    })
+  });
+  Array.from(viewButtons).forEach(element => {
+    element.addEventListener('click', () => {
+      deleteForm.action="{% url "VisualizarNotificaciones" %}?next={{ request.path }}"
+      deleteForm.submit()
+    })
+  });
+  Array.from(checkButtons).forEach(element => {
+    element.addEventListener('click', () => {
+      checkboxes = Array.from(document.querySelectorAll("#check1")).forEach(e => {
+        e.checked = !e.checked
+      })
+
+    })
+  });
+</script>
 {% endblock %}
