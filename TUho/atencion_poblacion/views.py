@@ -5,7 +5,7 @@ from usuarios.models import Usuario
 from django.core.mail import send_mail, EmailMessage
 from .models import AtencionPoblacion
 from .forms import AtencionPoblacionForm
-from plataforma.decorators import pure_admin_required
+from plataforma.decorators import pure_admin_required, admin_required
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from plataforma.custom_mail import custom_send_mail
@@ -80,7 +80,7 @@ def AtencionPoblacionView(request:HttpRequest):
     return render(request, "AtencionPoblacion/Atención a la Poblacion.html", {'form': form})
 
 @login_required
-@pure_admin_required
+@admin_required
 def VisualizarAtencionPoblacion(request, id):
     aPoblacion = AtencionPoblacion.objects.get(id=id)
     return render(request,'AtencionPoblacion/Visualizar Atención a la Poblacion.html',{'form':aPoblacion})

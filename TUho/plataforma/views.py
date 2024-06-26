@@ -185,10 +185,11 @@ def Tramites(request):
     }
 
     return render (request,"plataforma/Tramites.html",context)
- 
+
+@login_required
+@admin_required
 def CambiarEstado(request, id):
     aPoblacion = AtencionPoblacion.objects.get(id=id)
-    
     if request.POST:
         usuario = aPoblacion.usuario
         
